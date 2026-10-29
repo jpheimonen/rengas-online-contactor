@@ -3,21 +3,17 @@
   "private": true,
   "version": "0.1.0",
   "type": "module",
-  "description": "Satirical, fully simulated 'customer outreach escalation' app. Nothing is ever sent. Do not use for real.",
+  "description": "Rengas Online Contactor: a joke escalation ladder that really sends email, SMS and calls when you add API keys. Real sends go only to recipients you have verified; without keys everything is simulated.",
   "scripts": {
     "dev": "pnpm --parallel --filter @rengas/server --filter @rengas/web run dev",
-    "build": "pnpm -r --filter './apps/*' --filter './packages/*' run build && pnpm run legacy:build",
+    "build": "pnpm -r --filter './apps/*' --filter './packages/*' run build",
     "start": "pnpm --filter @rengas/server run start",
-    "typecheck": "pnpm -r --filter './apps/*' --filter './packages/*' run typecheck && pnpm run legacy:typecheck",
+    "typecheck": "pnpm -r --filter './apps/*' --filter './packages/*' run typecheck",
     "lint": "eslint .",
     "format": "prettier --write .",
     "format:check": "prettier --check .",
-    "test": "pnpm -r --filter './apps/*' --filter './packages/*' run test && pnpm run legacy:test",
-    "e2e": "playwright test",
-    "legacy:dev": "vite",
-    "legacy:build": "tsc --noEmit && vite build",
-    "legacy:typecheck": "tsc --noEmit",
-    "legacy:test": "vitest run"
+    "test": "pnpm -r --filter './apps/*' --filter './packages/*' run test",
+    "e2e": "playwright test"
   },
   "engines": {
     "node": ">=24"
@@ -32,8 +28,6 @@
     "globals": "^17.13.0",
     "prettier": "^3.9.10",
     "typescript": "~6.0.3",
-    "typescript-eslint": "^8.72.1",
-    "vite": "^8.3.5",
-    "vitest": "^5.0.5"
+    "typescript-eslint": "^8.72.1"
   }
 }

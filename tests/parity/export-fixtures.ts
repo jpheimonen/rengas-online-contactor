@@ -1,18 +1,37 @@
 // Records what the old app does, so the new app can be checked against it.
-// Run from the old app's code (commit f5b9e78) with: node tests/parity/export-fixtures.ts
-// It writes ladder.json and rules.json next to this file. It does not change src/.
+// Reads the old ladder from commit f5b9e78, so it works without src/:
+// node tests/parity/export-fixtures.ts
+// It writes ladder.json and rules.json next to this file.
 // Then run `pnpm format` so the JSON matches the repo style.
 
-import { writeFileSync, mkdirSync } from "node:fs";
+import { execFileSync } from "node:child_process";
+import { writeFileSync, mkdirSync, mkdtempSync } from "node:fs";
+import { tmpdir } from "node:os";
 import { dirname, join } from "node:path";
-import { fileURLToPath } from "node:url";
-import {
-  RUNGS,
-  canAttemptUnlock,
-  currentLevel,
-  isUnlocked,
-  validateKey,
-} from "../../src/ladder.ts";
+import { fileURLToPath, pathToFileURL } from "node:url";
+
+const OLD_APP_COMMIT = "f5b9e78";
+const oldSource = execFileSync(
+  "git",
+  ["show", `${OLD_APP_COMMIT}:src/ladder.ts`],
+  {
+    encoding: "utf8",
+  },
+);
+const oldDir = mkdtempSync(join(tmpdir(), "old-ladder-"));
+const oldFile = join(oldDir, "ladder.ts");
+writeFileSync(oldFile, oldSource);
+interface Rung {
+  id: string;
+}
+const { RUNGS, canAttemptUnlock, currentLevel, isUnlocked, validateKey } =
+  (await import(pathToFileURL(oldFile).href)) as {
+    RUNGS: Rung[];
+    canAttemptUnlock(index: number, unlocked: Set<string>): boolean;
+    currentLevel(unlocked: Set<string>): number;
+    isUnlocked(index: number, unlocked: Set<string>): boolean;
+    validateKey(value: string): string | null;
+  };
 
 const here = dirname(fileURLToPath(import.meta.url));
 const outDir = join(here, "fixtures");
