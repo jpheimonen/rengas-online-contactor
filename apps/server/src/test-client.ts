@@ -14,7 +14,8 @@ import {
 } from "@rengas/shared";
 import { createApp, type AppOptions } from "./app.ts";
 import { openDatabase } from "./db/client.ts";
-import type { Credentials, KeyVault } from "./keys.ts";
+import type { ProviderCredentials as Credentials } from "./key-checks.ts";
+import type { KeyVault } from "./keys.ts";
 import type { CodeSender, PhoneCheck } from "./recipients/code-sender.ts";
 
 /** `app.request` resolves paths against this origin. */

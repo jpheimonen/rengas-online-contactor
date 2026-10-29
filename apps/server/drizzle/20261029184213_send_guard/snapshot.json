@@ -1,11 +1,15 @@
 {
   "version": "7",
   "dialect": "sqlite",
-  "id": "aded0698-8460-42f5-ba87-d570e580703a",
+  "id": "d3969be2-d92d-4e43-86a1-50f5359663a3",
   "prevIds": [
-    "9cfc6663-e96f-4da9-b010-80595ff51ad3"
+    "6f13e97d-257f-45bf-ac0a-fdfb1a041121"
   ],
   "ddl": [
+    {
+      "name": "provider_keys",
+      "entityType": "tables"
+    },
     {
       "name": "recipients",
       "entityType": "tables"
@@ -37,6 +41,56 @@
     {
       "name": "verification_codes",
       "entityType": "tables"
+    },
+    {
+      "table": "provider_keys",
+      "name": "sessionId",
+      "type": "text",
+      "notNull": true,
+      "autoincrement": false,
+      "default": null,
+      "generated": null,
+      "entityType": "columns"
+    },
+    {
+      "table": "provider_keys",
+      "name": "provider",
+      "type": "text",
+      "notNull": true,
+      "autoincrement": false,
+      "default": null,
+      "generated": null,
+      "entityType": "columns"
+    },
+    {
+      "table": "provider_keys",
+      "name": "ciphertext",
+      "type": "text",
+      "notNull": true,
+      "autoincrement": false,
+      "default": null,
+      "generated": null,
+      "entityType": "columns"
+    },
+    {
+      "table": "provider_keys",
+      "name": "hint",
+      "type": "text",
+      "notNull": true,
+      "autoincrement": false,
+      "default": null,
+      "generated": null,
+      "entityType": "columns"
+    },
+    {
+      "table": "provider_keys",
+      "name": "validatedAt",
+      "type": "text",
+      "notNull": true,
+      "autoincrement": false,
+      "default": null,
+      "generated": null,
+      "entityType": "columns"
     },
     {
       "table": "recipients",
@@ -641,6 +695,21 @@
       "entityType": "indexes"
     },
     {
+      "table": "provider_keys",
+      "name": "fk_provider_keys_sessionId_sessions_id_fk",
+      "columns": [
+        "sessionId"
+      ],
+      "tableTo": "sessions",
+      "columnsTo": [
+        "id"
+      ],
+      "onUpdate": "NO ACTION",
+      "onDelete": "CASCADE",
+      "nameExplicit": false,
+      "entityType": "fks"
+    },
+    {
       "table": "recipients",
       "name": "fk_recipients_sessionId_sessions_id_fk",
       "columns": [
@@ -804,6 +873,16 @@
       "onDelete": "CASCADE",
       "nameExplicit": false,
       "entityType": "fks"
+    },
+    {
+      "table": "provider_keys",
+      "name": "provider_keys_pk",
+      "columns": [
+        "sessionId",
+        "provider"
+      ],
+      "nameExplicit": false,
+      "entityType": "pks"
     },
     {
       "table": "unlocks",

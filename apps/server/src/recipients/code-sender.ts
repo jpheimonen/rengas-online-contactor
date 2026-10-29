@@ -7,7 +7,7 @@ import {
   type Provider,
 } from "@rengas/shared";
 import { problem } from "../errors.ts";
-import type { Credentials } from "../keys.ts";
+import type { ProviderCredentials as Credentials } from "../key-checks.ts";
 
 export type PhoneCheck = "approved" | "wrong" | "expired";
 

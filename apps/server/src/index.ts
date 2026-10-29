@@ -5,11 +5,21 @@ import { serveStatic } from "@hono/node-server/serve-static";
 import { createApp } from "./app.ts";
 import { loadConfig } from "./config.ts";
 import { openDatabase } from "./db/client.ts";
+import { liveKeyCheckers } from "./key-checks.ts";
+import { createKeyVault, presetKeys } from "./keys.ts";
 import { createCodeSender } from "./recipients/code-sender.ts";
 
 const config = loadConfig();
+const db = openDatabase(config.DATABASE_PATH);
+const keyVault = createKeyVault({
+  db,
+  appSecret: config.APP_SECRET,
+  preset: presetKeys(config),
+  checkers: liveKeyCheckers(),
+});
 const app = createApp({
-  db: openDatabase(config.DATABASE_PATH),
+  db,
+  keyVault,
   appSecret: config.APP_SECRET,
   codeSender: createCodeSender(config.RESEND_FROM),
   sendLimits: {

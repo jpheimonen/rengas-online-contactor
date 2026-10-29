@@ -9,7 +9,8 @@ import type { CreateRecipientRequest, Recipient } from "@rengas/shared";
 import type { Db } from "../db/client.ts";
 import { recipients, verificationCodes } from "../db/schema.ts";
 import { problem } from "../errors.ts";
-import type { Credentials, KeyVault } from "../keys.ts";
+import type { ProviderCredentials as Credentials } from "../key-checks.ts";
+import type { KeyVault } from "../keys.ts";
 import type { CodeSender } from "./code-sender.ts";
 
 export const CODE_TTL_MS = 10 * 60_000;
