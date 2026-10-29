@@ -1,12 +1,21 @@
 import { tmpdir } from "node:os";
 import { join } from "node:path";
 import { defineConfig, devices } from "@playwright/test";
-import { FAKE_OUTBOUND_LOG, OUTBOUND_LOG } from "./e2e/support/paths.ts";
+import {
+  FAKE_OUTBOUND_LOG,
+  OUTBOUND_LOG,
+  PROVIDER_LOG,
+  RECORDING_OPENAI_KEY,
+  RECORDING_OUTBOUND_LOG,
+} from "./e2e/support/paths.ts";
 
 const PORT = 8797;
 /** The same app with fake providers, for journeys that need a real-mode run. */
 const FAKE_PORT = 8798;
+/** The real adapters and writers, with only their HTTP calls recorded and answered. */
+const RECORDING_PORT = 8811;
 const FAKE = /\.fake\.spec\.ts$/;
+const RECORDING = /\.recording\.spec\.ts$/;
 
 export default defineConfig({
   testDir: "e2e",
@@ -17,7 +26,7 @@ export default defineConfig({
   projects: [
     {
       name: "desktop",
-      testIgnore: FAKE,
+      testIgnore: [FAKE, RECORDING],
       use: {
         ...devices["Desktop Chrome"],
         viewport: { width: 1440, height: 1000 },
@@ -25,7 +34,7 @@ export default defineConfig({
     },
     {
       name: "mobile",
-      testIgnore: FAKE,
+      testIgnore: [FAKE, RECORDING],
       use: {
         ...devices["Desktop Chrome"],
         viewport: { width: 390, height: 844 },
@@ -47,6 +56,27 @@ export default defineConfig({
       use: {
         ...devices["Desktop Chrome"],
         baseURL: `http://127.0.0.1:${FAKE_PORT}`,
+        viewport: { width: 390, height: 844 },
+        hasTouch: true,
+      },
+    },
+    {
+      name: "desktop-recording",
+      testMatch: RECORDING,
+      use: {
+        ...devices["Desktop Chrome"],
+        baseURL: `http://127.0.0.1:${RECORDING_PORT}`,
+        viewport: { width: 1440, height: 1000 },
+      },
+    },
+    {
+      name: "mobile-recording",
+      // One recording server and one OpenAI key for both, so they take turns.
+      dependencies: ["desktop-recording"],
+      testMatch: RECORDING,
+      use: {
+        ...devices["Desktop Chrome"],
+        baseURL: `http://127.0.0.1:${RECORDING_PORT}`,
         viewport: { width: 390, height: 844 },
         hasTouch: true,
       },
@@ -80,6 +110,25 @@ export default defineConfig({
         PORT: String(FAKE_PORT),
         DATABASE_PATH: join(tmpdir(), `rengas-e2e-fake-${process.pid}.db`),
         OUTBOUND_LOG: FAKE_OUTBOUND_LOG,
+      },
+      reuseExistingServer: false,
+      timeout: 180_000,
+    },
+    {
+      // The production entry point with every provider call recorded and
+      // answered by e2e/support/record-providers.mjs.
+      command:
+        "pnpm --filter @rengas/server exec tsx --import ../../e2e/support/record-providers.mjs --import ../../e2e/support/no-outbound.mjs src/index.ts",
+      url: `http://127.0.0.1:${RECORDING_PORT}/api/health`,
+      env: {
+        APP_SECRET: "e2e-secret-e2e-secret-e2e-secret-00",
+        PORT: String(RECORDING_PORT),
+        DATABASE_PATH: join(tmpdir(), `rengas-e2e-recording-${process.pid}.db`),
+        OUTBOUND_LOG: RECORDING_OUTBOUND_LOG,
+        PROVIDER_LOG,
+        OPENAI_API_KEY: RECORDING_OPENAI_KEY,
+        PUBLIC_BASE_URL: "https://calls.fake.test",
+        TWILIO_FROM_NUMBER: "+15005550006",
       },
       reuseExistingServer: false,
       timeout: 180_000,

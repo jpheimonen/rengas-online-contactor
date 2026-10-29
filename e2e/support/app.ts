@@ -124,7 +124,12 @@ export async function fakeSends(page: Page, to: string) {
 }
 
 /** Adds and verifies an inbox or phone through the stand-ins dialog, then closes it. */
-export async function verifyStandIn(page: Page, address: string) {
+export async function verifyStandIn(
+  page: Page,
+  address: string,
+  readEmailCode: (address: string) => Promise<string> | string = (to) =>
+    emailCode(page, to),
+) {
   const email = !address.startsWith("+");
   const dialog = await openStandIns(page);
   const section = dialog.getByRole("region", {
@@ -139,7 +144,7 @@ export async function verifyStandIn(page: Page, address: string) {
     })
     .click();
   await expect(section.getByText("Waiting for code")).toBeVisible();
-  const code = email ? await emailCode(page, address) : PHONE_CODE;
+  const code = email ? await readEmailCode(address) : PHONE_CODE;
   await section.getByLabel("Verification code").fill(code);
   await section
     .getByRole("button", { name: email ? "Verify inbox" : "Verify phone" })
