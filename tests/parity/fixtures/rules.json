@@ -1,0 +1,4006 @@
+{
+  "unlockCases": [
+    {
+      "unlocked": [],
+      "isUnlocked": [true, false, false, false, false, false, false, false],
+      "canAttemptUnlock": [
+        false,
+        true,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false
+      ],
+      "currentLevel": 0
+    },
+    {
+      "unlocked": ["polite"],
+      "isUnlocked": [true, false, false, false, false, false, false, false],
+      "canAttemptUnlock": [
+        false,
+        true,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false
+      ],
+      "currentLevel": 0
+    },
+    {
+      "unlocked": ["email"],
+      "isUnlocked": [true, true, false, false, false, false, false, false],
+      "canAttemptUnlock": [
+        false,
+        false,
+        true,
+        false,
+        false,
+        false,
+        false,
+        false
+      ],
+      "currentLevel": 1
+    },
+    {
+      "unlocked": ["polite", "email"],
+      "isUnlocked": [true, true, false, false, false, false, false, false],
+      "canAttemptUnlock": [
+        false,
+        false,
+        true,
+        false,
+        false,
+        false,
+        false,
+        false
+      ],
+      "currentLevel": 1
+    },
+    {
+      "unlocked": ["roboemail"],
+      "isUnlocked": [true, false, false, false, false, false, false, false],
+      "canAttemptUnlock": [
+        false,
+        true,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false
+      ],
+      "currentLevel": 0
+    },
+    {
+      "unlocked": ["polite", "roboemail"],
+      "isUnlocked": [true, false, false, false, false, false, false, false],
+      "canAttemptUnlock": [
+        false,
+        true,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false
+      ],
+      "currentLevel": 0
+    },
+    {
+      "unlocked": ["email", "roboemail"],
+      "isUnlocked": [true, true, true, false, false, false, false, false],
+      "canAttemptUnlock": [
+        false,
+        false,
+        false,
+        true,
+        false,
+        false,
+        false,
+        false
+      ],
+      "currentLevel": 2
+    },
+    {
+      "unlocked": ["polite", "email", "roboemail"],
+      "isUnlocked": [true, true, true, false, false, false, false, false],
+      "canAttemptUnlock": [
+        false,
+        false,
+        false,
+        true,
+        false,
+        false,
+        false,
+        false
+      ],
+      "currentLevel": 2
+    },
+    {
+      "unlocked": ["sms"],
+      "isUnlocked": [true, false, false, false, false, false, false, false],
+      "canAttemptUnlock": [
+        false,
+        true,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false
+      ],
+      "currentLevel": 0
+    },
+    {
+      "unlocked": ["polite", "sms"],
+      "isUnlocked": [true, false, false, false, false, false, false, false],
+      "canAttemptUnlock": [
+        false,
+        true,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false
+      ],
+      "currentLevel": 0
+    },
+    {
+      "unlocked": ["email", "sms"],
+      "isUnlocked": [true, true, false, false, false, false, false, false],
+      "canAttemptUnlock": [
+        false,
+        false,
+        true,
+        false,
+        false,
+        false,
+        false,
+        false
+      ],
+      "currentLevel": 1
+    },
+    {
+      "unlocked": ["polite", "email", "sms"],
+      "isUnlocked": [true, true, false, false, false, false, false, false],
+      "canAttemptUnlock": [
+        false,
+        false,
+        true,
+        false,
+        false,
+        false,
+        false,
+        false
+      ],
+      "currentLevel": 1
+    },
+    {
+      "unlocked": ["roboemail", "sms"],
+      "isUnlocked": [true, false, false, false, false, false, false, false],
+      "canAttemptUnlock": [
+        false,
+        true,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false
+      ],
+      "currentLevel": 0
+    },
+    {
+      "unlocked": ["polite", "roboemail", "sms"],
+      "isUnlocked": [true, false, false, false, false, false, false, false],
+      "canAttemptUnlock": [
+        false,
+        true,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false
+      ],
+      "currentLevel": 0
+    },
+    {
+      "unlocked": ["email", "roboemail", "sms"],
+      "isUnlocked": [true, true, true, true, false, false, false, false],
+      "canAttemptUnlock": [
+        false,
+        false,
+        false,
+        false,
+        true,
+        false,
+        false,
+        false
+      ],
+      "currentLevel": 3
+    },
+    {
+      "unlocked": ["polite", "email", "roboemail", "sms"],
+      "isUnlocked": [true, true, true, true, false, false, false, false],
+      "canAttemptUnlock": [
+        false,
+        false,
+        false,
+        false,
+        true,
+        false,
+        false,
+        false
+      ],
+      "currentLevel": 3
+    },
+    {
+      "unlocked": ["robocall"],
+      "isUnlocked": [true, false, false, false, false, false, false, false],
+      "canAttemptUnlock": [
+        false,
+        true,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false
+      ],
+      "currentLevel": 0
+    },
+    {
+      "unlocked": ["polite", "robocall"],
+      "isUnlocked": [true, false, false, false, false, false, false, false],
+      "canAttemptUnlock": [
+        false,
+        true,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false
+      ],
+      "currentLevel": 0
+    },
+    {
+      "unlocked": ["email", "robocall"],
+      "isUnlocked": [true, true, false, false, false, false, false, false],
+      "canAttemptUnlock": [
+        false,
+        false,
+        true,
+        false,
+        false,
+        false,
+        false,
+        false
+      ],
+      "currentLevel": 1
+    },
+    {
+      "unlocked": ["polite", "email", "robocall"],
+      "isUnlocked": [true, true, false, false, false, false, false, false],
+      "canAttemptUnlock": [
+        false,
+        false,
+        true,
+        false,
+        false,
+        false,
+        false,
+        false
+      ],
+      "currentLevel": 1
+    },
+    {
+      "unlocked": ["roboemail", "robocall"],
+      "isUnlocked": [true, false, false, false, false, false, false, false],
+      "canAttemptUnlock": [
+        false,
+        true,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false
+      ],
+      "currentLevel": 0
+    },
+    {
+      "unlocked": ["polite", "roboemail", "robocall"],
+      "isUnlocked": [true, false, false, false, false, false, false, false],
+      "canAttemptUnlock": [
+        false,
+        true,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false
+      ],
+      "currentLevel": 0
+    },
+    {
+      "unlocked": ["email", "roboemail", "robocall"],
+      "isUnlocked": [true, true, true, false, false, false, false, false],
+      "canAttemptUnlock": [
+        false,
+        false,
+        false,
+        true,
+        false,
+        false,
+        false,
+        false
+      ],
+      "currentLevel": 2
+    },
+    {
+      "unlocked": ["polite", "email", "roboemail", "robocall"],
+      "isUnlocked": [true, true, true, false, false, false, false, false],
+      "canAttemptUnlock": [
+        false,
+        false,
+        false,
+        true,
+        false,
+        false,
+        false,
+        false
+      ],
+      "currentLevel": 2
+    },
+    {
+      "unlocked": ["sms", "robocall"],
+      "isUnlocked": [true, false, false, false, false, false, false, false],
+      "canAttemptUnlock": [
+        false,
+        true,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false
+      ],
+      "currentLevel": 0
+    },
+    {
+      "unlocked": ["polite", "sms", "robocall"],
+      "isUnlocked": [true, false, false, false, false, false, false, false],
+      "canAttemptUnlock": [
+        false,
+        true,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false
+      ],
+      "currentLevel": 0
+    },
+    {
+      "unlocked": ["email", "sms", "robocall"],
+      "isUnlocked": [true, true, false, false, false, false, false, false],
+      "canAttemptUnlock": [
+        false,
+        false,
+        true,
+        false,
+        false,
+        false,
+        false,
+        false
+      ],
+      "currentLevel": 1
+    },
+    {
+      "unlocked": ["polite", "email", "sms", "robocall"],
+      "isUnlocked": [true, true, false, false, false, false, false, false],
+      "canAttemptUnlock": [
+        false,
+        false,
+        true,
+        false,
+        false,
+        false,
+        false,
+        false
+      ],
+      "currentLevel": 1
+    },
+    {
+      "unlocked": ["roboemail", "sms", "robocall"],
+      "isUnlocked": [true, false, false, false, false, false, false, false],
+      "canAttemptUnlock": [
+        false,
+        true,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false
+      ],
+      "currentLevel": 0
+    },
+    {
+      "unlocked": ["polite", "roboemail", "sms", "robocall"],
+      "isUnlocked": [true, false, false, false, false, false, false, false],
+      "canAttemptUnlock": [
+        false,
+        true,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false
+      ],
+      "currentLevel": 0
+    },
+    {
+      "unlocked": ["email", "roboemail", "sms", "robocall"],
+      "isUnlocked": [true, true, true, true, true, false, false, false],
+      "canAttemptUnlock": [
+        false,
+        false,
+        false,
+        false,
+        false,
+        true,
+        false,
+        false
+      ],
+      "currentLevel": 4
+    },
+    {
+      "unlocked": ["polite", "email", "roboemail", "sms", "robocall"],
+      "isUnlocked": [true, true, true, true, true, false, false, false],
+      "canAttemptUnlock": [
+        false,
+        false,
+        false,
+        false,
+        false,
+        true,
+        false,
+        false
+      ],
+      "currentLevel": 4
+    },
+    {
+      "unlocked": ["social"],
+      "isUnlocked": [true, false, false, false, false, false, false, false],
+      "canAttemptUnlock": [
+        false,
+        true,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false
+      ],
+      "currentLevel": 0
+    },
+    {
+      "unlocked": ["polite", "social"],
+      "isUnlocked": [true, false, false, false, false, false, false, false],
+      "canAttemptUnlock": [
+        false,
+        true,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false
+      ],
+      "currentLevel": 0
+    },
+    {
+      "unlocked": ["email", "social"],
+      "isUnlocked": [true, true, false, false, false, false, false, false],
+      "canAttemptUnlock": [
+        false,
+        false,
+        true,
+        false,
+        false,
+        false,
+        false,
+        false
+      ],
+      "currentLevel": 1
+    },
+    {
+      "unlocked": ["polite", "email", "social"],
+      "isUnlocked": [true, true, false, false, false, false, false, false],
+      "canAttemptUnlock": [
+        false,
+        false,
+        true,
+        false,
+        false,
+        false,
+        false,
+        false
+      ],
+      "currentLevel": 1
+    },
+    {
+      "unlocked": ["roboemail", "social"],
+      "isUnlocked": [true, false, false, false, false, false, false, false],
+      "canAttemptUnlock": [
+        false,
+        true,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false
+      ],
+      "currentLevel": 0
+    },
+    {
+      "unlocked": ["polite", "roboemail", "social"],
+      "isUnlocked": [true, false, false, false, false, false, false, false],
+      "canAttemptUnlock": [
+        false,
+        true,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false
+      ],
+      "currentLevel": 0
+    },
+    {
+      "unlocked": ["email", "roboemail", "social"],
+      "isUnlocked": [true, true, true, false, false, false, false, false],
+      "canAttemptUnlock": [
+        false,
+        false,
+        false,
+        true,
+        false,
+        false,
+        false,
+        false
+      ],
+      "currentLevel": 2
+    },
+    {
+      "unlocked": ["polite", "email", "roboemail", "social"],
+      "isUnlocked": [true, true, true, false, false, false, false, false],
+      "canAttemptUnlock": [
+        false,
+        false,
+        false,
+        true,
+        false,
+        false,
+        false,
+        false
+      ],
+      "currentLevel": 2
+    },
+    {
+      "unlocked": ["sms", "social"],
+      "isUnlocked": [true, false, false, false, false, false, false, false],
+      "canAttemptUnlock": [
+        false,
+        true,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false
+      ],
+      "currentLevel": 0
+    },
+    {
+      "unlocked": ["polite", "sms", "social"],
+      "isUnlocked": [true, false, false, false, false, false, false, false],
+      "canAttemptUnlock": [
+        false,
+        true,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false
+      ],
+      "currentLevel": 0
+    },
+    {
+      "unlocked": ["email", "sms", "social"],
+      "isUnlocked": [true, true, false, false, false, false, false, false],
+      "canAttemptUnlock": [
+        false,
+        false,
+        true,
+        false,
+        false,
+        false,
+        false,
+        false
+      ],
+      "currentLevel": 1
+    },
+    {
+      "unlocked": ["polite", "email", "sms", "social"],
+      "isUnlocked": [true, true, false, false, false, false, false, false],
+      "canAttemptUnlock": [
+        false,
+        false,
+        true,
+        false,
+        false,
+        false,
+        false,
+        false
+      ],
+      "currentLevel": 1
+    },
+    {
+      "unlocked": ["roboemail", "sms", "social"],
+      "isUnlocked": [true, false, false, false, false, false, false, false],
+      "canAttemptUnlock": [
+        false,
+        true,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false
+      ],
+      "currentLevel": 0
+    },
+    {
+      "unlocked": ["polite", "roboemail", "sms", "social"],
+      "isUnlocked": [true, false, false, false, false, false, false, false],
+      "canAttemptUnlock": [
+        false,
+        true,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false
+      ],
+      "currentLevel": 0
+    },
+    {
+      "unlocked": ["email", "roboemail", "sms", "social"],
+      "isUnlocked": [true, true, true, true, false, false, false, false],
+      "canAttemptUnlock": [
+        false,
+        false,
+        false,
+        false,
+        true,
+        false,
+        false,
+        false
+      ],
+      "currentLevel": 3
+    },
+    {
+      "unlocked": ["polite", "email", "roboemail", "sms", "social"],
+      "isUnlocked": [true, true, true, true, false, false, false, false],
+      "canAttemptUnlock": [
+        false,
+        false,
+        false,
+        false,
+        true,
+        false,
+        false,
+        false
+      ],
+      "currentLevel": 3
+    },
+    {
+      "unlocked": ["robocall", "social"],
+      "isUnlocked": [true, false, false, false, false, false, false, false],
+      "canAttemptUnlock": [
+        false,
+        true,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false
+      ],
+      "currentLevel": 0
+    },
+    {
+      "unlocked": ["polite", "robocall", "social"],
+      "isUnlocked": [true, false, false, false, false, false, false, false],
+      "canAttemptUnlock": [
+        false,
+        true,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false
+      ],
+      "currentLevel": 0
+    },
+    {
+      "unlocked": ["email", "robocall", "social"],
+      "isUnlocked": [true, true, false, false, false, false, false, false],
+      "canAttemptUnlock": [
+        false,
+        false,
+        true,
+        false,
+        false,
+        false,
+        false,
+        false
+      ],
+      "currentLevel": 1
+    },
+    {
+      "unlocked": ["polite", "email", "robocall", "social"],
+      "isUnlocked": [true, true, false, false, false, false, false, false],
+      "canAttemptUnlock": [
+        false,
+        false,
+        true,
+        false,
+        false,
+        false,
+        false,
+        false
+      ],
+      "currentLevel": 1
+    },
+    {
+      "unlocked": ["roboemail", "robocall", "social"],
+      "isUnlocked": [true, false, false, false, false, false, false, false],
+      "canAttemptUnlock": [
+        false,
+        true,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false
+      ],
+      "currentLevel": 0
+    },
+    {
+      "unlocked": ["polite", "roboemail", "robocall", "social"],
+      "isUnlocked": [true, false, false, false, false, false, false, false],
+      "canAttemptUnlock": [
+        false,
+        true,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false
+      ],
+      "currentLevel": 0
+    },
+    {
+      "unlocked": ["email", "roboemail", "robocall", "social"],
+      "isUnlocked": [true, true, true, false, false, false, false, false],
+      "canAttemptUnlock": [
+        false,
+        false,
+        false,
+        true,
+        false,
+        false,
+        false,
+        false
+      ],
+      "currentLevel": 2
+    },
+    {
+      "unlocked": ["polite", "email", "roboemail", "robocall", "social"],
+      "isUnlocked": [true, true, true, false, false, false, false, false],
+      "canAttemptUnlock": [
+        false,
+        false,
+        false,
+        true,
+        false,
+        false,
+        false,
+        false
+      ],
+      "currentLevel": 2
+    },
+    {
+      "unlocked": ["sms", "robocall", "social"],
+      "isUnlocked": [true, false, false, false, false, false, false, false],
+      "canAttemptUnlock": [
+        false,
+        true,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false
+      ],
+      "currentLevel": 0
+    },
+    {
+      "unlocked": ["polite", "sms", "robocall", "social"],
+      "isUnlocked": [true, false, false, false, false, false, false, false],
+      "canAttemptUnlock": [
+        false,
+        true,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false
+      ],
+      "currentLevel": 0
+    },
+    {
+      "unlocked": ["email", "sms", "robocall", "social"],
+      "isUnlocked": [true, true, false, false, false, false, false, false],
+      "canAttemptUnlock": [
+        false,
+        false,
+        true,
+        false,
+        false,
+        false,
+        false,
+        false
+      ],
+      "currentLevel": 1
+    },
+    {
+      "unlocked": ["polite", "email", "sms", "robocall", "social"],
+      "isUnlocked": [true, true, false, false, false, false, false, false],
+      "canAttemptUnlock": [
+        false,
+        false,
+        true,
+        false,
+        false,
+        false,
+        false,
+        false
+      ],
+      "currentLevel": 1
+    },
+    {
+      "unlocked": ["roboemail", "sms", "robocall", "social"],
+      "isUnlocked": [true, false, false, false, false, false, false, false],
+      "canAttemptUnlock": [
+        false,
+        true,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false
+      ],
+      "currentLevel": 0
+    },
+    {
+      "unlocked": ["polite", "roboemail", "sms", "robocall", "social"],
+      "isUnlocked": [true, false, false, false, false, false, false, false],
+      "canAttemptUnlock": [
+        false,
+        true,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false
+      ],
+      "currentLevel": 0
+    },
+    {
+      "unlocked": ["email", "roboemail", "sms", "robocall", "social"],
+      "isUnlocked": [true, true, true, true, true, true, false, false],
+      "canAttemptUnlock": [
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        true,
+        false
+      ],
+      "currentLevel": 5
+    },
+    {
+      "unlocked": ["polite", "email", "roboemail", "sms", "robocall", "social"],
+      "isUnlocked": [true, true, true, true, true, true, false, false],
+      "canAttemptUnlock": [
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        true,
+        false
+      ],
+      "currentLevel": 5
+    },
+    {
+      "unlocked": ["osint"],
+      "isUnlocked": [true, false, false, false, false, false, false, false],
+      "canAttemptUnlock": [
+        false,
+        true,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false
+      ],
+      "currentLevel": 0
+    },
+    {
+      "unlocked": ["polite", "osint"],
+      "isUnlocked": [true, false, false, false, false, false, false, false],
+      "canAttemptUnlock": [
+        false,
+        true,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false
+      ],
+      "currentLevel": 0
+    },
+    {
+      "unlocked": ["email", "osint"],
+      "isUnlocked": [true, true, false, false, false, false, false, false],
+      "canAttemptUnlock": [
+        false,
+        false,
+        true,
+        false,
+        false,
+        false,
+        false,
+        false
+      ],
+      "currentLevel": 1
+    },
+    {
+      "unlocked": ["polite", "email", "osint"],
+      "isUnlocked": [true, true, false, false, false, false, false, false],
+      "canAttemptUnlock": [
+        false,
+        false,
+        true,
+        false,
+        false,
+        false,
+        false,
+        false
+      ],
+      "currentLevel": 1
+    },
+    {
+      "unlocked": ["roboemail", "osint"],
+      "isUnlocked": [true, false, false, false, false, false, false, false],
+      "canAttemptUnlock": [
+        false,
+        true,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false
+      ],
+      "currentLevel": 0
+    },
+    {
+      "unlocked": ["polite", "roboemail", "osint"],
+      "isUnlocked": [true, false, false, false, false, false, false, false],
+      "canAttemptUnlock": [
+        false,
+        true,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false
+      ],
+      "currentLevel": 0
+    },
+    {
+      "unlocked": ["email", "roboemail", "osint"],
+      "isUnlocked": [true, true, true, false, false, false, false, false],
+      "canAttemptUnlock": [
+        false,
+        false,
+        false,
+        true,
+        false,
+        false,
+        false,
+        false
+      ],
+      "currentLevel": 2
+    },
+    {
+      "unlocked": ["polite", "email", "roboemail", "osint"],
+      "isUnlocked": [true, true, true, false, false, false, false, false],
+      "canAttemptUnlock": [
+        false,
+        false,
+        false,
+        true,
+        false,
+        false,
+        false,
+        false
+      ],
+      "currentLevel": 2
+    },
+    {
+      "unlocked": ["sms", "osint"],
+      "isUnlocked": [true, false, false, false, false, false, false, false],
+      "canAttemptUnlock": [
+        false,
+        true,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false
+      ],
+      "currentLevel": 0
+    },
+    {
+      "unlocked": ["polite", "sms", "osint"],
+      "isUnlocked": [true, false, false, false, false, false, false, false],
+      "canAttemptUnlock": [
+        false,
+        true,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false
+      ],
+      "currentLevel": 0
+    },
+    {
+      "unlocked": ["email", "sms", "osint"],
+      "isUnlocked": [true, true, false, false, false, false, false, false],
+      "canAttemptUnlock": [
+        false,
+        false,
+        true,
+        false,
+        false,
+        false,
+        false,
+        false
+      ],
+      "currentLevel": 1
+    },
+    {
+      "unlocked": ["polite", "email", "sms", "osint"],
+      "isUnlocked": [true, true, false, false, false, false, false, false],
+      "canAttemptUnlock": [
+        false,
+        false,
+        true,
+        false,
+        false,
+        false,
+        false,
+        false
+      ],
+      "currentLevel": 1
+    },
+    {
+      "unlocked": ["roboemail", "sms", "osint"],
+      "isUnlocked": [true, false, false, false, false, false, false, false],
+      "canAttemptUnlock": [
+        false,
+        true,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false
+      ],
+      "currentLevel": 0
+    },
+    {
+      "unlocked": ["polite", "roboemail", "sms", "osint"],
+      "isUnlocked": [true, false, false, false, false, false, false, false],
+      "canAttemptUnlock": [
+        false,
+        true,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false
+      ],
+      "currentLevel": 0
+    },
+    {
+      "unlocked": ["email", "roboemail", "sms", "osint"],
+      "isUnlocked": [true, true, true, true, false, false, false, false],
+      "canAttemptUnlock": [
+        false,
+        false,
+        false,
+        false,
+        true,
+        false,
+        false,
+        false
+      ],
+      "currentLevel": 3
+    },
+    {
+      "unlocked": ["polite", "email", "roboemail", "sms", "osint"],
+      "isUnlocked": [true, true, true, true, false, false, false, false],
+      "canAttemptUnlock": [
+        false,
+        false,
+        false,
+        false,
+        true,
+        false,
+        false,
+        false
+      ],
+      "currentLevel": 3
+    },
+    {
+      "unlocked": ["robocall", "osint"],
+      "isUnlocked": [true, false, false, false, false, false, false, false],
+      "canAttemptUnlock": [
+        false,
+        true,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false
+      ],
+      "currentLevel": 0
+    },
+    {
+      "unlocked": ["polite", "robocall", "osint"],
+      "isUnlocked": [true, false, false, false, false, false, false, false],
+      "canAttemptUnlock": [
+        false,
+        true,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false
+      ],
+      "currentLevel": 0
+    },
+    {
+      "unlocked": ["email", "robocall", "osint"],
+      "isUnlocked": [true, true, false, false, false, false, false, false],
+      "canAttemptUnlock": [
+        false,
+        false,
+        true,
+        false,
+        false,
+        false,
+        false,
+        false
+      ],
+      "currentLevel": 1
+    },
+    {
+      "unlocked": ["polite", "email", "robocall", "osint"],
+      "isUnlocked": [true, true, false, false, false, false, false, false],
+      "canAttemptUnlock": [
+        false,
+        false,
+        true,
+        false,
+        false,
+        false,
+        false,
+        false
+      ],
+      "currentLevel": 1
+    },
+    {
+      "unlocked": ["roboemail", "robocall", "osint"],
+      "isUnlocked": [true, false, false, false, false, false, false, false],
+      "canAttemptUnlock": [
+        false,
+        true,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false
+      ],
+      "currentLevel": 0
+    },
+    {
+      "unlocked": ["polite", "roboemail", "robocall", "osint"],
+      "isUnlocked": [true, false, false, false, false, false, false, false],
+      "canAttemptUnlock": [
+        false,
+        true,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false
+      ],
+      "currentLevel": 0
+    },
+    {
+      "unlocked": ["email", "roboemail", "robocall", "osint"],
+      "isUnlocked": [true, true, true, false, false, false, false, false],
+      "canAttemptUnlock": [
+        false,
+        false,
+        false,
+        true,
+        false,
+        false,
+        false,
+        false
+      ],
+      "currentLevel": 2
+    },
+    {
+      "unlocked": ["polite", "email", "roboemail", "robocall", "osint"],
+      "isUnlocked": [true, true, true, false, false, false, false, false],
+      "canAttemptUnlock": [
+        false,
+        false,
+        false,
+        true,
+        false,
+        false,
+        false,
+        false
+      ],
+      "currentLevel": 2
+    },
+    {
+      "unlocked": ["sms", "robocall", "osint"],
+      "isUnlocked": [true, false, false, false, false, false, false, false],
+      "canAttemptUnlock": [
+        false,
+        true,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false
+      ],
+      "currentLevel": 0
+    },
+    {
+      "unlocked": ["polite", "sms", "robocall", "osint"],
+      "isUnlocked": [true, false, false, false, false, false, false, false],
+      "canAttemptUnlock": [
+        false,
+        true,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false
+      ],
+      "currentLevel": 0
+    },
+    {
+      "unlocked": ["email", "sms", "robocall", "osint"],
+      "isUnlocked": [true, true, false, false, false, false, false, false],
+      "canAttemptUnlock": [
+        false,
+        false,
+        true,
+        false,
+        false,
+        false,
+        false,
+        false
+      ],
+      "currentLevel": 1
+    },
+    {
+      "unlocked": ["polite", "email", "sms", "robocall", "osint"],
+      "isUnlocked": [true, true, false, false, false, false, false, false],
+      "canAttemptUnlock": [
+        false,
+        false,
+        true,
+        false,
+        false,
+        false,
+        false,
+        false
+      ],
+      "currentLevel": 1
+    },
+    {
+      "unlocked": ["roboemail", "sms", "robocall", "osint"],
+      "isUnlocked": [true, false, false, false, false, false, false, false],
+      "canAttemptUnlock": [
+        false,
+        true,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false
+      ],
+      "currentLevel": 0
+    },
+    {
+      "unlocked": ["polite", "roboemail", "sms", "robocall", "osint"],
+      "isUnlocked": [true, false, false, false, false, false, false, false],
+      "canAttemptUnlock": [
+        false,
+        true,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false
+      ],
+      "currentLevel": 0
+    },
+    {
+      "unlocked": ["email", "roboemail", "sms", "robocall", "osint"],
+      "isUnlocked": [true, true, true, true, true, false, false, false],
+      "canAttemptUnlock": [
+        false,
+        false,
+        false,
+        false,
+        false,
+        true,
+        false,
+        false
+      ],
+      "currentLevel": 4
+    },
+    {
+      "unlocked": ["polite", "email", "roboemail", "sms", "robocall", "osint"],
+      "isUnlocked": [true, true, true, true, true, false, false, false],
+      "canAttemptUnlock": [
+        false,
+        false,
+        false,
+        false,
+        false,
+        true,
+        false,
+        false
+      ],
+      "currentLevel": 4
+    },
+    {
+      "unlocked": ["social", "osint"],
+      "isUnlocked": [true, false, false, false, false, false, false, false],
+      "canAttemptUnlock": [
+        false,
+        true,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false
+      ],
+      "currentLevel": 0
+    },
+    {
+      "unlocked": ["polite", "social", "osint"],
+      "isUnlocked": [true, false, false, false, false, false, false, false],
+      "canAttemptUnlock": [
+        false,
+        true,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false
+      ],
+      "currentLevel": 0
+    },
+    {
+      "unlocked": ["email", "social", "osint"],
+      "isUnlocked": [true, true, false, false, false, false, false, false],
+      "canAttemptUnlock": [
+        false,
+        false,
+        true,
+        false,
+        false,
+        false,
+        false,
+        false
+      ],
+      "currentLevel": 1
+    },
+    {
+      "unlocked": ["polite", "email", "social", "osint"],
+      "isUnlocked": [true, true, false, false, false, false, false, false],
+      "canAttemptUnlock": [
+        false,
+        false,
+        true,
+        false,
+        false,
+        false,
+        false,
+        false
+      ],
+      "currentLevel": 1
+    },
+    {
+      "unlocked": ["roboemail", "social", "osint"],
+      "isUnlocked": [true, false, false, false, false, false, false, false],
+      "canAttemptUnlock": [
+        false,
+        true,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false
+      ],
+      "currentLevel": 0
+    },
+    {
+      "unlocked": ["polite", "roboemail", "social", "osint"],
+      "isUnlocked": [true, false, false, false, false, false, false, false],
+      "canAttemptUnlock": [
+        false,
+        true,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false
+      ],
+      "currentLevel": 0
+    },
+    {
+      "unlocked": ["email", "roboemail", "social", "osint"],
+      "isUnlocked": [true, true, true, false, false, false, false, false],
+      "canAttemptUnlock": [
+        false,
+        false,
+        false,
+        true,
+        false,
+        false,
+        false,
+        false
+      ],
+      "currentLevel": 2
+    },
+    {
+      "unlocked": ["polite", "email", "roboemail", "social", "osint"],
+      "isUnlocked": [true, true, true, false, false, false, false, false],
+      "canAttemptUnlock": [
+        false,
+        false,
+        false,
+        true,
+        false,
+        false,
+        false,
+        false
+      ],
+      "currentLevel": 2
+    },
+    {
+      "unlocked": ["sms", "social", "osint"],
+      "isUnlocked": [true, false, false, false, false, false, false, false],
+      "canAttemptUnlock": [
+        false,
+        true,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false
+      ],
+      "currentLevel": 0
+    },
+    {
+      "unlocked": ["polite", "sms", "social", "osint"],
+      "isUnlocked": [true, false, false, false, false, false, false, false],
+      "canAttemptUnlock": [
+        false,
+        true,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false
+      ],
+      "currentLevel": 0
+    },
+    {
+      "unlocked": ["email", "sms", "social", "osint"],
+      "isUnlocked": [true, true, false, false, false, false, false, false],
+      "canAttemptUnlock": [
+        false,
+        false,
+        true,
+        false,
+        false,
+        false,
+        false,
+        false
+      ],
+      "currentLevel": 1
+    },
+    {
+      "unlocked": ["polite", "email", "sms", "social", "osint"],
+      "isUnlocked": [true, true, false, false, false, false, false, false],
+      "canAttemptUnlock": [
+        false,
+        false,
+        true,
+        false,
+        false,
+        false,
+        false,
+        false
+      ],
+      "currentLevel": 1
+    },
+    {
+      "unlocked": ["roboemail", "sms", "social", "osint"],
+      "isUnlocked": [true, false, false, false, false, false, false, false],
+      "canAttemptUnlock": [
+        false,
+        true,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false
+      ],
+      "currentLevel": 0
+    },
+    {
+      "unlocked": ["polite", "roboemail", "sms", "social", "osint"],
+      "isUnlocked": [true, false, false, false, false, false, false, false],
+      "canAttemptUnlock": [
+        false,
+        true,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false
+      ],
+      "currentLevel": 0
+    },
+    {
+      "unlocked": ["email", "roboemail", "sms", "social", "osint"],
+      "isUnlocked": [true, true, true, true, false, false, false, false],
+      "canAttemptUnlock": [
+        false,
+        false,
+        false,
+        false,
+        true,
+        false,
+        false,
+        false
+      ],
+      "currentLevel": 3
+    },
+    {
+      "unlocked": ["polite", "email", "roboemail", "sms", "social", "osint"],
+      "isUnlocked": [true, true, true, true, false, false, false, false],
+      "canAttemptUnlock": [
+        false,
+        false,
+        false,
+        false,
+        true,
+        false,
+        false,
+        false
+      ],
+      "currentLevel": 3
+    },
+    {
+      "unlocked": ["robocall", "social", "osint"],
+      "isUnlocked": [true, false, false, false, false, false, false, false],
+      "canAttemptUnlock": [
+        false,
+        true,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false
+      ],
+      "currentLevel": 0
+    },
+    {
+      "unlocked": ["polite", "robocall", "social", "osint"],
+      "isUnlocked": [true, false, false, false, false, false, false, false],
+      "canAttemptUnlock": [
+        false,
+        true,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false
+      ],
+      "currentLevel": 0
+    },
+    {
+      "unlocked": ["email", "robocall", "social", "osint"],
+      "isUnlocked": [true, true, false, false, false, false, false, false],
+      "canAttemptUnlock": [
+        false,
+        false,
+        true,
+        false,
+        false,
+        false,
+        false,
+        false
+      ],
+      "currentLevel": 1
+    },
+    {
+      "unlocked": ["polite", "email", "robocall", "social", "osint"],
+      "isUnlocked": [true, true, false, false, false, false, false, false],
+      "canAttemptUnlock": [
+        false,
+        false,
+        true,
+        false,
+        false,
+        false,
+        false,
+        false
+      ],
+      "currentLevel": 1
+    },
+    {
+      "unlocked": ["roboemail", "robocall", "social", "osint"],
+      "isUnlocked": [true, false, false, false, false, false, false, false],
+      "canAttemptUnlock": [
+        false,
+        true,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false
+      ],
+      "currentLevel": 0
+    },
+    {
+      "unlocked": ["polite", "roboemail", "robocall", "social", "osint"],
+      "isUnlocked": [true, false, false, false, false, false, false, false],
+      "canAttemptUnlock": [
+        false,
+        true,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false
+      ],
+      "currentLevel": 0
+    },
+    {
+      "unlocked": ["email", "roboemail", "robocall", "social", "osint"],
+      "isUnlocked": [true, true, true, false, false, false, false, false],
+      "canAttemptUnlock": [
+        false,
+        false,
+        false,
+        true,
+        false,
+        false,
+        false,
+        false
+      ],
+      "currentLevel": 2
+    },
+    {
+      "unlocked": [
+        "polite",
+        "email",
+        "roboemail",
+        "robocall",
+        "social",
+        "osint"
+      ],
+      "isUnlocked": [true, true, true, false, false, false, false, false],
+      "canAttemptUnlock": [
+        false,
+        false,
+        false,
+        true,
+        false,
+        false,
+        false,
+        false
+      ],
+      "currentLevel": 2
+    },
+    {
+      "unlocked": ["sms", "robocall", "social", "osint"],
+      "isUnlocked": [true, false, false, false, false, false, false, false],
+      "canAttemptUnlock": [
+        false,
+        true,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false
+      ],
+      "currentLevel": 0
+    },
+    {
+      "unlocked": ["polite", "sms", "robocall", "social", "osint"],
+      "isUnlocked": [true, false, false, false, false, false, false, false],
+      "canAttemptUnlock": [
+        false,
+        true,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false
+      ],
+      "currentLevel": 0
+    },
+    {
+      "unlocked": ["email", "sms", "robocall", "social", "osint"],
+      "isUnlocked": [true, true, false, false, false, false, false, false],
+      "canAttemptUnlock": [
+        false,
+        false,
+        true,
+        false,
+        false,
+        false,
+        false,
+        false
+      ],
+      "currentLevel": 1
+    },
+    {
+      "unlocked": ["polite", "email", "sms", "robocall", "social", "osint"],
+      "isUnlocked": [true, true, false, false, false, false, false, false],
+      "canAttemptUnlock": [
+        false,
+        false,
+        true,
+        false,
+        false,
+        false,
+        false,
+        false
+      ],
+      "currentLevel": 1
+    },
+    {
+      "unlocked": ["roboemail", "sms", "robocall", "social", "osint"],
+      "isUnlocked": [true, false, false, false, false, false, false, false],
+      "canAttemptUnlock": [
+        false,
+        true,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false
+      ],
+      "currentLevel": 0
+    },
+    {
+      "unlocked": ["polite", "roboemail", "sms", "robocall", "social", "osint"],
+      "isUnlocked": [true, false, false, false, false, false, false, false],
+      "canAttemptUnlock": [
+        false,
+        true,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false
+      ],
+      "currentLevel": 0
+    },
+    {
+      "unlocked": ["email", "roboemail", "sms", "robocall", "social", "osint"],
+      "isUnlocked": [true, true, true, true, true, true, true, false],
+      "canAttemptUnlock": [
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        true
+      ],
+      "currentLevel": 6
+    },
+    {
+      "unlocked": [
+        "polite",
+        "email",
+        "roboemail",
+        "sms",
+        "robocall",
+        "social",
+        "osint"
+      ],
+      "isUnlocked": [true, true, true, true, true, true, true, false],
+      "canAttemptUnlock": [
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        true
+      ],
+      "currentLevel": 6
+    },
+    {
+      "unlocked": ["blimp"],
+      "isUnlocked": [true, false, false, false, false, false, false, false],
+      "canAttemptUnlock": [
+        false,
+        true,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false
+      ],
+      "currentLevel": 0
+    },
+    {
+      "unlocked": ["polite", "blimp"],
+      "isUnlocked": [true, false, false, false, false, false, false, false],
+      "canAttemptUnlock": [
+        false,
+        true,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false
+      ],
+      "currentLevel": 0
+    },
+    {
+      "unlocked": ["email", "blimp"],
+      "isUnlocked": [true, true, false, false, false, false, false, false],
+      "canAttemptUnlock": [
+        false,
+        false,
+        true,
+        false,
+        false,
+        false,
+        false,
+        false
+      ],
+      "currentLevel": 1
+    },
+    {
+      "unlocked": ["polite", "email", "blimp"],
+      "isUnlocked": [true, true, false, false, false, false, false, false],
+      "canAttemptUnlock": [
+        false,
+        false,
+        true,
+        false,
+        false,
+        false,
+        false,
+        false
+      ],
+      "currentLevel": 1
+    },
+    {
+      "unlocked": ["roboemail", "blimp"],
+      "isUnlocked": [true, false, false, false, false, false, false, false],
+      "canAttemptUnlock": [
+        false,
+        true,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false
+      ],
+      "currentLevel": 0
+    },
+    {
+      "unlocked": ["polite", "roboemail", "blimp"],
+      "isUnlocked": [true, false, false, false, false, false, false, false],
+      "canAttemptUnlock": [
+        false,
+        true,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false
+      ],
+      "currentLevel": 0
+    },
+    {
+      "unlocked": ["email", "roboemail", "blimp"],
+      "isUnlocked": [true, true, true, false, false, false, false, false],
+      "canAttemptUnlock": [
+        false,
+        false,
+        false,
+        true,
+        false,
+        false,
+        false,
+        false
+      ],
+      "currentLevel": 2
+    },
+    {
+      "unlocked": ["polite", "email", "roboemail", "blimp"],
+      "isUnlocked": [true, true, true, false, false, false, false, false],
+      "canAttemptUnlock": [
+        false,
+        false,
+        false,
+        true,
+        false,
+        false,
+        false,
+        false
+      ],
+      "currentLevel": 2
+    },
+    {
+      "unlocked": ["sms", "blimp"],
+      "isUnlocked": [true, false, false, false, false, false, false, false],
+      "canAttemptUnlock": [
+        false,
+        true,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false
+      ],
+      "currentLevel": 0
+    },
+    {
+      "unlocked": ["polite", "sms", "blimp"],
+      "isUnlocked": [true, false, false, false, false, false, false, false],
+      "canAttemptUnlock": [
+        false,
+        true,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false
+      ],
+      "currentLevel": 0
+    },
+    {
+      "unlocked": ["email", "sms", "blimp"],
+      "isUnlocked": [true, true, false, false, false, false, false, false],
+      "canAttemptUnlock": [
+        false,
+        false,
+        true,
+        false,
+        false,
+        false,
+        false,
+        false
+      ],
+      "currentLevel": 1
+    },
+    {
+      "unlocked": ["polite", "email", "sms", "blimp"],
+      "isUnlocked": [true, true, false, false, false, false, false, false],
+      "canAttemptUnlock": [
+        false,
+        false,
+        true,
+        false,
+        false,
+        false,
+        false,
+        false
+      ],
+      "currentLevel": 1
+    },
+    {
+      "unlocked": ["roboemail", "sms", "blimp"],
+      "isUnlocked": [true, false, false, false, false, false, false, false],
+      "canAttemptUnlock": [
+        false,
+        true,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false
+      ],
+      "currentLevel": 0
+    },
+    {
+      "unlocked": ["polite", "roboemail", "sms", "blimp"],
+      "isUnlocked": [true, false, false, false, false, false, false, false],
+      "canAttemptUnlock": [
+        false,
+        true,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false
+      ],
+      "currentLevel": 0
+    },
+    {
+      "unlocked": ["email", "roboemail", "sms", "blimp"],
+      "isUnlocked": [true, true, true, true, false, false, false, false],
+      "canAttemptUnlock": [
+        false,
+        false,
+        false,
+        false,
+        true,
+        false,
+        false,
+        false
+      ],
+      "currentLevel": 3
+    },
+    {
+      "unlocked": ["polite", "email", "roboemail", "sms", "blimp"],
+      "isUnlocked": [true, true, true, true, false, false, false, false],
+      "canAttemptUnlock": [
+        false,
+        false,
+        false,
+        false,
+        true,
+        false,
+        false,
+        false
+      ],
+      "currentLevel": 3
+    },
+    {
+      "unlocked": ["robocall", "blimp"],
+      "isUnlocked": [true, false, false, false, false, false, false, false],
+      "canAttemptUnlock": [
+        false,
+        true,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false
+      ],
+      "currentLevel": 0
+    },
+    {
+      "unlocked": ["polite", "robocall", "blimp"],
+      "isUnlocked": [true, false, false, false, false, false, false, false],
+      "canAttemptUnlock": [
+        false,
+        true,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false
+      ],
+      "currentLevel": 0
+    },
+    {
+      "unlocked": ["email", "robocall", "blimp"],
+      "isUnlocked": [true, true, false, false, false, false, false, false],
+      "canAttemptUnlock": [
+        false,
+        false,
+        true,
+        false,
+        false,
+        false,
+        false,
+        false
+      ],
+      "currentLevel": 1
+    },
+    {
+      "unlocked": ["polite", "email", "robocall", "blimp"],
+      "isUnlocked": [true, true, false, false, false, false, false, false],
+      "canAttemptUnlock": [
+        false,
+        false,
+        true,
+        false,
+        false,
+        false,
+        false,
+        false
+      ],
+      "currentLevel": 1
+    },
+    {
+      "unlocked": ["roboemail", "robocall", "blimp"],
+      "isUnlocked": [true, false, false, false, false, false, false, false],
+      "canAttemptUnlock": [
+        false,
+        true,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false
+      ],
+      "currentLevel": 0
+    },
+    {
+      "unlocked": ["polite", "roboemail", "robocall", "blimp"],
+      "isUnlocked": [true, false, false, false, false, false, false, false],
+      "canAttemptUnlock": [
+        false,
+        true,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false
+      ],
+      "currentLevel": 0
+    },
+    {
+      "unlocked": ["email", "roboemail", "robocall", "blimp"],
+      "isUnlocked": [true, true, true, false, false, false, false, false],
+      "canAttemptUnlock": [
+        false,
+        false,
+        false,
+        true,
+        false,
+        false,
+        false,
+        false
+      ],
+      "currentLevel": 2
+    },
+    {
+      "unlocked": ["polite", "email", "roboemail", "robocall", "blimp"],
+      "isUnlocked": [true, true, true, false, false, false, false, false],
+      "canAttemptUnlock": [
+        false,
+        false,
+        false,
+        true,
+        false,
+        false,
+        false,
+        false
+      ],
+      "currentLevel": 2
+    },
+    {
+      "unlocked": ["sms", "robocall", "blimp"],
+      "isUnlocked": [true, false, false, false, false, false, false, false],
+      "canAttemptUnlock": [
+        false,
+        true,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false
+      ],
+      "currentLevel": 0
+    },
+    {
+      "unlocked": ["polite", "sms", "robocall", "blimp"],
+      "isUnlocked": [true, false, false, false, false, false, false, false],
+      "canAttemptUnlock": [
+        false,
+        true,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false
+      ],
+      "currentLevel": 0
+    },
+    {
+      "unlocked": ["email", "sms", "robocall", "blimp"],
+      "isUnlocked": [true, true, false, false, false, false, false, false],
+      "canAttemptUnlock": [
+        false,
+        false,
+        true,
+        false,
+        false,
+        false,
+        false,
+        false
+      ],
+      "currentLevel": 1
+    },
+    {
+      "unlocked": ["polite", "email", "sms", "robocall", "blimp"],
+      "isUnlocked": [true, true, false, false, false, false, false, false],
+      "canAttemptUnlock": [
+        false,
+        false,
+        true,
+        false,
+        false,
+        false,
+        false,
+        false
+      ],
+      "currentLevel": 1
+    },
+    {
+      "unlocked": ["roboemail", "sms", "robocall", "blimp"],
+      "isUnlocked": [true, false, false, false, false, false, false, false],
+      "canAttemptUnlock": [
+        false,
+        true,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false
+      ],
+      "currentLevel": 0
+    },
+    {
+      "unlocked": ["polite", "roboemail", "sms", "robocall", "blimp"],
+      "isUnlocked": [true, false, false, false, false, false, false, false],
+      "canAttemptUnlock": [
+        false,
+        true,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false
+      ],
+      "currentLevel": 0
+    },
+    {
+      "unlocked": ["email", "roboemail", "sms", "robocall", "blimp"],
+      "isUnlocked": [true, true, true, true, true, false, false, false],
+      "canAttemptUnlock": [
+        false,
+        false,
+        false,
+        false,
+        false,
+        true,
+        false,
+        false
+      ],
+      "currentLevel": 4
+    },
+    {
+      "unlocked": ["polite", "email", "roboemail", "sms", "robocall", "blimp"],
+      "isUnlocked": [true, true, true, true, true, false, false, false],
+      "canAttemptUnlock": [
+        false,
+        false,
+        false,
+        false,
+        false,
+        true,
+        false,
+        false
+      ],
+      "currentLevel": 4
+    },
+    {
+      "unlocked": ["social", "blimp"],
+      "isUnlocked": [true, false, false, false, false, false, false, false],
+      "canAttemptUnlock": [
+        false,
+        true,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false
+      ],
+      "currentLevel": 0
+    },
+    {
+      "unlocked": ["polite", "social", "blimp"],
+      "isUnlocked": [true, false, false, false, false, false, false, false],
+      "canAttemptUnlock": [
+        false,
+        true,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false
+      ],
+      "currentLevel": 0
+    },
+    {
+      "unlocked": ["email", "social", "blimp"],
+      "isUnlocked": [true, true, false, false, false, false, false, false],
+      "canAttemptUnlock": [
+        false,
+        false,
+        true,
+        false,
+        false,
+        false,
+        false,
+        false
+      ],
+      "currentLevel": 1
+    },
+    {
+      "unlocked": ["polite", "email", "social", "blimp"],
+      "isUnlocked": [true, true, false, false, false, false, false, false],
+      "canAttemptUnlock": [
+        false,
+        false,
+        true,
+        false,
+        false,
+        false,
+        false,
+        false
+      ],
+      "currentLevel": 1
+    },
+    {
+      "unlocked": ["roboemail", "social", "blimp"],
+      "isUnlocked": [true, false, false, false, false, false, false, false],
+      "canAttemptUnlock": [
+        false,
+        true,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false
+      ],
+      "currentLevel": 0
+    },
+    {
+      "unlocked": ["polite", "roboemail", "social", "blimp"],
+      "isUnlocked": [true, false, false, false, false, false, false, false],
+      "canAttemptUnlock": [
+        false,
+        true,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false
+      ],
+      "currentLevel": 0
+    },
+    {
+      "unlocked": ["email", "roboemail", "social", "blimp"],
+      "isUnlocked": [true, true, true, false, false, false, false, false],
+      "canAttemptUnlock": [
+        false,
+        false,
+        false,
+        true,
+        false,
+        false,
+        false,
+        false
+      ],
+      "currentLevel": 2
+    },
+    {
+      "unlocked": ["polite", "email", "roboemail", "social", "blimp"],
+      "isUnlocked": [true, true, true, false, false, false, false, false],
+      "canAttemptUnlock": [
+        false,
+        false,
+        false,
+        true,
+        false,
+        false,
+        false,
+        false
+      ],
+      "currentLevel": 2
+    },
+    {
+      "unlocked": ["sms", "social", "blimp"],
+      "isUnlocked": [true, false, false, false, false, false, false, false],
+      "canAttemptUnlock": [
+        false,
+        true,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false
+      ],
+      "currentLevel": 0
+    },
+    {
+      "unlocked": ["polite", "sms", "social", "blimp"],
+      "isUnlocked": [true, false, false, false, false, false, false, false],
+      "canAttemptUnlock": [
+        false,
+        true,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false
+      ],
+      "currentLevel": 0
+    },
+    {
+      "unlocked": ["email", "sms", "social", "blimp"],
+      "isUnlocked": [true, true, false, false, false, false, false, false],
+      "canAttemptUnlock": [
+        false,
+        false,
+        true,
+        false,
+        false,
+        false,
+        false,
+        false
+      ],
+      "currentLevel": 1
+    },
+    {
+      "unlocked": ["polite", "email", "sms", "social", "blimp"],
+      "isUnlocked": [true, true, false, false, false, false, false, false],
+      "canAttemptUnlock": [
+        false,
+        false,
+        true,
+        false,
+        false,
+        false,
+        false,
+        false
+      ],
+      "currentLevel": 1
+    },
+    {
+      "unlocked": ["roboemail", "sms", "social", "blimp"],
+      "isUnlocked": [true, false, false, false, false, false, false, false],
+      "canAttemptUnlock": [
+        false,
+        true,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false
+      ],
+      "currentLevel": 0
+    },
+    {
+      "unlocked": ["polite", "roboemail", "sms", "social", "blimp"],
+      "isUnlocked": [true, false, false, false, false, false, false, false],
+      "canAttemptUnlock": [
+        false,
+        true,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false
+      ],
+      "currentLevel": 0
+    },
+    {
+      "unlocked": ["email", "roboemail", "sms", "social", "blimp"],
+      "isUnlocked": [true, true, true, true, false, false, false, false],
+      "canAttemptUnlock": [
+        false,
+        false,
+        false,
+        false,
+        true,
+        false,
+        false,
+        false
+      ],
+      "currentLevel": 3
+    },
+    {
+      "unlocked": ["polite", "email", "roboemail", "sms", "social", "blimp"],
+      "isUnlocked": [true, true, true, true, false, false, false, false],
+      "canAttemptUnlock": [
+        false,
+        false,
+        false,
+        false,
+        true,
+        false,
+        false,
+        false
+      ],
+      "currentLevel": 3
+    },
+    {
+      "unlocked": ["robocall", "social", "blimp"],
+      "isUnlocked": [true, false, false, false, false, false, false, false],
+      "canAttemptUnlock": [
+        false,
+        true,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false
+      ],
+      "currentLevel": 0
+    },
+    {
+      "unlocked": ["polite", "robocall", "social", "blimp"],
+      "isUnlocked": [true, false, false, false, false, false, false, false],
+      "canAttemptUnlock": [
+        false,
+        true,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false
+      ],
+      "currentLevel": 0
+    },
+    {
+      "unlocked": ["email", "robocall", "social", "blimp"],
+      "isUnlocked": [true, true, false, false, false, false, false, false],
+      "canAttemptUnlock": [
+        false,
+        false,
+        true,
+        false,
+        false,
+        false,
+        false,
+        false
+      ],
+      "currentLevel": 1
+    },
+    {
+      "unlocked": ["polite", "email", "robocall", "social", "blimp"],
+      "isUnlocked": [true, true, false, false, false, false, false, false],
+      "canAttemptUnlock": [
+        false,
+        false,
+        true,
+        false,
+        false,
+        false,
+        false,
+        false
+      ],
+      "currentLevel": 1
+    },
+    {
+      "unlocked": ["roboemail", "robocall", "social", "blimp"],
+      "isUnlocked": [true, false, false, false, false, false, false, false],
+      "canAttemptUnlock": [
+        false,
+        true,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false
+      ],
+      "currentLevel": 0
+    },
+    {
+      "unlocked": ["polite", "roboemail", "robocall", "social", "blimp"],
+      "isUnlocked": [true, false, false, false, false, false, false, false],
+      "canAttemptUnlock": [
+        false,
+        true,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false
+      ],
+      "currentLevel": 0
+    },
+    {
+      "unlocked": ["email", "roboemail", "robocall", "social", "blimp"],
+      "isUnlocked": [true, true, true, false, false, false, false, false],
+      "canAttemptUnlock": [
+        false,
+        false,
+        false,
+        true,
+        false,
+        false,
+        false,
+        false
+      ],
+      "currentLevel": 2
+    },
+    {
+      "unlocked": [
+        "polite",
+        "email",
+        "roboemail",
+        "robocall",
+        "social",
+        "blimp"
+      ],
+      "isUnlocked": [true, true, true, false, false, false, false, false],
+      "canAttemptUnlock": [
+        false,
+        false,
+        false,
+        true,
+        false,
+        false,
+        false,
+        false
+      ],
+      "currentLevel": 2
+    },
+    {
+      "unlocked": ["sms", "robocall", "social", "blimp"],
+      "isUnlocked": [true, false, false, false, false, false, false, false],
+      "canAttemptUnlock": [
+        false,
+        true,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false
+      ],
+      "currentLevel": 0
+    },
+    {
+      "unlocked": ["polite", "sms", "robocall", "social", "blimp"],
+      "isUnlocked": [true, false, false, false, false, false, false, false],
+      "canAttemptUnlock": [
+        false,
+        true,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false
+      ],
+      "currentLevel": 0
+    },
+    {
+      "unlocked": ["email", "sms", "robocall", "social", "blimp"],
+      "isUnlocked": [true, true, false, false, false, false, false, false],
+      "canAttemptUnlock": [
+        false,
+        false,
+        true,
+        false,
+        false,
+        false,
+        false,
+        false
+      ],
+      "currentLevel": 1
+    },
+    {
+      "unlocked": ["polite", "email", "sms", "robocall", "social", "blimp"],
+      "isUnlocked": [true, true, false, false, false, false, false, false],
+      "canAttemptUnlock": [
+        false,
+        false,
+        true,
+        false,
+        false,
+        false,
+        false,
+        false
+      ],
+      "currentLevel": 1
+    },
+    {
+      "unlocked": ["roboemail", "sms", "robocall", "social", "blimp"],
+      "isUnlocked": [true, false, false, false, false, false, false, false],
+      "canAttemptUnlock": [
+        false,
+        true,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false
+      ],
+      "currentLevel": 0
+    },
+    {
+      "unlocked": ["polite", "roboemail", "sms", "robocall", "social", "blimp"],
+      "isUnlocked": [true, false, false, false, false, false, false, false],
+      "canAttemptUnlock": [
+        false,
+        true,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false
+      ],
+      "currentLevel": 0
+    },
+    {
+      "unlocked": ["email", "roboemail", "sms", "robocall", "social", "blimp"],
+      "isUnlocked": [true, true, true, true, true, true, false, false],
+      "canAttemptUnlock": [
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        true,
+        false
+      ],
+      "currentLevel": 5
+    },
+    {
+      "unlocked": [
+        "polite",
+        "email",
+        "roboemail",
+        "sms",
+        "robocall",
+        "social",
+        "blimp"
+      ],
+      "isUnlocked": [true, true, true, true, true, true, false, false],
+      "canAttemptUnlock": [
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        true,
+        false
+      ],
+      "currentLevel": 5
+    },
+    {
+      "unlocked": ["osint", "blimp"],
+      "isUnlocked": [true, false, false, false, false, false, false, false],
+      "canAttemptUnlock": [
+        false,
+        true,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false
+      ],
+      "currentLevel": 0
+    },
+    {
+      "unlocked": ["polite", "osint", "blimp"],
+      "isUnlocked": [true, false, false, false, false, false, false, false],
+      "canAttemptUnlock": [
+        false,
+        true,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false
+      ],
+      "currentLevel": 0
+    },
+    {
+      "unlocked": ["email", "osint", "blimp"],
+      "isUnlocked": [true, true, false, false, false, false, false, false],
+      "canAttemptUnlock": [
+        false,
+        false,
+        true,
+        false,
+        false,
+        false,
+        false,
+        false
+      ],
+      "currentLevel": 1
+    },
+    {
+      "unlocked": ["polite", "email", "osint", "blimp"],
+      "isUnlocked": [true, true, false, false, false, false, false, false],
+      "canAttemptUnlock": [
+        false,
+        false,
+        true,
+        false,
+        false,
+        false,
+        false,
+        false
+      ],
+      "currentLevel": 1
+    },
+    {
+      "unlocked": ["roboemail", "osint", "blimp"],
+      "isUnlocked": [true, false, false, false, false, false, false, false],
+      "canAttemptUnlock": [
+        false,
+        true,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false
+      ],
+      "currentLevel": 0
+    },
+    {
+      "unlocked": ["polite", "roboemail", "osint", "blimp"],
+      "isUnlocked": [true, false, false, false, false, false, false, false],
+      "canAttemptUnlock": [
+        false,
+        true,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false
+      ],
+      "currentLevel": 0
+    },
+    {
+      "unlocked": ["email", "roboemail", "osint", "blimp"],
+      "isUnlocked": [true, true, true, false, false, false, false, false],
+      "canAttemptUnlock": [
+        false,
+        false,
+        false,
+        true,
+        false,
+        false,
+        false,
+        false
+      ],
+      "currentLevel": 2
+    },
+    {
+      "unlocked": ["polite", "email", "roboemail", "osint", "blimp"],
+      "isUnlocked": [true, true, true, false, false, false, false, false],
+      "canAttemptUnlock": [
+        false,
+        false,
+        false,
+        true,
+        false,
+        false,
+        false,
+        false
+      ],
+      "currentLevel": 2
+    },
+    {
+      "unlocked": ["sms", "osint", "blimp"],
+      "isUnlocked": [true, false, false, false, false, false, false, false],
+      "canAttemptUnlock": [
+        false,
+        true,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false
+      ],
+      "currentLevel": 0
+    },
+    {
+      "unlocked": ["polite", "sms", "osint", "blimp"],
+      "isUnlocked": [true, false, false, false, false, false, false, false],
+      "canAttemptUnlock": [
+        false,
+        true,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false
+      ],
+      "currentLevel": 0
+    },
+    {
+      "unlocked": ["email", "sms", "osint", "blimp"],
+      "isUnlocked": [true, true, false, false, false, false, false, false],
+      "canAttemptUnlock": [
+        false,
+        false,
+        true,
+        false,
+        false,
+        false,
+        false,
+        false
+      ],
+      "currentLevel": 1
+    },
+    {
+      "unlocked": ["polite", "email", "sms", "osint", "blimp"],
+      "isUnlocked": [true, true, false, false, false, false, false, false],
+      "canAttemptUnlock": [
+        false,
+        false,
+        true,
+        false,
+        false,
+        false,
+        false,
+        false
+      ],
+      "currentLevel": 1
+    },
+    {
+      "unlocked": ["roboemail", "sms", "osint", "blimp"],
+      "isUnlocked": [true, false, false, false, false, false, false, false],
+      "canAttemptUnlock": [
+        false,
+        true,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false
+      ],
+      "currentLevel": 0
+    },
+    {
+      "unlocked": ["polite", "roboemail", "sms", "osint", "blimp"],
+      "isUnlocked": [true, false, false, false, false, false, false, false],
+      "canAttemptUnlock": [
+        false,
+        true,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false
+      ],
+      "currentLevel": 0
+    },
+    {
+      "unlocked": ["email", "roboemail", "sms", "osint", "blimp"],
+      "isUnlocked": [true, true, true, true, false, false, false, false],
+      "canAttemptUnlock": [
+        false,
+        false,
+        false,
+        false,
+        true,
+        false,
+        false,
+        false
+      ],
+      "currentLevel": 3
+    },
+    {
+      "unlocked": ["polite", "email", "roboemail", "sms", "osint", "blimp"],
+      "isUnlocked": [true, true, true, true, false, false, false, false],
+      "canAttemptUnlock": [
+        false,
+        false,
+        false,
+        false,
+        true,
+        false,
+        false,
+        false
+      ],
+      "currentLevel": 3
+    },
+    {
+      "unlocked": ["robocall", "osint", "blimp"],
+      "isUnlocked": [true, false, false, false, false, false, false, false],
+      "canAttemptUnlock": [
+        false,
+        true,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false
+      ],
+      "currentLevel": 0
+    },
+    {
+      "unlocked": ["polite", "robocall", "osint", "blimp"],
+      "isUnlocked": [true, false, false, false, false, false, false, false],
+      "canAttemptUnlock": [
+        false,
+        true,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false
+      ],
+      "currentLevel": 0
+    },
+    {
+      "unlocked": ["email", "robocall", "osint", "blimp"],
+      "isUnlocked": [true, true, false, false, false, false, false, false],
+      "canAttemptUnlock": [
+        false,
+        false,
+        true,
+        false,
+        false,
+        false,
+        false,
+        false
+      ],
+      "currentLevel": 1
+    },
+    {
+      "unlocked": ["polite", "email", "robocall", "osint", "blimp"],
+      "isUnlocked": [true, true, false, false, false, false, false, false],
+      "canAttemptUnlock": [
+        false,
+        false,
+        true,
+        false,
+        false,
+        false,
+        false,
+        false
+      ],
+      "currentLevel": 1
+    },
+    {
+      "unlocked": ["roboemail", "robocall", "osint", "blimp"],
+      "isUnlocked": [true, false, false, false, false, false, false, false],
+      "canAttemptUnlock": [
+        false,
+        true,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false
+      ],
+      "currentLevel": 0
+    },
+    {
+      "unlocked": ["polite", "roboemail", "robocall", "osint", "blimp"],
+      "isUnlocked": [true, false, false, false, false, false, false, false],
+      "canAttemptUnlock": [
+        false,
+        true,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false
+      ],
+      "currentLevel": 0
+    },
+    {
+      "unlocked": ["email", "roboemail", "robocall", "osint", "blimp"],
+      "isUnlocked": [true, true, true, false, false, false, false, false],
+      "canAttemptUnlock": [
+        false,
+        false,
+        false,
+        true,
+        false,
+        false,
+        false,
+        false
+      ],
+      "currentLevel": 2
+    },
+    {
+      "unlocked": [
+        "polite",
+        "email",
+        "roboemail",
+        "robocall",
+        "osint",
+        "blimp"
+      ],
+      "isUnlocked": [true, true, true, false, false, false, false, false],
+      "canAttemptUnlock": [
+        false,
+        false,
+        false,
+        true,
+        false,
+        false,
+        false,
+        false
+      ],
+      "currentLevel": 2
+    },
+    {
+      "unlocked": ["sms", "robocall", "osint", "blimp"],
+      "isUnlocked": [true, false, false, false, false, false, false, false],
+      "canAttemptUnlock": [
+        false,
+        true,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false
+      ],
+      "currentLevel": 0
+    },
+    {
+      "unlocked": ["polite", "sms", "robocall", "osint", "blimp"],
+      "isUnlocked": [true, false, false, false, false, false, false, false],
+      "canAttemptUnlock": [
+        false,
+        true,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false
+      ],
+      "currentLevel": 0
+    },
+    {
+      "unlocked": ["email", "sms", "robocall", "osint", "blimp"],
+      "isUnlocked": [true, true, false, false, false, false, false, false],
+      "canAttemptUnlock": [
+        false,
+        false,
+        true,
+        false,
+        false,
+        false,
+        false,
+        false
+      ],
+      "currentLevel": 1
+    },
+    {
+      "unlocked": ["polite", "email", "sms", "robocall", "osint", "blimp"],
+      "isUnlocked": [true, true, false, false, false, false, false, false],
+      "canAttemptUnlock": [
+        false,
+        false,
+        true,
+        false,
+        false,
+        false,
+        false,
+        false
+      ],
+      "currentLevel": 1
+    },
+    {
+      "unlocked": ["roboemail", "sms", "robocall", "osint", "blimp"],
+      "isUnlocked": [true, false, false, false, false, false, false, false],
+      "canAttemptUnlock": [
+        false,
+        true,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false
+      ],
+      "currentLevel": 0
+    },
+    {
+      "unlocked": ["polite", "roboemail", "sms", "robocall", "osint", "blimp"],
+      "isUnlocked": [true, false, false, false, false, false, false, false],
+      "canAttemptUnlock": [
+        false,
+        true,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false
+      ],
+      "currentLevel": 0
+    },
+    {
+      "unlocked": ["email", "roboemail", "sms", "robocall", "osint", "blimp"],
+      "isUnlocked": [true, true, true, true, true, false, false, false],
+      "canAttemptUnlock": [
+        false,
+        false,
+        false,
+        false,
+        false,
+        true,
+        false,
+        false
+      ],
+      "currentLevel": 4
+    },
+    {
+      "unlocked": [
+        "polite",
+        "email",
+        "roboemail",
+        "sms",
+        "robocall",
+        "osint",
+        "blimp"
+      ],
+      "isUnlocked": [true, true, true, true, true, false, false, false],
+      "canAttemptUnlock": [
+        false,
+        false,
+        false,
+        false,
+        false,
+        true,
+        false,
+        false
+      ],
+      "currentLevel": 4
+    },
+    {
+      "unlocked": ["social", "osint", "blimp"],
+      "isUnlocked": [true, false, false, false, false, false, false, false],
+      "canAttemptUnlock": [
+        false,
+        true,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false
+      ],
+      "currentLevel": 0
+    },
+    {
+      "unlocked": ["polite", "social", "osint", "blimp"],
+      "isUnlocked": [true, false, false, false, false, false, false, false],
+      "canAttemptUnlock": [
+        false,
+        true,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false
+      ],
+      "currentLevel": 0
+    },
+    {
+      "unlocked": ["email", "social", "osint", "blimp"],
+      "isUnlocked": [true, true, false, false, false, false, false, false],
+      "canAttemptUnlock": [
+        false,
+        false,
+        true,
+        false,
+        false,
+        false,
+        false,
+        false
+      ],
+      "currentLevel": 1
+    },
+    {
+      "unlocked": ["polite", "email", "social", "osint", "blimp"],
+      "isUnlocked": [true, true, false, false, false, false, false, false],
+      "canAttemptUnlock": [
+        false,
+        false,
+        true,
+        false,
+        false,
+        false,
+        false,
+        false
+      ],
+      "currentLevel": 1
+    },
+    {
+      "unlocked": ["roboemail", "social", "osint", "blimp"],
+      "isUnlocked": [true, false, false, false, false, false, false, false],
+      "canAttemptUnlock": [
+        false,
+        true,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false
+      ],
+      "currentLevel": 0
+    },
+    {
+      "unlocked": ["polite", "roboemail", "social", "osint", "blimp"],
+      "isUnlocked": [true, false, false, false, false, false, false, false],
+      "canAttemptUnlock": [
+        false,
+        true,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false
+      ],
+      "currentLevel": 0
+    },
+    {
+      "unlocked": ["email", "roboemail", "social", "osint", "blimp"],
+      "isUnlocked": [true, true, true, false, false, false, false, false],
+      "canAttemptUnlock": [
+        false,
+        false,
+        false,
+        true,
+        false,
+        false,
+        false,
+        false
+      ],
+      "currentLevel": 2
+    },
+    {
+      "unlocked": ["polite", "email", "roboemail", "social", "osint", "blimp"],
+      "isUnlocked": [true, true, true, false, false, false, false, false],
+      "canAttemptUnlock": [
+        false,
+        false,
+        false,
+        true,
+        false,
+        false,
+        false,
+        false
+      ],
+      "currentLevel": 2
+    },
+    {
+      "unlocked": ["sms", "social", "osint", "blimp"],
+      "isUnlocked": [true, false, false, false, false, false, false, false],
+      "canAttemptUnlock": [
+        false,
+        true,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false
+      ],
+      "currentLevel": 0
+    },
+    {
+      "unlocked": ["polite", "sms", "social", "osint", "blimp"],
+      "isUnlocked": [true, false, false, false, false, false, false, false],
+      "canAttemptUnlock": [
+        false,
+        true,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false
+      ],
+      "currentLevel": 0
+    },
+    {
+      "unlocked": ["email", "sms", "social", "osint", "blimp"],
+      "isUnlocked": [true, true, false, false, false, false, false, false],
+      "canAttemptUnlock": [
+        false,
+        false,
+        true,
+        false,
+        false,
+        false,
+        false,
+        false
+      ],
+      "currentLevel": 1
+    },
+    {
+      "unlocked": ["polite", "email", "sms", "social", "osint", "blimp"],
+      "isUnlocked": [true, true, false, false, false, false, false, false],
+      "canAttemptUnlock": [
+        false,
+        false,
+        true,
+        false,
+        false,
+        false,
+        false,
+        false
+      ],
+      "currentLevel": 1
+    },
+    {
+      "unlocked": ["roboemail", "sms", "social", "osint", "blimp"],
+      "isUnlocked": [true, false, false, false, false, false, false, false],
+      "canAttemptUnlock": [
+        false,
+        true,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false
+      ],
+      "currentLevel": 0
+    },
+    {
+      "unlocked": ["polite", "roboemail", "sms", "social", "osint", "blimp"],
+      "isUnlocked": [true, false, false, false, false, false, false, false],
+      "canAttemptUnlock": [
+        false,
+        true,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false
+      ],
+      "currentLevel": 0
+    },
+    {
+      "unlocked": ["email", "roboemail", "sms", "social", "osint", "blimp"],
+      "isUnlocked": [true, true, true, true, false, false, false, false],
+      "canAttemptUnlock": [
+        false,
+        false,
+        false,
+        false,
+        true,
+        false,
+        false,
+        false
+      ],
+      "currentLevel": 3
+    },
+    {
+      "unlocked": [
+        "polite",
+        "email",
+        "roboemail",
+        "sms",
+        "social",
+        "osint",
+        "blimp"
+      ],
+      "isUnlocked": [true, true, true, true, false, false, false, false],
+      "canAttemptUnlock": [
+        false,
+        false,
+        false,
+        false,
+        true,
+        false,
+        false,
+        false
+      ],
+      "currentLevel": 3
+    },
+    {
+      "unlocked": ["robocall", "social", "osint", "blimp"],
+      "isUnlocked": [true, false, false, false, false, false, false, false],
+      "canAttemptUnlock": [
+        false,
+        true,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false
+      ],
+      "currentLevel": 0
+    },
+    {
+      "unlocked": ["polite", "robocall", "social", "osint", "blimp"],
+      "isUnlocked": [true, false, false, false, false, false, false, false],
+      "canAttemptUnlock": [
+        false,
+        true,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false
+      ],
+      "currentLevel": 0
+    },
+    {
+      "unlocked": ["email", "robocall", "social", "osint", "blimp"],
+      "isUnlocked": [true, true, false, false, false, false, false, false],
+      "canAttemptUnlock": [
+        false,
+        false,
+        true,
+        false,
+        false,
+        false,
+        false,
+        false
+      ],
+      "currentLevel": 1
+    },
+    {
+      "unlocked": ["polite", "email", "robocall", "social", "osint", "blimp"],
+      "isUnlocked": [true, true, false, false, false, false, false, false],
+      "canAttemptUnlock": [
+        false,
+        false,
+        true,
+        false,
+        false,
+        false,
+        false,
+        false
+      ],
+      "currentLevel": 1
+    },
+    {
+      "unlocked": ["roboemail", "robocall", "social", "osint", "blimp"],
+      "isUnlocked": [true, false, false, false, false, false, false, false],
+      "canAttemptUnlock": [
+        false,
+        true,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false
+      ],
+      "currentLevel": 0
+    },
+    {
+      "unlocked": [
+        "polite",
+        "roboemail",
+        "robocall",
+        "social",
+        "osint",
+        "blimp"
+      ],
+      "isUnlocked": [true, false, false, false, false, false, false, false],
+      "canAttemptUnlock": [
+        false,
+        true,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false
+      ],
+      "currentLevel": 0
+    },
+    {
+      "unlocked": [
+        "email",
+        "roboemail",
+        "robocall",
+        "social",
+        "osint",
+        "blimp"
+      ],
+      "isUnlocked": [true, true, true, false, false, false, false, false],
+      "canAttemptUnlock": [
+        false,
+        false,
+        false,
+        true,
+        false,
+        false,
+        false,
+        false
+      ],
+      "currentLevel": 2
+    },
+    {
+      "unlocked": [
+        "polite",
+        "email",
+        "roboemail",
+        "robocall",
+        "social",
+        "osint",
+        "blimp"
+      ],
+      "isUnlocked": [true, true, true, false, false, false, false, false],
+      "canAttemptUnlock": [
+        false,
+        false,
+        false,
+        true,
+        false,
+        false,
+        false,
+        false
+      ],
+      "currentLevel": 2
+    },
+    {
+      "unlocked": ["sms", "robocall", "social", "osint", "blimp"],
+      "isUnlocked": [true, false, false, false, false, false, false, false],
+      "canAttemptUnlock": [
+        false,
+        true,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false
+      ],
+      "currentLevel": 0
+    },
+    {
+      "unlocked": ["polite", "sms", "robocall", "social", "osint", "blimp"],
+      "isUnlocked": [true, false, false, false, false, false, false, false],
+      "canAttemptUnlock": [
+        false,
+        true,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false
+      ],
+      "currentLevel": 0
+    },
+    {
+      "unlocked": ["email", "sms", "robocall", "social", "osint", "blimp"],
+      "isUnlocked": [true, true, false, false, false, false, false, false],
+      "canAttemptUnlock": [
+        false,
+        false,
+        true,
+        false,
+        false,
+        false,
+        false,
+        false
+      ],
+      "currentLevel": 1
+    },
+    {
+      "unlocked": [
+        "polite",
+        "email",
+        "sms",
+        "robocall",
+        "social",
+        "osint",
+        "blimp"
+      ],
+      "isUnlocked": [true, true, false, false, false, false, false, false],
+      "canAttemptUnlock": [
+        false,
+        false,
+        true,
+        false,
+        false,
+        false,
+        false,
+        false
+      ],
+      "currentLevel": 1
+    },
+    {
+      "unlocked": ["roboemail", "sms", "robocall", "social", "osint", "blimp"],
+      "isUnlocked": [true, false, false, false, false, false, false, false],
+      "canAttemptUnlock": [
+        false,
+        true,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false
+      ],
+      "currentLevel": 0
+    },
+    {
+      "unlocked": [
+        "polite",
+        "roboemail",
+        "sms",
+        "robocall",
+        "social",
+        "osint",
+        "blimp"
+      ],
+      "isUnlocked": [true, false, false, false, false, false, false, false],
+      "canAttemptUnlock": [
+        false,
+        true,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false
+      ],
+      "currentLevel": 0
+    },
+    {
+      "unlocked": [
+        "email",
+        "roboemail",
+        "sms",
+        "robocall",
+        "social",
+        "osint",
+        "blimp"
+      ],
+      "isUnlocked": [true, true, true, true, true, true, true, true],
+      "canAttemptUnlock": [
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false
+      ],
+      "currentLevel": 7
+    },
+    {
+      "unlocked": [
+        "polite",
+        "email",
+        "roboemail",
+        "sms",
+        "robocall",
+        "social",
+        "osint",
+        "blimp"
+      ],
+      "isUnlocked": [true, true, true, true, true, true, true, true],
+      "canAttemptUnlock": [
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false
+      ],
+      "currentLevel": 7
+    }
+  ],
+  "keyCases": [
+    {
+      "value": "",
+      "error": "Enter a key."
+    },
+    {
+      "value": "   ",
+      "error": "Enter a key."
+    },
+    {
+      "value": "\t",
+      "error": "Enter a key."
+    },
+    {
+      "value": "abc",
+      "error": "Keys are at least 8 characters long."
+    },
+    {
+      "value": "abc def ghi",
+      "error": "Keys don't have spaces in them."
+    },
+    {
+      "value": "abcdefg",
+      "error": "Keys are at least 8 characters long."
+    },
+    {
+      "value": "abcdefgh",
+      "error": null
+    },
+    {
+      "value": "  sk-12345678  ",
+      "error": null
+    },
+    {
+      "value": "SG.abcdef123",
+      "error": null
+    },
+    {
+      "value": "sk-tts-xxxxxxxxxxxx",
+      "error": null
+    },
+    {
+      "value": "abc\tdef123",
+      "error": "Keys don't have spaces in them."
+    },
+    {
+      "value": "abcdefgh ",
+      "error": null
+    },
+    {
+      "value": "a b c d e f g h",
+      "error": "Keys don't have spaces in them."
+    }
+  ]
+}
