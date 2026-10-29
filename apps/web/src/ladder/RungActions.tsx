@@ -9,6 +9,7 @@ import {
 } from "@rengas/shared";
 import { useStartRun } from "../api/queries.ts";
 import { useActivity } from "../activity/ActivityProvider.tsx";
+import { FinderPanel } from "../finder/FinderPanel.tsx";
 import { format } from "../format.ts";
 import { Mark } from "../Mark.tsx";
 import { speakRobocall } from "../speech/speech.ts";
@@ -21,7 +22,11 @@ export function RungActions({ rung, state }: { rung: Rung; state: AppState }) {
       <ul className="actions">
         {rung.actions.map((action) => (
           <li key={action.id} className="action" data-action={action.id}>
-            <ActionControl action={action} state={state} />
+            {action.mode === "finder" ? (
+              <FinderPanel action={action} state={state} />
+            ) : (
+              <ActionControl action={action} state={state} />
+            )}
           </li>
         ))}
       </ul>
@@ -61,7 +66,13 @@ function KeyStatus({ rung, state }: { rung: Rung; state: AppState }) {
   );
 }
 
-function ActionControl({ action, state }: { action: Action; state: AppState }) {
+function ActionControl({
+  action,
+  state,
+}: {
+  action: Exclude<Action, { mode: "finder" }>;
+  state: AppState;
+}) {
   const start = useStartRun();
   const { addLocalLine } = useActivity();
   const running =
@@ -81,11 +92,10 @@ function ActionControl({ action, state }: { action: Action; state: AppState }) {
       reason: SIMULATE_REASONS[choice.reason],
     });
   }
-  // The send preview and the finder search are built by later parts of the app.
+  // The send preview is built by a later part of the app.
   if (real)
     note = "Real sends open a preview first. The preview isn't available yet.";
-  if (action.mode === "finder") note = "The finder search isn't connected yet.";
-  const runnable = !real && action.mode !== "finder";
+  const runnable = !real;
   const speech = action.mode === "simulation-only" ? action.speech : undefined;
 
   return (
@@ -102,12 +112,7 @@ function ActionControl({ action, state }: { action: Action; state: AppState }) {
         >
           {running ? SYSTEM_LINES.running : action.label}
         </button>
-        {action.mode === "finder" ? (
-          <Mark
-            id={markId}
-            kind={state.finderMode === "web-search" ? "webSearch" : "example"}
-          />
-        ) : real ? (
+        {real ? (
           <span id={markId} className="mark mark-real">
             REAL{choice.recipient && ` → ${choice.recipient}`}
           </span>

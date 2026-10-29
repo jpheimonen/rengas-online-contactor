@@ -742,6 +742,119 @@ main {
   justify-content: flex-start;
 }
 
+/* Finder */
+
+.finder {
+  display: grid;
+  gap: var(--s3);
+  width: 100%;
+}
+.finder-title {
+  margin: var(--s2) 0 0;
+  font-size: 18px;
+}
+.finder-strip {
+  margin: 0;
+  padding: var(--s2) var(--s3);
+  border-radius: 8px;
+  font-size: 14px;
+}
+.finder-strip.web {
+  background: var(--web-bg);
+  color: var(--web-ink);
+}
+.finder-strip.example {
+  background: var(--warn-bg);
+  color: var(--warn-ink);
+}
+.finder-problem {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--s3);
+}
+.finder-problem .form-error {
+  margin: 0;
+}
+.finder-cards {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 260px), 1fr));
+  gap: var(--s3);
+}
+.finder-card {
+  display: flex;
+  flex-direction: column;
+  gap: var(--s2);
+  height: 100%;
+  box-sizing: border-box;
+  padding: var(--s4);
+  border: 1px solid var(--rule);
+  border-radius: 10px;
+  background: var(--surface);
+  overflow-wrap: anywhere;
+}
+.finder-card-tag {
+  align-self: flex-start;
+  margin: 0;
+}
+.finder-card-name {
+  margin: 0;
+  font-size: 18px;
+  line-height: 1.3;
+}
+.finder-card-offer {
+  margin: 0;
+}
+.finder-card-facts {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--s1) var(--s4);
+  margin: 0;
+  font-size: 14px;
+}
+.finder-card-facts div {
+  display: flex;
+  gap: var(--s1);
+}
+.finder-card-facts dt {
+  color: var(--ink-2);
+}
+.finder-card-facts dt::after {
+  content: ":";
+}
+.finder-card-facts dd {
+  margin: 0;
+}
+.finder-card-note {
+  margin: auto 0 0;
+  padding-top: var(--s2);
+  border-top: 1px solid var(--rule);
+  color: var(--ink-2);
+  font-size: 13px;
+}
+.finder-card-foot {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--s3);
+}
+.finder-card-foot .button {
+  flex: 1 1 160px;
+}
+.finder-source {
+  display: grid;
+  color: var(--focus);
+  font-size: 14px;
+}
+.finder-domain {
+  color: var(--ink-2);
+  font-size: 12px;
+}
+
 .higher-toggle {
   width: 100%;
 }

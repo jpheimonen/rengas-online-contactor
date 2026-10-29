@@ -1,9 +1,11 @@
 import {
   apiErrorSchema,
+  finderResponseSchema,
   startRunResponseSchema,
   stateSchema,
   type ApiError,
   type AppState,
+  type FinderKind,
   type RungId,
   type StartRunRequest,
   type UnlockRequest,
@@ -67,4 +69,9 @@ export const api = {
   reset: () => request("/reset", stateSchema, { method: "POST" }),
   startRun: (body: StartRunRequest) =>
     request("/runs", startRunResponseSchema, { method: "POST", body }),
+  finder: (kind: FinderKind) =>
+    request("/finder", finderResponseSchema, {
+      method: "POST",
+      body: { kind },
+    }),
 };
