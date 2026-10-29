@@ -54,16 +54,19 @@ export default defineConfig({
   ],
   webServer: [
     {
-      // No .env here: the tests run without provider keys. The preload records
-      // any connection the server tries to open to a non-local address.
+      // No .env here. The server runs with faked providers (key checks, codes
+      // and real sends), so the real-send flow can be driven without keys. The
+      // preload records any connection it tries to open to a non-local address.
       command:
-        "pnpm build && pnpm --filter @rengas/server exec tsx --import ../../e2e/support/no-outbound.mjs src/index.ts",
+        "pnpm build && pnpm --filter @rengas/server exec tsx --import ../../e2e/support/no-outbound.mjs src/fake-provider-server.ts",
       url: `http://127.0.0.1:${PORT}/api/health`,
       env: {
         APP_SECRET: "e2e-secret-e2e-secret-e2e-secret-00",
         PORT: String(PORT),
         DATABASE_PATH: join(tmpdir(), `rengas-e2e-${process.pid}.db`),
         OUTBOUND_LOG,
+        // Small, so the limit journey only needs two sends.
+        SEND_LIMIT_EMAIL_PER_HOUR: "2",
       },
       reuseExistingServer: false,
       timeout: 180_000,

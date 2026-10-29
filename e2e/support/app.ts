@@ -69,3 +69,82 @@ export async function expectNoAxeViolations(page: Page) {
     ),
   ).toEqual([]);
 }
+
+/** Unlocks the next rung with real keys; the e2e server's fake providers accept them. */
+export async function unlockReal(
+  page: Page,
+  rungId: string,
+  keys: Record<string, string>,
+) {
+  const row = rungRow(page, rungId);
+  for (const [label, value] of Object.entries(keys))
+    await row.getByLabel(label).fill(value);
+  await row.getByRole("button", { name: /^Unlock level/ }).click();
+  await expect(row.getByRole("button", { name: /Current/ })).toBeVisible();
+}
+
+/** An address no other test uses, so the fake's records can be told apart. */
+export const uniqueEmail = () =>
+  `op-${Date.now()}-${Math.floor(Math.random() * 1e6)}@example.com`;
+export const uniquePhone = () =>
+  `+35840${String(Math.floor(Math.random() * 1e7)).padStart(7, "0")}`;
+
+/** The stand-ins dialog, opened from the header. */
+export async function openStandIns(page: Page) {
+  await page.getByRole("button", { name: /Your stand-ins/ }).click();
+  const dialog = page.getByRole("dialog", {
+    name: "Your stand-in inbox and phone",
+  });
+  await expect(dialog).toBeVisible();
+  return dialog;
+}
+
+/** Reads the last email code the fake Resend "sent" to this address. */
+export async function emailCode(page: Page, address: string): Promise<string> {
+  const response = await page.request.get(
+    `/__fake/codes?to=${encodeURIComponent(address)}`,
+  );
+  const { code } = (await response.json()) as { code: string | null };
+  if (!code) throw new Error(`No code was sent to ${address}`);
+  return code;
+}
+
+/** The fake Twilio Verify accepts this code for any phone. */
+export const PHONE_CODE = "246810";
+
+/** Every real send the fake adapters made to this address. */
+export async function fakeSends(page: Page, to: string) {
+  const response = await page.request.get("/__fake/sends");
+  const all = (await response.json()) as {
+    channel: string;
+    to: string;
+    content: Record<string, unknown>;
+  }[];
+  return all.filter((send) => send.to === to);
+}
+
+/** Adds and verifies an inbox or phone through the stand-ins dialog, then closes it. */
+export async function verifyStandIn(page: Page, address: string) {
+  const email = !address.startsWith("+");
+  const dialog = await openStandIns(page);
+  const section = dialog.getByRole("region", {
+    name: email ? "Inbox" : "Phone",
+  });
+  await section
+    .getByLabel(email ? "Your email address" : "Your phone number")
+    .fill(address);
+  await section
+    .getByRole("button", {
+      name: email ? "Send email code" : "Send phone code",
+    })
+    .click();
+  await expect(section.getByText("Waiting for code")).toBeVisible();
+  const code = email ? await emailCode(page, address) : PHONE_CODE;
+  await section.getByLabel("Verification code").fill(code);
+  await section
+    .getByRole("button", { name: email ? "Verify inbox" : "Verify phone" })
+    .click();
+  await expect(section.getByText(/Verified$/)).toBeVisible();
+  await dialog.getByRole("button", { name: "Close" }).click();
+  await expect(dialog).toBeHidden();
+}

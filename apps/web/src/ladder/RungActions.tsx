@@ -1,6 +1,8 @@
 import {
   PROVIDER_NAMES,
+  SEND_COPY,
   SIMULATE_REASONS,
+  STAND_IN_COPY,
   SYSTEM_LINES,
   type Action,
   type ActionId,
@@ -12,6 +14,7 @@ import { useActivity } from "../activity/ActivityProvider.tsx";
 import { FinderPanel } from "../finder/FinderPanel.tsx";
 import { format } from "../format.ts";
 import { Mark } from "../Mark.tsx";
+import { useSends, type RealActionId } from "../sends/SendsProvider.tsx";
 import { speakRobocall } from "../speech/speech.ts";
 
 /** An unlocked rung: how it was unlocked, then its actions. */
@@ -74,6 +77,7 @@ function ActionControl({
   state: AppState;
 }) {
   const start = useStartRun();
+  const { openPreview, openStandIns } = useSends();
   const { addLocalLine } = useActivity();
   const running =
     state.runningActionIds.includes(action.id as ActionId) || start.isPending;
@@ -91,11 +95,17 @@ function ActionControl({
     note = format(SYSTEM_LINES.simulating, {
       reason: SIMULATE_REASONS[choice.reason],
     });
+    if (action.mode === "real-capable") {
+      const used = limitUsed(state, action.channel, choice.reason);
+      if (used) note += ` ${used}`;
+    }
   }
-  // The send preview is built by a later part of the app.
-  if (real)
-    note = "Real sends open a preview first. The preview isn't available yet.";
-  const runnable = !real;
+  const setup =
+    choice?.reason === "no-verified-inbox"
+      ? STAND_IN_COPY.setupInbox
+      : choice?.reason === "no-verified-phone"
+        ? STAND_IN_COPY.setupPhone
+        : null;
   const speech = action.mode === "simulation-only" ? action.speech : undefined;
 
   return (
@@ -106,23 +116,35 @@ function ActionControl({
           className={
             real ? "button primary action-button" : "button action-button"
           }
-          disabled={running || !runnable}
-          aria-describedby={note ? `${markId} ${noteId}` : markId}
-          onClick={() => start.mutate({ actionId: action.id as ActionId })}
+          disabled={running}
+          aria-describedby={note || real ? `${markId} ${noteId}` : markId}
+          onClick={() =>
+            real
+              ? openPreview(action.id as RealActionId)
+              : start.mutate({ actionId: action.id as ActionId })
+          }
         >
           {running ? SYSTEM_LINES.running : action.label}
         </button>
         {real ? (
-          <span id={markId} className="mark mark-real">
-            REAL{choice.recipient && ` → ${choice.recipient}`}
-          </span>
+          <Mark id={markId} kind="real" detail={choice.recipient} />
         ) : (
           <Mark id={markId} kind="simulated" />
         )}
       </div>
+      {real && (
+        <p className="help" id={noteId}>
+          {SEND_COPY.actionHelp}
+        </p>
+      )}
       {note && (
         <p className="help" id={noteId}>
-          {note}
+          {note}{" "}
+          {setup && (
+            <button type="button" className="link" onClick={openStandIns}>
+              {setup}
+            </button>
+          )}
         </p>
       )}
       {start.error && (
@@ -141,4 +163,21 @@ function ActionControl({
       )}
     </>
   );
+}
+
+/** "3 of 3 emails used this hour." when a limit is why the action simulates. */
+function limitUsed(
+  state: AppState,
+  channel: "email" | "sms" | "voice",
+  reason: string,
+): string | null {
+  if (reason === "hour-limit") {
+    const { used, max } = state.limits.hour[channel];
+    return `${used} of ${max} ${SEND_COPY.sendWords[channel]} used this hour.`;
+  }
+  if (reason === "day-limit") {
+    const { used, max } = state.limits.day;
+    return `${used} of ${max} real sends used today.`;
+  }
+  return null;
 }

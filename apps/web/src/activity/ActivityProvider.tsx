@@ -51,6 +51,9 @@ export function ActivityProvider({ children }: { children: ReactNode }) {
       if (event.id <= known) return;
       if (event.type !== "system" && FINISHED.has(event.type)) {
         setRunning(client, event.actionId, false);
+        // A real send changes the limits left.
+        if (event.mode === "real")
+          void client.invalidateQueries({ queryKey: stateKey });
       } else if (
         event.type === "system" &&
         (event.kind === "unlock" || event.kind === "de-escalate")

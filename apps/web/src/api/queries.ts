@@ -32,11 +32,40 @@ export const useUnlock = () =>
 
 export const useReset = () => useStateMutation(api.reset);
 
+/**
+ * Recipient calls answer with the recipient, not the whole state, and they
+ * change which actions are real, so the state is fetched again afterwards.
+ */
+function useRecipientMutation<V, R>(fn: (variables: V) => Promise<R>) {
+  const client = useQueryClient();
+  return useMutation({
+    mutationFn: fn,
+    onSettled: () => client.invalidateQueries({ queryKey: stateKey }),
+  });
+}
+
+export const useAddRecipient = () => useRecipientMutation(api.addRecipient);
+
+export const useVerifyRecipient = () =>
+  useRecipientMutation(({ id, code }: { id: string; code: string }) =>
+    api.verifyRecipient(id, code),
+  );
+
+export const useRemoveRecipient = () =>
+  useRecipientMutation(api.removeRecipient);
+
+export const usePreview = () => useMutation({ mutationFn: api.preview });
+
 export function useStartRun() {
   const client = useQueryClient();
   return useMutation({
     mutationFn: api.startRun,
-    onSuccess: (_, { actionId }) => setRunning(client, actionId, true),
+    onSuccess: ({ mode }, { actionId }) => {
+      setRunning(client, actionId, true);
+      // The confirmed send now counts toward the limits.
+      if (mode === "real")
+        void client.invalidateQueries({ queryKey: stateKey });
+    },
   });
 }
 

@@ -1,12 +1,16 @@
 import {
   apiErrorSchema,
   finderResponseSchema,
+  recipientSchema,
+  sendPreviewSchema,
   startRunResponseSchema,
   stateSchema,
   type ApiError,
   type AppState,
   type FinderKind,
+  type CreateRecipientRequest,
   type RungId,
+  type SendPreviewRequest,
   type StartRunRequest,
   type UnlockRequest,
 } from "@rengas/shared";
@@ -32,7 +36,7 @@ export class ApiProblem extends Error {
 export async function request<T>(
   path: string,
   schema: z.ZodType<T>,
-  init: { method?: "GET" | "PUT" | "POST"; body?: unknown } = {},
+  init: { method?: "GET" | "PUT" | "POST" | "DELETE"; body?: unknown } = {},
 ): Promise<T> {
   const method = init.method ?? "GET";
   const response = await fetch(`/api${path}`, {
@@ -60,6 +64,8 @@ export async function request<T>(
   return schema.parse(body);
 }
 
+const noContent = z.undefined();
+
 export const api = {
   state: () => request("/state", stateSchema),
   saveTicket: (ticket: AppState["ticket"]) =>
@@ -69,12 +75,23 @@ export const api = {
   reset: () => request("/reset", stateSchema, { method: "POST" }),
   startRun: (body: StartRunRequest) =>
     request("/runs", startRunResponseSchema, { method: "POST", body }),
-  /** Ends a live call; the server answers 204 with no body. */
+  /** Ends a live call. */
   hangUp: (runId: string) =>
-    request(`/runs/${runId}/hang-up`, z.unknown(), { method: "POST" }),
+    request(`/runs/${runId}/hang-up`, noContent, { method: "POST" }),
   finder: (kind: FinderKind) =>
     request("/finder", finderResponseSchema, {
       method: "POST",
       body: { kind },
     }),
+  addRecipient: (body: CreateRecipientRequest) =>
+    request("/recipients", recipientSchema, { method: "POST", body }),
+  verifyRecipient: (id: string, code: string) =>
+    request(`/recipients/${id}/verify`, recipientSchema, {
+      method: "POST",
+      body: { code },
+    }),
+  removeRecipient: (id: string) =>
+    request(`/recipients/${id}`, noContent, { method: "DELETE" }),
+  preview: (body: SendPreviewRequest) =>
+    request("/sends/preview", sendPreviewSchema, { method: "POST", body }),
 };

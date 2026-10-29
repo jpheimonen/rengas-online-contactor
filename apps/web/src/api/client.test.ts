@@ -56,3 +56,12 @@ it("turns a plain-text server error into a readable message", async () => {
     message: "Something went wrong on the server. Try again.",
   });
 });
+
+it("accepts the empty 204 reply when a recipient is removed", async () => {
+  const fetch = stubFetch(new Response(null, { status: 204 }));
+  await expect(api.removeRecipient("r1")).resolves.toBeUndefined();
+  expect(fetch).toHaveBeenCalledWith(
+    "/api/recipients/r1",
+    expect.objectContaining({ method: "DELETE" }),
+  );
+});

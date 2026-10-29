@@ -1420,6 +1420,251 @@ main {
   }
 }
 
+/* Real sends: stand-ins dialog and send preview */
+
+.top-actions {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--s3);
+  flex-wrap: wrap;
+}
+
+.modal {
+  width: min(960px, calc(100vw - 32px));
+  max-height: calc(100dvh - 32px);
+  padding: 0;
+  border: 0;
+  border-radius: 16px;
+  background: var(--surface);
+  color: var(--ink);
+  /* The whole dialog scrolls, so the scroll area holds its buttons too. */
+  overflow-y: auto;
+}
+.modal::backdrop {
+  background: rgb(24 35 31 / 0.6);
+}
+.send-preview {
+  width: min(600px, calc(100vw - 32px));
+}
+.modal-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: var(--s4);
+  padding: var(--s5) var(--s6) var(--s2);
+}
+.modal-head h2 {
+  font-size: 28px;
+  line-height: 1.15;
+  letter-spacing: -0.01em;
+}
+.send-preview .modal-head h2 {
+  font-size: 24px;
+  margin-top: var(--s2);
+}
+.modal h2:focus {
+  outline: none;
+}
+.modal-body {
+  padding: var(--s2) var(--s6) var(--s5);
+  display: grid;
+  gap: var(--s4);
+  align-content: start;
+}
+.modal-foot {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--s3);
+  padding: var(--s4) var(--s6) calc(var(--s5) + env(safe-area-inset-bottom));
+  border-top: 1px solid var(--rule);
+  position: sticky;
+  bottom: 0;
+  background: var(--surface);
+}
+.lead {
+  font-size: 17px;
+  max-width: 60ch;
+}
+
+.recipient-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--s4);
+  align-items: start;
+}
+.recipient {
+  display: grid;
+  gap: var(--s3);
+  padding: var(--s5);
+  border: 1px solid var(--rule);
+  border-radius: 12px;
+  background: #fffffc;
+}
+.recipient.empty {
+  border-style: dashed;
+}
+.recipient-head {
+  display: flex;
+  gap: var(--s3);
+  align-items: flex-start;
+}
+.recipient-head h3 {
+  font-size: 20px;
+}
+.recipient-icon {
+  font-size: 26px;
+  line-height: 1;
+}
+.recipient-address {
+  font-size: 17px;
+  margin-top: var(--s1);
+  overflow-wrap: anywhere;
+}
+.recipient-form {
+  display: grid;
+  gap: var(--s3);
+}
+.status-pill {
+  display: inline-block;
+  margin-top: var(--s1);
+  padding: 2px var(--s2);
+  border-radius: 999px;
+  font-size: 14px;
+  font-weight: 600;
+}
+.status-pill.ok {
+  background: #e4f3d3;
+  color: #24521d;
+}
+.status-pill.waiting {
+  background: var(--warn-bg);
+  color: var(--warn-ink);
+}
+.field input.code-input {
+  font-size: 22px;
+  letter-spacing: 0.4em;
+  max-width: 14ch;
+}
+
+.preview-title {
+  display: grid;
+  gap: var(--s1);
+  justify-items: start;
+}
+.preview-field {
+  display: grid;
+  gap: var(--s1);
+}
+.preview-label {
+  font-weight: 600;
+  font-size: 14px;
+}
+.preview-to {
+  display: flex;
+  gap: var(--s3);
+  align-items: flex-start;
+  padding: var(--s3) var(--s4);
+  border-radius: 8px;
+  background: #f1f1ea;
+  font-size: 18px;
+}
+.strong {
+  font-weight: 700;
+}
+.ok-tick {
+  color: #2f7a2a;
+}
+.preview-box {
+  padding: var(--s3) var(--s4);
+  border: 1px solid var(--rule);
+  border-radius: 8px;
+  background: #f7f7f1;
+  overflow-wrap: anywhere;
+}
+.preview-box.message {
+  white-space: pre-wrap;
+  font-size: 14px;
+  line-height: 1.6;
+}
+.preview-box.rules {
+  margin: 0;
+  padding-left: var(--s6);
+  display: grid;
+  gap: var(--s1);
+}
+.remaining {
+  font-size: 13px;
+  color: var(--ink-2);
+}
+.preparing {
+  display: flex;
+  align-items: center;
+  gap: var(--s2);
+}
+.preview-status {
+  padding-top: var(--s5);
+  justify-items: start;
+}
+.preview-status h2 {
+  font-size: 24px;
+}
+.button.simulate {
+  border-style: dashed;
+}
+.follow {
+  min-width: min(100%, 320px);
+  justify-content: space-between;
+}
+
+@media (max-width: 1023px) {
+  .top-actions {
+    width: 100%;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+  }
+  .top-actions .button {
+    width: 100%;
+    padding: 0 var(--s3);
+    white-space: nowrap;
+    font-size: 15px;
+  }
+  .top-actions .icon {
+    display: none;
+  }
+  .modal {
+    width: 100vw;
+    max-width: 100vw;
+    height: 100dvh;
+    max-height: 100dvh;
+    border-radius: 0;
+  }
+  .modal-head,
+  .modal-body,
+  .modal-foot {
+    padding-left: var(--s4);
+    padding-right: var(--s4);
+  }
+  .modal-head h2 {
+    font-size: 24px;
+  }
+  .recipient-grid {
+    grid-template-columns: 1fr;
+  }
+  .recipient {
+    padding: var(--s4);
+  }
+  .preview-actions .button {
+    flex: 1 1 40%;
+  }
+  .preview-actions .button.primary {
+    flex-basis: 100%;
+  }
+  .preview-actions .link {
+    flex-basis: 100%;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,
