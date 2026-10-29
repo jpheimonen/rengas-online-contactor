@@ -1,5 +1,9 @@
 {
   "extends": "../../tsconfig.base.json",
-  "compilerOptions": { "lib": ["ES2023"], "types": ["node"] },
-  "include": ["src"]
+  "compilerOptions": {
+    "lib": ["ES2023"],
+    "types": ["node"],
+    "resolveJsonModule": true
+  },
+  "include": ["src", "drizzle.config.ts"]
 }

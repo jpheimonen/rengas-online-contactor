@@ -8,17 +8,20 @@
     "build": "tsc --noEmit",
     "start": "tsx --env-file-if-exists=../../.env src/index.ts",
     "typecheck": "tsc --noEmit",
-    "test": "vitest run"
+    "test": "vitest run",
+    "db:generate": "drizzle-kit generate"
   },
   "dependencies": {
     "@hono/node-server": "^2.1.5",
     "@rengas/shared": "workspace:*",
+    "drizzle-orm": "1.0.0-rc.5",
     "hono": "^4.13.14",
     "tsx": "^4.23.15",
     "zod": "^4.6.7"
   },
   "devDependencies": {
     "@types/node": "^24.0.0",
+    "drizzle-kit": "1.0.0-rc.5",
     "typescript": "~6.0.3",
     "vitest": "^5.0.5"
   }
