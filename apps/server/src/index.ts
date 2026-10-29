@@ -8,6 +8,7 @@ import { openDatabase } from "./db/client.ts";
 import { liveFinder } from "./finder.ts";
 import { liveKeyCheckers } from "./key-checks.ts";
 import { createKeyVault, presetKeys } from "./keys.ts";
+import { createCodeSender } from "./recipients/code-sender.ts";
 
 const config = loadConfig();
 const db = openDatabase(config.DATABASE_PATH);
@@ -17,7 +18,19 @@ const keyVault = createKeyVault({
   preset: presetKeys(config),
   checkers: liveKeyCheckers(),
 });
-const app = createApp({ db, keyVault, finder: liveFinder() });
+const app = createApp({
+  db,
+  keyVault,
+  finder: liveFinder(),
+  appSecret: config.APP_SECRET,
+  codeSender: createCodeSender(config.RESEND_FROM),
+  sendLimits: {
+    email: config.SEND_LIMIT_EMAIL_PER_HOUR,
+    sms: config.SEND_LIMIT_SMS_PER_HOUR,
+    voice: config.SEND_LIMIT_CALLS_PER_HOUR,
+    day: config.SEND_LIMIT_PER_DAY,
+  },
+});
 
 // After `pnpm build` the same process also serves the web app, with index.html as the SPA fallback.
 const webDist = fileURLToPath(new URL("../../web/dist", import.meta.url));

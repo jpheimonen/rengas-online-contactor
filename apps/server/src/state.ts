@@ -16,7 +16,7 @@ const realCapableActions = RUNGS.flatMap((rung) =>
 
 /** Everything the web app shows for the session (`GET /api/state`). */
 export function buildState(services: Services, sessionId: string): AppState {
-  const { db, engine, events, keyVault } = services;
+  const { db, engine, events, guard, keyVault, recipients } = services;
   const unlocks = getUnlocks(db, sessionId);
   return {
     ticket: getTicket(db, sessionId),
@@ -26,16 +26,8 @@ export function buildState(services: Services, sessionId: string): AppState {
     })),
     currentLevel: currentLevel(new Set(unlocks.keys())),
     keys: keyVault.list(sessionId),
-    // Recipients and send limits arrive with the send guard.
-    recipients: [],
-    limits: {
-      hour: {
-        email: { used: 0, max: 0 },
-        sms: { used: 0, max: 0 },
-        voice: { used: 0, max: 0 },
-      },
-      day: { used: 0, max: 0 },
-    },
+    recipients: recipients.list(sessionId),
+    limits: guard.limits(sessionId),
     actionModes: realCapableActions.map((action) => {
       const choice = engine.modeFor(sessionId, action);
       return {
@@ -43,6 +35,7 @@ export function buildState(services: Services, sessionId: string): AppState {
         mode: choice.mode,
         ...(choice.mode === "simulated" &&
           choice.reason && { reason: choice.reason }),
+        ...(choice.recipient && { recipient: choice.recipient }),
       };
     }),
     finderMode: keyVault.credentials(sessionId, "openai")

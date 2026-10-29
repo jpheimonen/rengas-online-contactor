@@ -8,6 +8,7 @@ import {
   type UnlockMode,
 } from "@rengas/shared";
 import type { RunEventBody } from "../events.ts";
+import type { ConfirmedSend } from "../sends/guard.ts";
 import type { WrittenLines } from "./writer.ts";
 
 type RunScopedBody = Exclude<RunEventBody, { type: "system" }>;
@@ -34,6 +35,16 @@ export interface RunContext {
   /** Waits one step. Rejects as soon as the run is cancelled. */
   pause(): Promise<void>;
   signal: AbortSignal;
+  /**
+   * Set only on a real run: the confirmed preview's recipient and content,
+   * which are exactly what the adapter sends. It reports the provider's
+   * message ID with `markSent`.
+   */
+  send?: RealSend;
+}
+
+export interface RealSend extends ConfirmedSend {
+  markSent(providerMessageId: string): void;
 }
 
 /** Runs one action over its channel (register decision channel-adapters). */
@@ -55,8 +66,9 @@ export type ModeChoice =
 /**
  * Picks the adapter for a run. Simulation-only actions always simulate. A
  * real-capable action goes real only when its rung was unlocked with a real or
- * configured key and its channel has a real adapter; the send guard then checks
- * the recipient, the confirmation token and the limits before anything is sent.
+ * configured key and its channel has a real adapter. The run engine then asks
+ * the send guard for a verified recipient, the confirmation token and the
+ * limits before anything is sent.
  */
 export function chooseMode(
   action: RunnableAction,
@@ -64,17 +76,21 @@ export function chooseMode(
   options: { simulate?: boolean | undefined },
   realAdapters: RealAdapters,
 ): ModeChoice {
-  const simulated = (reason?: SimulateReason): ModeChoice =>
-    reason
-      ? { mode: "simulated", adapter: simulatedAdapter, reason }
-      : { mode: "simulated", adapter: simulatedAdapter };
-
   if (action.mode === "simulation-only") return simulated();
   if (options.simulate) return simulated("chose-simulate");
   if (unlockMode === "pretend") return simulated("pretend-key");
   const adapter = realAdapters[action.channel];
   if (unlockMode === undefined || !adapter) return simulated();
   return { mode: "real", adapter };
+}
+
+/** A simulated run, with the reason to show when there is one. */
+export function simulated(
+  reason?: SimulateReason,
+): Extract<ModeChoice, { mode: "simulated" }> {
+  return reason
+    ? { mode: "simulated", adapter: simulatedAdapter, reason }
+    : { mode: "simulated", adapter: simulatedAdapter };
 }
 
 /** Plays the action's scripted lines, one per step, with the set piece in its slot. */

@@ -10,6 +10,7 @@ import {
   isUnlocked,
   ticketValues,
   type ActionId,
+  type RealCapableAction,
   type RunMode,
   type StartRunRequest,
 } from "@rengas/shared";
@@ -17,9 +18,12 @@ import type { Db } from "../db/client.ts";
 import { runs } from "../db/schema.ts";
 import { problem } from "../errors.ts";
 import type { EventLog } from "../events.ts";
+import { maskAddress } from "../recipients/recipients.ts";
+import type { ConfirmedSend, SendGuard, SendRecord } from "../sends/guard.ts";
 import { getTicket, getUnlocks } from "../session-data.ts";
 import {
   chooseMode,
+  simulated,
   type ModeChoice,
   type RealAdapters,
   type RunContext,
@@ -34,6 +38,7 @@ export const STEP_DELAY_MS = 550;
 export interface RunEngineOptions {
   db: Db;
   events: EventLog;
+  guard: SendGuard;
   realAdapters?: RealAdapters;
   writer?: Writer | undefined;
   stepDelayMs?: number;
@@ -57,6 +62,7 @@ export class RunEngine {
   readonly #active = new Map<string, ActiveRun>();
   readonly #db: Db;
   readonly #events: EventLog;
+  readonly #guard: SendGuard;
   readonly #realAdapters: RealAdapters;
   readonly #writer: Writer | undefined;
   readonly #stepDelayMs: number;
@@ -64,6 +70,7 @@ export class RunEngine {
   constructor(options: RunEngineOptions) {
     this.#db = options.db;
     this.#events = options.events;
+    this.#guard = options.guard;
     this.#realAdapters = options.realAdapters ?? {};
     this.#writer = options.writer;
     this.#stepDelayMs = options.stepDelayMs ?? STEP_DELAY_MS;
@@ -85,8 +92,25 @@ export class RunEngine {
       .map((run) => run.actionId);
   }
 
-  /** How the action would run now, for `GET /api/state`. */
-  modeFor(sessionId: string, action: RunnableAction): ModeChoice {
+  /**
+   * How a real-capable action would run now, for `GET /api/state`. A real one
+   * names its default recipient; otherwise the reason it simulates, when
+   * there is one to show.
+   */
+  modeFor(
+    sessionId: string,
+    action: RealCapableAction,
+  ): ModeChoice & { recipient?: string } {
+    const choice = this.unlockedMode(sessionId, action);
+    if (choice.mode === "simulated") return choice;
+    const readiness = this.#guard.readiness(sessionId, action.channel);
+    return readiness.ready
+      ? { ...choice, recipient: maskAddress(readiness.recipient) }
+      : simulated(readiness.reason);
+  }
+
+  /** The mode the rung's unlock and the real adapters allow, before the send guard's checks. */
+  unlockedMode(sessionId: string, action: RealCapableAction): ModeChoice {
     const { rung } = getAction(action.id as ActionId);
     const unlockMode = getUnlocks(this.#db, sessionId).get(rung.id);
     return chooseMode(action, unlockMode, {}, this.#realAdapters);
@@ -121,18 +145,33 @@ export class RunEngine {
       );
     }
 
-    const choice = chooseMode(
+    let choice = chooseMode(
       action,
       unlocked.get(rung.id),
       request,
       this.#realAdapters,
     );
-    if (choice.mode === "real" && !request.confirmToken) {
-      throw problem(
-        400,
-        "token-invalid",
-        "A real send needs a confirmed preview first.",
-      );
+    // A real run needs a confirmed preview, which the send guard checks again
+    // here. Without a token, an action that can't go real yet simulates.
+    let confirmed: ConfirmedSend | undefined;
+    if (choice.mode === "real" && action.mode === "real-capable") {
+      if (request.confirmToken) {
+        confirmed = this.#guard.confirm(
+          sessionId,
+          action,
+          request.confirmToken,
+        );
+      } else {
+        const readiness = this.#guard.readiness(sessionId, action.channel);
+        if (readiness.ready) {
+          throw problem(
+            400,
+            "token-invalid",
+            "A real send needs a confirmed preview first.",
+          );
+        }
+        choice = simulated(readiness.reason);
+      }
     }
 
     const firstRun =
@@ -169,7 +208,11 @@ export class RunEngine {
       })
       .run();
     this.#active.set(run.id, run);
-    void this.#execute(run, action, choice, request.optionName);
+    const send = confirmed && {
+      ...confirmed,
+      ...this.#guard.record(sessionId, run.id, confirmed),
+    };
+    void this.#execute(run, action, choice, request.optionName, send);
     return { runId: run.id, mode: run.mode };
   }
 
@@ -194,6 +237,7 @@ export class RunEngine {
     action: RunnableAction,
     choice: ModeChoice,
     optionName: string | undefined,
+    send: (ConfirmedSend & SendRecord) | undefined,
   ): Promise<void> {
     const { signal } = run.controller;
     const emit = (body: StepBody) => {
@@ -214,6 +258,7 @@ export class RunEngine {
         ...base,
         smsText: fillTemplate(SMS.prefix + SMS.fallbackBody, base),
         ...(optionName !== undefined && { optionName }),
+        ...(send && { recipient: send.recipient.masked }),
       };
       emit({
         type: "started",
@@ -234,7 +279,15 @@ export class RunEngine {
         aiWritten: written !== null,
       });
 
-      const ctx: RunContext = { action, values, written, emit, pause, signal };
+      const ctx: RunContext = {
+        action,
+        values,
+        written,
+        emit,
+        pause,
+        signal,
+        ...(send && { send }),
+      };
       await choice.adapter.run(ctx);
 
       await pause();
@@ -253,7 +306,9 @@ export class RunEngine {
       this.#finish(run, "done");
     } catch (error) {
       // cancelAll has already logged and closed a cancelled run.
+      // The provider may have accepted a cancelled send, so it keeps counting.
       if (signal.aborted) return;
+      send?.markFailed();
       console.error(`Run ${run.id} (${run.actionId}) failed`, error);
       emit({ type: "failed", text: "✖ This run stopped unexpectedly." });
       this.#finish(run, "failed");
