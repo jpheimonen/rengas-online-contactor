@@ -1,0 +1,38 @@
+[
+  {
+    "check": "docs",
+    "run": true,
+    "reason": "The README is new and covers setup, each provider key and the tunnel for calls, so I should check it against the final code. The runner's saved legacy operation no longer works.",
+    "command": ""
+  },
+  {
+    "check": "build",
+    "run": true,
+    "reason": "The app ships as a production bundle plus a server. The build has not been run since the last evaluation fix.",
+    "command": "taiga runner build"
+  },
+  {
+    "check": "smoke",
+    "run": false,
+    "reason": "The evaluator walked the whole app at three screen sizes on the final build. Since then the only changes were its own fixes, and it reran e2e afterwards with 50 of 50 passing.",
+    "command": ""
+  },
+  {
+    "check": "full_tests",
+    "run": true,
+    "reason": "The e2e suite covers the safety rule that real sends reach only verified recipients and the simulation-only rungs never send. It is the most important check here and takes about a minute.",
+    "command": "taiga runner e2e"
+  },
+  {
+    "check": "security",
+    "run": true,
+    "reason": "The change handles secrets, authentication, untrusted webhook input, outbound network calls and new dependencies.",
+    "command": ""
+  },
+  {
+    "check": "design_system",
+    "run": false,
+    "reason": "The task folder has no design-system.json.",
+    "command": ""
+  }
+]
