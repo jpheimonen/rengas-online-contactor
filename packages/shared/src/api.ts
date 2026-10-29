@@ -43,6 +43,7 @@ export const apiErrorSchema = z.object({
     "code-expired",
     "token-invalid",
     "rate-limited",
+    "search-failed",
   ]),
   message: z.string(),
   fieldErrors: z.record(z.string(), z.string()).optional(),

@@ -45,7 +45,9 @@ export function buildState(services: Services, sessionId: string): AppState {
           choice.reason && { reason: choice.reason }),
       };
     }),
-    finderMode: "examples",
+    finderMode: keyVault.credentials(sessionId, "openai")
+      ? "web-search"
+      : "examples",
     writerEnabled: engine.writerEnabled,
     runningActionIds: engine.runningActionIds(sessionId),
     lastEventId: events.lastId(sessionId),

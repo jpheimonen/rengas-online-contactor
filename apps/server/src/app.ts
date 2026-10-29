@@ -4,8 +4,10 @@ import type { Health } from "@rengas/shared";
 import type { Db } from "./db/client.ts";
 import { ApiProblem } from "./errors.ts";
 import { EventLog } from "./events.ts";
+import { noFinder, type Finder } from "./finder.ts";
 import { noKeyVault, type KeyVault } from "./keys.ts";
 import { eventRoutes } from "./routes/events.ts";
+import { finderRoutes } from "./routes/finder.ts";
 import { resetRoutes } from "./routes/reset.ts";
 import { rungRoutes } from "./routes/rungs.ts";
 import { runRoutes } from "./routes/runs.ts";
@@ -19,6 +21,7 @@ import { sameOrigin, sessionMiddleware, type SessionEnv } from "./session.ts";
 export interface AppOptions {
   db: Db;
   keyVault?: KeyVault;
+  finder?: Finder;
   realAdapters?: RealAdapters;
   writer?: Writer;
   /** Pause between scripted lines; tests shorten it. */
@@ -31,6 +34,7 @@ export function createApp(options: AppOptions) {
     db: options.db,
     events,
     keyVault: options.keyVault ?? noKeyVault,
+    finder: options.finder ?? noFinder,
     engine: new RunEngine({
       db: options.db,
       events,
@@ -61,6 +65,7 @@ export function createApp(options: AppOptions) {
     resetRoutes,
     runRoutes,
     eventRoutes,
+    finderRoutes,
   ]) {
     app.route("/api", routes(services));
   }

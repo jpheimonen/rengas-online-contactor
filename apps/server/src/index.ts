@@ -5,6 +5,7 @@ import { serveStatic } from "@hono/node-server/serve-static";
 import { createApp } from "./app.ts";
 import { loadConfig } from "./config.ts";
 import { openDatabase } from "./db/client.ts";
+import { liveFinder } from "./finder.ts";
 import { liveKeyCheckers } from "./key-checks.ts";
 import { createKeyVault, presetKeys } from "./keys.ts";
 
@@ -16,7 +17,7 @@ const keyVault = createKeyVault({
   preset: presetKeys(config),
   checkers: liveKeyCheckers(),
 });
-const app = createApp({ db, keyVault });
+const app = createApp({ db, keyVault, finder: liveFinder() });
 
 // After `pnpm build` the same process also serves the web app, with index.html as the SPA fallback.
 const webDist = fileURLToPath(new URL("../../web/dist", import.meta.url));
