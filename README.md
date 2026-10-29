@@ -35,3 +35,10 @@ pnpm dev        # http://127.0.0.1:5173
 ```
 
 Checks: `pnpm typecheck`, `pnpm lint`, `pnpm format:check`, `pnpm test`, `pnpm build`.
+
+## Workspace (in progress)
+
+The new full-stack app is being built in `apps/web` (React), `apps/server` (Hono) and `packages/shared`. Copy
+`.env.example` to `.env`, then run `pnpm dev`, or `pnpm build && pnpm start` for one process on 127.0.0.1:8787.
+Checks: `pnpm typecheck`, `lint`, `format:check`, `test` and `e2e`. The old app above still runs through the
+`legacy:*` scripts until it is removed.
