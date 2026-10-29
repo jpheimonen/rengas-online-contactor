@@ -5,6 +5,7 @@ import { serveStatic } from "@hono/node-server/serve-static";
 import { createApp } from "./app.ts";
 import { loadConfig } from "./config.ts";
 import { openDatabase } from "./db/client.ts";
+import { liveFinder } from "./finder.ts";
 import { liveKeyCheckers } from "./key-checks.ts";
 import { createKeyVault, presetKeys } from "./keys.ts";
 import { createCodeSender } from "./recipients/code-sender.ts";
@@ -20,6 +21,7 @@ const keyVault = createKeyVault({
 const app = createApp({
   db,
   keyVault,
+  finder: liveFinder(),
   appSecret: config.APP_SECRET,
   codeSender: createCodeSender(config.RESEND_FROM),
   sendLimits: {

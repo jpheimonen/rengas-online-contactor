@@ -38,7 +38,9 @@ export function buildState(services: Services, sessionId: string): AppState {
         ...(choice.recipient && { recipient: choice.recipient }),
       };
     }),
-    finderMode: "examples",
+    finderMode: keyVault.credentials(sessionId, "openai")
+      ? "web-search"
+      : "examples",
     writerEnabled: engine.writerEnabled,
     runningActionIds: engine.runningActionIds(sessionId),
     lastEventId: events.lastId(sessionId),

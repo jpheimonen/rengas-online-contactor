@@ -4,10 +4,12 @@ import type { Health } from "@rengas/shared";
 import type { Db } from "./db/client.ts";
 import { ApiProblem } from "./errors.ts";
 import { EventLog } from "./events.ts";
+import { noFinder, type Finder } from "./finder.ts";
 import { noKeyVault, type KeyVault } from "./keys.ts";
 import type { CodeSender } from "./recipients/code-sender.ts";
 import { Recipients } from "./recipients/recipients.ts";
 import { eventRoutes } from "./routes/events.ts";
+import { finderRoutes } from "./routes/finder.ts";
 import { recipientRoutes } from "./routes/recipients.ts";
 import { resetRoutes } from "./routes/reset.ts";
 import { rungRoutes } from "./routes/rungs.ts";
@@ -33,6 +35,7 @@ export interface AppOptions {
   codeSender: CodeSender;
   sendLimits?: SendLimits;
   keyVault?: KeyVault;
+  finder?: Finder;
   realAdapters?: RealAdapters;
   writer?: Writer;
   /** Pause between scripted lines; tests shorten it. */
@@ -57,6 +60,7 @@ export function createApp(options: AppOptions) {
     db: options.db,
     events,
     keyVault,
+    finder: options.finder ?? noFinder,
     recipients,
     guard,
     engine: new RunEngine({
@@ -90,6 +94,7 @@ export function createApp(options: AppOptions) {
     resetRoutes,
     runRoutes,
     eventRoutes,
+    finderRoutes,
     recipientRoutes,
     sendRoutes,
   ]) {

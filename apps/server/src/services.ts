@@ -1,5 +1,6 @@
 import type { Db } from "./db/client.ts";
 import type { EventLog } from "./events.ts";
+import type { Finder } from "./finder.ts";
 import type { KeyVault } from "./keys.ts";
 import type { Recipients } from "./recipients/recipients.ts";
 import type { RunEngine } from "./runs/engine.ts";
@@ -11,6 +12,7 @@ export interface Services {
   events: EventLog;
   engine: RunEngine;
   keyVault: KeyVault;
+  finder: Finder;
   recipients: Recipients;
   guard: SendGuard;
 }
