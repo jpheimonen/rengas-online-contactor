@@ -5,39 +5,18 @@
 import { describe, expect, it } from "vitest";
 import oldLadder from "../../../tests/parity/fixtures/ladder.json";
 import oldRules from "../../../tests/parity/fixtures/rules.json";
-import { LADDER, RUNGS, type RungId } from "./ladder.ts";
+import {
+  ADDED_RUNGS,
+  KEY_RENAMES,
+  RUNG_RENAMES,
+} from "../../../tests/parity/renames.ts";
+import { LADDER, RUNGS } from "./ladder.ts";
 import {
   canAttemptUnlock,
   currentLevel,
   isUnlocked,
   validateKey,
 } from "./rules.ts";
-
-/**
- * What the product concept (section 14) changed. Every old rung maps to a new
- * rung; old keys map to new keys, or to null when dropped.
- */
-const RUNG_RENAMES: Record<string, { id: RungId; level: number }> = {
-  polite: { id: "polite", level: 1 },
-  email: { id: "email", level: 2 },
-  roboemail: { id: "roboemail", level: 3 },
-  sms: { id: "sms", level: 4 },
-  robocall: { id: "robocall", level: 5 },
-  social: { id: "social", level: 6 },
-  osint: { id: "osint", level: 7 },
-  blimp: { id: "blimp", level: 9 },
-};
-
-const KEY_RENAMES: Record<string, string | null> = {
-  smtp: "resend",
-  "sms-sid": "twilio-sid",
-  "sms-token": "twilio-token",
-  voice: null, // calls use the Twilio account from level 4
-  tts: "openai",
-};
-
-/** Rungs the concept added; they sit between old rungs and are not in the fixtures. */
-const ADDED_RUNGS: readonly RungId[] = ["rent-a-human", "singularity"];
 
 const newIndex = (id: string) => RUNGS.findIndex((rung) => rung.id === id);
 

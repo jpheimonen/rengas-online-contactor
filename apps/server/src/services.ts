@@ -1,0 +1,12 @@
+import type { Db } from "./db/client.ts";
+import type { EventLog } from "./events.ts";
+import type { KeyVault } from "./keys.ts";
+import type { RunEngine } from "./runs/engine.ts";
+
+/** What the routes work with; `createApp` builds one set per app. */
+export interface Services {
+  db: Db;
+  events: EventLog;
+  engine: RunEngine;
+  keyVault: KeyVault;
+}

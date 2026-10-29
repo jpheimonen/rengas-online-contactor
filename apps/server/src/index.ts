@@ -4,9 +4,10 @@ import { serve } from "@hono/node-server";
 import { serveStatic } from "@hono/node-server/serve-static";
 import { createApp } from "./app.ts";
 import { loadConfig } from "./config.ts";
+import { openDatabase } from "./db/client.ts";
 
 const config = loadConfig();
-const app = createApp();
+const app = createApp({ db: openDatabase(config.DATABASE_PATH) });
 
 // After `pnpm build` the same process also serves the web app, with index.html as the SPA fallback.
 const webDist = fileURLToPath(new URL("../../web/dist", import.meta.url));
