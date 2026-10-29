@@ -154,6 +154,7 @@ export const sendPreviewRequestSchema = z.object({
   actionId: realActionIdSchema,
   recipientId: z.string(),
 });
+export type SendPreviewRequest = z.infer<typeof sendPreviewRequestSchema>;
 
 const remainingSchema = z.object({
   hour: z.object({ left: z.number().int(), of: z.number().int() }),
