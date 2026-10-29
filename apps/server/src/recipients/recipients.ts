@@ -156,19 +156,22 @@ export class Recipients {
 
     // The code is out; save it and the recipient in one step.
     return this.#db.transaction((tx) => {
-      const row =
-        existing ??
-        tx
-          .insert(recipients)
-          .values({
-            id: randomUUID(),
-            sessionId,
-            channel: request.channel,
-            address: request.address,
-            createdAt: now.toISOString(),
-          })
-          .returning()
-          .get();
+      // Upsert, so two quick adds of the same new address share one row.
+      const row = tx
+        .insert(recipients)
+        .values({
+          id: randomUUID(),
+          sessionId,
+          channel: request.channel,
+          address: request.address,
+          createdAt: now.toISOString(),
+        })
+        .onConflictDoUpdate({
+          target: [recipients.sessionId, recipients.address],
+          set: { address: request.address },
+        })
+        .returning()
+        .get();
       tx.update(verificationCodes)
         .set({ closedAt: now.toISOString() })
         .where(

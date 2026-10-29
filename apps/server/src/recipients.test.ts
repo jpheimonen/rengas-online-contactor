@@ -202,6 +202,25 @@ describe("sending codes", () => {
     await add(client, "someone@example.com");
   });
 
+  it("keeps one recipient when the same address is added twice at once", async () => {
+    const { codes, client } = setup();
+    await client.state(); // one session for both requests
+    // Hold both code sends until both requests have looked the address up.
+    let release!: () => void;
+    const held = new Promise<void>((resolve) => (release = resolve));
+    codes.sendEmailCode.mockImplementation(async () => {
+      if (codes.sendEmailCode.mock.calls.length === 2) release();
+      await held;
+    });
+    const body = { channel: "email", address: "jp@example.com" };
+    const responses = await Promise.all([
+      client.post("/api/recipients", body),
+      client.post("/api/recipients", body),
+    ]);
+    expect(responses.map((r) => r.status)).toEqual([201, 201]);
+    expect((await client.state()).recipients).toHaveLength(1);
+  });
+
   it("sends no code to an address that is already verified", async () => {
     const { codes, client } = setup();
     const inbox = await client.verifyRecipient(codes, "jp@example.com");
