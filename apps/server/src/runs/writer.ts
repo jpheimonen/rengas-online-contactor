@@ -16,6 +16,7 @@ export interface WrittenLines {
  */
 export interface Writer {
   write(input: {
+    sessionId: string;
     ticket: Ticket;
     rung: Rung;
     action: RunnableAction;
