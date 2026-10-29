@@ -1189,7 +1189,7 @@ main {
 .transcript-wrap {
   position: relative;
 }
-.transcript {
+.call-transcript {
   list-style: none;
   margin: 0;
   padding: 0;
@@ -1199,11 +1199,11 @@ main {
   overflow-y: auto;
   overflow-wrap: anywhere;
 }
-.transcript .line {
+.call-transcript .line {
   padding: var(--s3) var(--s4);
   border-radius: 8px;
 }
-.transcript .line.them {
+.call-transcript .line.them {
   background: #24332c;
 }
 .line-who,

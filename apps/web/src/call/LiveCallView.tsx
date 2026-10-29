@@ -62,7 +62,12 @@ export function LiveCallView({
   const live = isLive(call);
   const now = useNow(live);
   const heading = useRef<HTMLHeadingElement>(null);
-  useEffect(() => heading.current?.focus(), []);
+  // The view replaces the ladder, so start at its top. Focus is skipped while
+  // the send preview is still open over it; scrolling is not.
+  useEffect(() => {
+    window.scrollTo(0, 0);
+    heading.current?.focus();
+  }, []);
 
   const silent =
     call.status === "connecting" &&
@@ -222,7 +227,7 @@ function Transcript({ call, silent }: { call: LiveCall; silent: boolean }) {
       ) : (
         <ol
           ref={list}
-          className="transcript"
+          className="call-transcript"
           aria-label="Call transcript"
           aria-live="polite"
           // eslint-disable-next-line jsx-a11y/no-noninteractive-tabindex -- the transcript scrolls by itself, so keyboard users must be able to focus it

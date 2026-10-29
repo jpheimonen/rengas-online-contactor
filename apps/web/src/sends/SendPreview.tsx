@@ -82,6 +82,13 @@ function PreviewFlow({
   const outcome = runId ? outcomeOf(items, runId) : null;
   const confirmed = !start.isIdle;
 
+  // Once a call starts, the live call view shows its progress and failures;
+  // this dialog would only cover it. A refused start stays here.
+  const callStarted = channel === "voice" && start.isSuccess;
+  useEffect(() => {
+    if (callStarted) onClose();
+  }, [callStarted, onClose]);
+
   const simulateInstead = () =>
     simulate.mutate(
       { actionId: actionId as ActionId, simulate: true },

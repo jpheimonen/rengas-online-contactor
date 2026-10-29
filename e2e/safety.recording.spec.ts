@@ -199,6 +199,7 @@ test("email, text and call go only to the verified recipients, after a preview a
       await expect(
         page.getByRole("region", { name: /Calling your phone/ }),
       ).toBeVisible();
+      await expect(dialog).toBeHidden();
     } else {
       await expect(dialog.getByText("REAL · ACCEPTED")).toBeVisible();
       await dialog.getByRole("button", { name: "Close" }).click();
