@@ -1,44 +1,94 @@
 # rengas-online-contactor
 
-> ⚠️ **JOKE PROJECT. PLEASE DON'T ACTUALLY USE IT.** ⚠️
+> **A joke project that really sends, but only to you.**
 
-A satirical "AI outreach agent" that gets a reply from Rengas Online one way or another. It climbs an
-escalation ladder from a polite contact form all the way to a blimp over their warehouse.
+"AI outreach agent" satire: a ladder of ten escalating rungs, from a polite customer inquiry to a blimp
+over the warehouse and "The Singularity". With provider keys, three of the actions are real: a firm email,
+a polite text and an AI phone call. They go to **your own** email address and phone number, and nothing else.
+Without a key, the same action runs as a simulation, so the app is fully usable with no setup.
 
-**Nothing is ever sent.** Every email, SMS, robocall, Facebook message and "staff recon" result is simulated
-in your browser. The app makes no network requests to any provider. The API keys it asks for are only
-checked for shape, then thrown away; they are never stored or sent. The staff it "finds" are invented.
+In the demo, your inbox and phone stand in for Rengas Online.
 
-## The ladder
+## Safety rules
 
-| Level | Rung                    | Pretend keys it asks for                  |
-| ----- | ----------------------- | ----------------------------------------- |
-| 1     | Polite customer inquiry | none: customer service number and website |
-| 2     | Firmly worded email     | email provider key                        |
-| 3     | Robo-emails             | bulk mailing key                          |
-| 4     | Ominous text messages   | SMS gateway account ID + auth token       |
-| 5     | AI robocalls            | voice calling key + neural speech key     |
-| 6     | Social media siege      | Facebook Graph API token                  |
-| 7     | Staff recon             | web scraping key                          |
-| 8     | Total escalation        | blimp rental key + carrier pigeon licence |
+- **Only verified recipients.** A real send needs a recipient you have verified with a code
+  (email code through Resend, phone code through Twilio Verify). The code expires after 10 minutes. An email code allows 5 wrong tries.
+- **Preview first.** You see the exact message and recipient and confirm before anything leaves the server.
+- **Neutral text only.** OpenAI writes the message when a key is set. The server adds a footer or prefix,
+  and checks length and that there are no links. If the text breaks a rule or the call fails, a fixed neutral text is used.
+- **Abusive rungs never send.** Email storm, threat texts, robocalls, Facebook siege, staff recon, renting
+  humans, aircraft and the rest are always simulated. Staff and humans it "finds" are invented.
+- **Finder actions book nothing.** With an OpenAI key they run a real web search; without one they show examples.
+- **Rate limits per browser session.** Defaults: 3 emails/hour, 3 texts/hour, 2 calls/hour, 10 sends/day. Verification codes don't count.
+- **Keys stay on the server.** Keys you type in the UI are checked with the provider, then stored encrypted
+  (AES-256-GCM, with `APP_SECRET`). The browser only sees masked hints.
+- **De-escalate** cancels pending verification codes.
 
-You can only enter keys for the next level up. Any key-shaped text (8+ characters, no spaces) works.
-The robocall level can play its script through **your own** speakers using the browser's speech synthesis.
+## Setup
 
-## Run it
-
-Needs Node 22.12+ and pnpm.
+Needs Node 24 or newer and pnpm.
 
 ```sh
 pnpm install
-pnpm dev        # http://127.0.0.1:5173
+cp .env.example .env     # then edit .env
+pnpm dev                 # web on http://127.0.0.1:5173, API on 127.0.0.1:8787
 ```
 
-Checks: `pnpm typecheck`, `pnpm lint`, `pnpm format:check`, `pnpm test`, `pnpm build`.
+For one process, run `pnpm build && pnpm start` and open http://127.0.0.1:8787.
 
-## Workspace (in progress)
+`APP_SECRET` is required and must be at least 32 characters (generate one with `openssl rand -hex 32`).
+Every provider key is optional. A channel without its key simulates. You can also paste keys into the
+rung's key form in the UI instead of using `.env`.
 
-The new full-stack app is being built in `apps/web` (React), `apps/server` (Hono) and `packages/shared`. Copy
-`.env.example` to `.env`, then run `pnpm dev`, or `pnpm build && pnpm start` for one process on 127.0.0.1:8787.
-Checks: `pnpm typecheck`, `lint`, `format:check`, `test` and `e2e`. The old app above still runs through the
-`legacy:*` scripts until it is removed.
+## Provider keys
+
+| Variable                                  | Used for                                                         | Where to get it                                                                                                                                                   |
+| ----------------------------------------- | ---------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `RESEND_API_KEY`, `RESEND_FROM`           | Real email and email verification codes                          | [resend.com](https://resend.com) API keys. The sandbox sender `onboarding@resend.dev` only delivers to your own Resend account address until you verify a domain. |
+| `TWILIO_ACCOUNT_SID`, `TWILIO_AUTH_TOKEN` | Phone verification (Twilio Verify), SMS and calls                | [twilio.com/console](https://console.twilio.com). Both are needed. A trial account only reaches numbers you verified there.                                       |
+| `TWILIO_FROM_NUMBER`                      | Sender number for SMS and calls                                  | A Twilio phone number in your console. Without it, texts and calls stay simulated.                                                                                |
+| `OPENAI_API_KEY`                          | Writing the neutral text, the live call voice, the finder search | [platform.openai.com/api-keys](https://platform.openai.com/api-keys)                                                                                              |
+
+## Real calls: `PUBLIC_BASE_URL` and a tunnel
+
+Twilio must reach your server to report call status and stream audio. On localhost that needs a tunnel.
+Real calls turn on only when `PUBLIC_BASE_URL` and `TWILIO_FROM_NUMBER` are both set.
+
+```sh
+pnpm build && pnpm start          # server on 127.0.0.1:8787
+ngrok http 8787                   # or: cloudflared tunnel --url http://127.0.0.1:8787
+```
+
+Put the tunnel's https address in `.env` as `PUBLIC_BASE_URL=https://example.ngrok.app` and restart. The server uses:
+
+- `POST {PUBLIC_BASE_URL}/twilio/status/:token`, with Twilio signature check
+- `wss://…/twilio/media/:token`, for the call's audio stream
+
+If the call never reports back, check that the tunnel points at the server port.
+
+## Verifying a recipient
+
+1. Click **Your stand-ins** and enter your email address or phone number (with country code).
+2. Click **Send email code** or **Send phone code**. The code arrives by email (Resend) or SMS (Twilio Verify).
+3. Enter the 6-digit code and click **Verify inbox** or the phone equivalent. The recipient is now verified for this session, and real-capable rungs (firm email, polite text, AI call) can send to it after you confirm the preview.
+
+At most 5 codes per hour per session.
+
+## Commands and checks
+
+| Command                     | What it does                                                 |
+| --------------------------- | ------------------------------------------------------------ |
+| `pnpm dev`                  | Server and web app with reload                               |
+| `pnpm build` / `pnpm start` | Build everything / run the server (serves the built web app) |
+| `pnpm typecheck`            | TypeScript in every package                                  |
+| `pnpm lint`                 | ESLint                                                       |
+| `pnpm format:check`         | Prettier (`pnpm format` fixes)                               |
+| `pnpm test`                 | Unit and API tests (providers are faked; no real sends)      |
+| `pnpm e2e`                  | Playwright browser tests                                     |
+
+## Layout
+
+- `apps/web`: React app
+- `apps/server`: Hono API, SQLite (drizzle), Twilio voice bridge
+- `packages/shared`: ladder, rules and API types shared by both
+- `src/`: the first, fully simulated version. It still runs through `pnpm legacy:dev` and the other `legacy:*` scripts.
