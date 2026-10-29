@@ -17,6 +17,8 @@ const VERIFY_DELAY_MS = 900;
 const unlocked = new Set<string>();
 const running = new Set<string>();
 const verifying = new Set<string>();
+// Bumped by De-escalate so pending unlocks and running scripts stop.
+let resetCount = 0;
 
 const app = document.querySelector<HTMLDivElement>("#app")!;
 
@@ -39,7 +41,7 @@ app.innerHTML = `
     <h1>Rengas Online Contactor<span class="tm">™</span></h1>
     <p class="sub">The AI agent that gets a reply from <strong>${TARGET}</strong>, one way or another.</p>
     <p class="sub small">Every email, text, call and blimp below is <strong>simulated in your browser</strong>.
-      Keys are kept in memory only and go nowhere.</p>
+      Keys are only checked for shape, then thrown away. They go nowhere.</p>
   </header>
   <main class="layout">
     <section class="ladder" aria-label="Escalation ladder">
@@ -68,7 +70,7 @@ app.innerHTML = `
       until someone, anyone, answers.</p>
     <ul>
       <li>Nothing is sent. Every email, SMS, call and Facebook message is a simulation shown on screen.</li>
-      <li>The API keys you type are not checked, stored or sent anywhere.</li>
+      <li>The API keys you type are only checked for shape (8+ characters, no spaces). They are never stored or sent anywhere.</li>
       <li>Every "staff" member it finds is made up.</li>
       <li>Harassing real people or businesses is illegal and mean. Don't.</li>
     </ul>
@@ -116,7 +118,7 @@ function rungHtml(rung: Rung, index: number): string {
         <button class="primary" type="submit" ${busy ? "disabled" : ""}>
           ${busy ? "Verifying keys…" : `Unlock level ${rung.level}`}
         </button>
-        <p class="small">Any key-shaped text works. It isn't checked or sent anywhere.</p>
+        <p class="small">Any key-shaped text works. It's never stored or sent anywhere.</p>
       </form>`;
   } else {
     const needs = rung.keys.map((k) => k.label).join(" + ");
@@ -174,11 +176,13 @@ function setActionButton(action: Action): void {
 }
 
 async function runAction(action: Action): Promise<void> {
+  const startedAt = resetCount;
   running.add(action.id);
   setActionButton(action);
   log(`▶ ${action.label}`, "info");
   for (const line of action.script) {
     await sleep(STEP_DELAY_MS);
+    if (resetCount !== startedAt) return;
     log(line);
   }
   log("✔ Done. Nothing was actually sent.", "ok");
@@ -199,13 +203,15 @@ async function unlockRung(form: HTMLFormElement): Promise<void> {
   }
   if (!valid) return;
 
+  const startedAt = resetCount;
   verifying.add(rung.id);
   render();
   await sleep(VERIFY_DELAY_MS);
+  if (resetCount !== startedAt) return;
   verifying.delete(rung.id);
   unlocked.add(rung.id);
   log(
-    `🔓 Level ${rung.level} "${rung.title}" unlocked. Keys accepted without checking.`,
+    `🔓 Level ${rung.level} "${rung.title}" unlocked. Keys accepted (shape only) and thrown away.`,
     "ok",
   );
   render();
@@ -252,7 +258,10 @@ rungsEl.addEventListener("submit", (event) => {
 });
 
 document.querySelector("#reset")!.addEventListener("click", () => {
+  resetCount++;
   unlocked.clear();
+  running.clear();
+  verifying.clear();
   if ("speechSynthesis" in window) speechSynthesis.cancel();
   log(
     "😇 De-escalated. All keys forgotten. Maybe just send them one nice email.",
@@ -270,6 +279,10 @@ ackBtn.addEventListener("click", () => {
   dialog.close();
 });
 dialog.addEventListener("cancel", (event) => event.preventDefault());
+// Chromium can still close a modal on repeated Escape; reopen until acknowledged.
+dialog.addEventListener("close", () => {
+  if (sessionStorage.getItem(ACK_KEY) !== "yes") dialog.showModal();
+});
 if (sessionStorage.getItem(ACK_KEY) !== "yes") dialog.showModal();
 
 log(

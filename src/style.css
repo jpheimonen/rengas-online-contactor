@@ -234,7 +234,14 @@ button {
   background: #fff;
 }
 button:disabled {
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+.action:disabled,
+.keys .primary:disabled {
   cursor: progress;
+}
+button:disabled {
   opacity: 0.6;
 }
 .primary {
@@ -265,7 +272,7 @@ button:disabled {
 
 .log-panel {
   position: sticky;
-  top: 3.5rem;
+  top: 5rem; /* clears the banner even when its text wraps to two lines */
   background: #0f1411;
   color: #c9f5d6;
   border-radius: 10px;

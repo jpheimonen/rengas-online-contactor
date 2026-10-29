@@ -7,7 +7,7 @@ escalation ladder from a polite contact form all the way to a blimp over their w
 
 **Nothing is ever sent.** Every email, SMS, robocall, Facebook message and "staff recon" result is simulated
 in your browser. The app makes no network requests to any provider. The API keys it asks for are only
-checked for shape, kept in memory and forgotten on reload. The staff it "finds" are invented.
+checked for shape, then thrown away; they are never stored or sent. The staff it "finds" are invented.
 
 ## The ladder
 
@@ -27,7 +27,7 @@ The robocall level can play its script through **your own** speakers using the b
 
 ## Run it
 
-Needs Node 20+ and pnpm.
+Needs Node 22.12+ and pnpm.
 
 ```sh
 pnpm install

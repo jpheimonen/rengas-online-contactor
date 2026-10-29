@@ -37,7 +37,7 @@ describe("escalation ladder", () => {
     expect(currentLevel(ids("email", "sms"))).toBe(1);
   });
 
-  it("puts robocalls and robo-emails right after the first contact attempts", () => {
+  it("puts robocalls and robo-emails before the social media rungs", () => {
     const order = RUNGS.map((r) => r.id);
     expect(order.indexOf("roboemail")).toBeLessThan(order.indexOf("social"));
     expect(order.indexOf("robocall")).toBeLessThan(order.indexOf("social"));
