@@ -138,3 +138,98 @@ export const UNLOCK_COPY = {
   providerUnreachable:
     "Couldn't reach {provider}. Nothing was stored. Try again, or make one up.",
 } as const;
+
+/** The "Your stand-ins" dialog: the operator's own inbox and phone. */
+export const STAND_IN_COPY = {
+  button: "Your stand-ins",
+  title: "Your stand-in inbox and phone",
+  intro:
+    "Real messages only go to an inbox and phone you prove are yours with a code. For the demo, they play Rengas Online.",
+  close: "Close",
+  inbox: {
+    heading: "Inbox",
+    label: "Your email address",
+    placeholder: "you@example.com",
+    send: "Send email code",
+    sendHelp: "This sends a real verification email to this inbox.",
+    awaiting:
+      "Enter the 6-digit code we emailed you. It expires in 10 minutes and allows 5 tries.",
+    verify: "Verify inbox",
+    change: "Change address",
+    remove: "Remove inbox",
+    verifiedHelp:
+      "A verified inbox can receive the demo email after you confirm it.",
+  },
+  phone: {
+    heading: "Phone",
+    label: "Your phone number",
+    placeholder: "+358 40 123 4567",
+    send: "Send phone code",
+    sendHelp:
+      "This sends a real verification text through Twilio. Use the +358… format.",
+    awaiting: "Enter the 6-digit code sent to your phone.",
+    verify: "Verify phone",
+    change: "Change number",
+    remove: "Remove phone",
+    verifiedHelp:
+      "A verified phone can receive demo texts and calls after you confirm them.",
+  },
+  codeLabel: "Verification code",
+  sendingCode: "Sending code…",
+  checkingCode: "Checking code…",
+  resend: "Send new code",
+  waiting: "Waiting for code",
+  verified: "Verified",
+  enterCode: "Enter the 6-digit code.",
+  setupInbox: "Verify an inbox to send this for real",
+  setupPhone: "Verify a phone to send this for real",
+} as const;
+
+/** The send preview: the confirmation step before every real send. */
+export const SEND_COPY = {
+  actionHelp: "Opens a preview first. Nothing is sent until you confirm it.",
+  preparing: "Preparing your preview…",
+  nothingSent: "Nothing sent yet.",
+  title: {
+    email: "Review the real email",
+    sms: "Review the real SMS",
+    voice: "Review the real call",
+  },
+  to: {
+    email: "To your verified inbox",
+    sms: "To your verified phone",
+    voice: "Calling your verified phone",
+  },
+  standIn: "You are Rengas Online today.",
+  subject: "Subject",
+  message: "Message (read-only)",
+  callOpening: "Sisu opens with",
+  callRules: "Sisu's rules on the call",
+  callCap: "The call ends after {seconds} seconds at most.",
+  trialNotice:
+    "Twilio trial account: the call starts with Twilio's trial message, and you press a key to hear Sisu.",
+  remaining:
+    "{hourLeft} of {hourOf} {sends} left this hour · {dayLeft} of {dayOf} sends left today",
+  sendWords: { email: "emails", sms: "texts", voice: "calls" },
+  send: "Send for real",
+  rewrite: "Rewrite",
+  simulate: "Simulate instead",
+  cancel: "Cancel",
+  close: "Close",
+  sending: "Sending…",
+  sendingHelp: "Please wait. This usually takes a few seconds.",
+  accepted: "Provider accepted · REAL",
+  acceptedHelp: {
+    email: "Your email has been accepted for delivery.",
+    sms: "Your text has been accepted for delivery.",
+    voice: "Your phone is being called.",
+  },
+  follow: "Follow delivery in Activity",
+  expired: "Preview expired. Prepare a new preview.",
+  prepareAgain: "Prepare a new preview",
+  recipientGone:
+    "This recipient isn't verified any more, so this preview can't be sent. Close it and verify again.",
+  failed: "Not sent.",
+  unknown:
+    "We couldn't confirm what happened. Check Activity before trying again.",
+} as const;

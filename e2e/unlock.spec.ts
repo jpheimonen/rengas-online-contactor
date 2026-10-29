@@ -68,15 +68,16 @@ test("a key form shows shape errors, verifies, opens the rung and logs it", asyn
   await showLadder(page);
 });
 
-// A real key either can't be checked by this server yet, or its provider is
-// unreachable because the e2e server blocks outbound calls. Both keep it locked.
-test("a real key that isn't accepted shows the reason and the rung stays locked", async ({
+// The e2e server's fake Resend refuses any key containing "refused".
+test("a real key the provider refuses shows the reason and the rung stays locked", async ({
   page,
 }) => {
   await enter(page);
   const row = rungRow(page, "email");
-  await row.getByLabel("Resend API key").fill("re_real_looking_key_123");
+  await row.getByLabel("Resend API key").fill("re_refused_key_123");
   await row.getByRole("button", { name: "Unlock level 2" }).click();
-  await expect(row.locator(".form-error, .field-error")).toBeVisible();
+  await expect(row.locator(".field-error")).toHaveText(
+    /Resend says this key isn't valid\./,
+  );
   await expect(row.getByRole("button", { name: /Next/ })).toBeVisible();
 });
