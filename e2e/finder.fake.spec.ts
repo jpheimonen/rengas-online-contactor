@@ -47,12 +47,10 @@ test("web results link to their source in a new tab and only simulate hiring", a
 
   await first.getByRole("button", { name: "Simulate hiring" }).click();
   await showActivity(page);
-  const line = logList(page)
-    .getByRole("listitem")
-    .filter({
-      hasText:
-        "Pretending to post a gig on Fake Errand Platform. Nothing is posted.",
-    });
+  const line = logList(page).getByRole("listitem").filter({
+    hasText:
+      "Pretending to post a gig on Fake Errand Platform. Nothing is posted.",
+  });
   await expect(line).toHaveCount(1, { timeout: 20_000 });
   await expect(line).toContainText("SIMULATED");
 });

@@ -1,7 +1,7 @@
 import { tmpdir } from "node:os";
 import { join } from "node:path";
 import { defineConfig, devices } from "@playwright/test";
-import { OUTBOUND_LOG } from "./e2e/support/paths.ts";
+import { FAKE_OUTBOUND_LOG, OUTBOUND_LOG } from "./e2e/support/paths.ts";
 
 const PORT = 8797;
 /** The same app with fake providers, for journeys that need a real-mode run. */
@@ -76,7 +76,7 @@ export default defineConfig({
       env: {
         PORT: String(FAKE_PORT),
         DATABASE_PATH: join(tmpdir(), `rengas-e2e-fake-${process.pid}.db`),
-        OUTBOUND_LOG,
+        OUTBOUND_LOG: FAKE_OUTBOUND_LOG,
       },
       reuseExistingServer: false,
       timeout: 180_000,

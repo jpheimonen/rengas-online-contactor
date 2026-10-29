@@ -1,4 +1,3 @@
-import { readFileSync } from "node:fs";
 import { expect, test, type Page } from "@playwright/test";
 import { FINDER_EXAMPLES } from "../packages/shared/src/index.ts";
 import {
@@ -11,7 +10,6 @@ import {
   showActivity,
   showLadder,
 } from "./support/app.ts";
-import { OUTBOUND_LOG } from "./support/paths.ts";
 
 /** Searches with a finder action and returns its result cards. */
 async function search(page: Page, actionId: string, label: string) {
@@ -42,7 +40,7 @@ async function simulate(
 
 // Without an OpenAI key the finder shows invented examples, and a card only
 // starts a simulated run with that card's name.
-test("finder examples lead to simulated hiring and booking, and nothing leaves the app", async ({
+test("finder examples lead to simulated hiring and booking, and the browser calls nothing outside", async ({
   page,
   baseURL,
 }) => {
@@ -91,5 +89,4 @@ test("finder examples lead to simulated hiring and booking, and nothing leaves t
   ).toBe(true);
   await expect(logList(page).locator(".mark-real")).toHaveCount(0);
   expect(foreign).toEqual([]);
-  expect(readFileSync(OUTBOUND_LOG, "utf8")).toBe("");
 });

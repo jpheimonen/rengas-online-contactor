@@ -35,6 +35,11 @@ test("the whole climb with no keys simulates everything and calls nothing outsid
     }
     for (const done of finished) await done();
   }
+  // Answering its own ticket opens the Case closed report.
+  await page
+    .getByRole("dialog", { name: /CLOSED/ })
+    .getByRole("button", { name: "Close" })
+    .click();
 
   await showActivity(page);
   const log = logList(page);

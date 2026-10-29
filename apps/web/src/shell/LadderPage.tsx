@@ -1,4 +1,4 @@
-import { useMemo, useState, type ReactNode } from "react";
+import { useCallback, useMemo, useState, type ReactNode } from "react";
 import type { AppState } from "@rengas/shared";
 import { useActivity } from "../activity/ActivityProvider.tsx";
 import { ActivityPanel } from "../activity/ActivityPanel.tsx";
@@ -10,6 +10,8 @@ import {
   type HangUpControl,
 } from "../call/LiveCallView.tsx";
 import { Ladder } from "../ladder/Ladder.tsx";
+import { CaseClosed } from "../report/CaseClosed.tsx";
+import { summarize } from "../report/summary.ts";
 import { Stage } from "../stage/Stage.tsx";
 import { useDesktop } from "../useMediaQuery.ts";
 
@@ -46,6 +48,26 @@ function Page({ state, desktop }: { state: AppState; desktop: boolean }) {
     setViewing(call.runId);
   }
 
+  // The report opens when Sisu's job run finishes now, not for one in replayed history.
+  const [loadedAt] = useState(state.lastEventId);
+  const [reported, setReported] = useState(loadedAt);
+  const [reportOpen, setReportOpen] = useState(false);
+  const closeReport = useCallback(() => setReportOpen(false), []);
+  const tookTheJob = items.find(
+    (item) => item.type === "done" && item.actionId === "take-the-job",
+  );
+  if (typeof tookTheJob?.id === "number" && tookTheJob.id > reported) {
+    setReported(tookTheJob.id);
+    setReportOpen(true);
+  }
+  const report = reportOpen && (
+    <CaseClosed
+      ticket={state.ticket.number}
+      summary={summarize(items)}
+      onClose={closeReport}
+    />
+  );
+
   if (call && viewing === call.runId) {
     return (
       <LiveCallView
@@ -63,6 +85,7 @@ function Page({ state, desktop }: { state: AppState; desktop: boolean }) {
 
   return (
     <>
+      {report}
       {call && isLive(call) && (
         <LiveCallStrip
           call={call}

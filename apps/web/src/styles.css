@@ -1059,6 +1059,23 @@ main {
   padding: var(--s4) var(--s6) calc(var(--s5) + env(safe-area-inset-bottom));
   border-top: 1px solid var(--rule);
 }
+.report h3 {
+  margin: var(--s2) 0 0;
+  font-size: 18px;
+}
+.report p {
+  margin: 0;
+}
+.report-score {
+  font-weight: 700;
+}
+.report-footer {
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+}
+.report-footer .form-error {
+  grid-column: 1 / -1;
+}
+
 .check {
   display: flex;
   gap: var(--s3);
