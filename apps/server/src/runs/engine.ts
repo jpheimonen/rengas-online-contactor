@@ -16,7 +16,7 @@ import {
 } from "@rengas/shared";
 import type { Db } from "../db/client.ts";
 import { runs } from "../db/schema.ts";
-import { problem } from "../errors.ts";
+import { ApiProblem, problem } from "../errors.ts";
 import type { EventLog } from "../events.ts";
 import { maskAddress } from "../recipients/recipients.ts";
 import type { ConfirmedSend, SendGuard, SendRecord } from "../sends/guard.ts";
@@ -272,7 +272,13 @@ export class RunEngine {
       const { rung } = getAction(run.actionId);
       const written =
         this.#writer && mayWrite(action)
-          ? await this.#writer.write({ ticket, rung, action, signal })
+          ? await this.#writer.write({
+              sessionId: run.sessionId,
+              ticket,
+              rung,
+              action,
+              signal,
+            })
           : null;
       emit({
         type: "thought",
@@ -312,7 +318,14 @@ export class RunEngine {
       if (signal.aborted) return;
       send?.markFailed();
       console.error(`Run ${run.id} (${run.actionId}) failed`, error);
-      emit({ type: "failed", text: "✖ This run stopped unexpectedly." });
+      emit({
+        type: "failed",
+        // A provider's refusal already reads as a log line.
+        text:
+          error instanceof ApiProblem
+            ? error.message
+            : "✖ This run stopped unexpectedly.",
+      });
       this.#finish(run, "failed");
     }
   }

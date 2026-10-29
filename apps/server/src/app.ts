@@ -19,6 +19,7 @@ import { stateRoutes } from "./routes/state.ts";
 import { twilioRoutes } from "./routes/twilio.ts";
 import type { RealAdapters } from "./runs/adapters.ts";
 import { RunEngine } from "./runs/engine.ts";
+import { fixedTextWriter, type NeutralWriter } from "./sends/neutral-writer.ts";
 import type { Writer } from "./runs/writer.ts";
 import {
   DEFAULT_SEND_LIMITS,
@@ -42,6 +43,8 @@ export interface AppOptions {
   /** The real AI call; without it the call always simulates. */
   voice?: VoiceCalls;
   writer?: Writer;
+  /** Writes the neutral text shown in a preview; the default is the fixed text. */
+  neutralWriter?: NeutralWriter;
   /** Pause between scripted lines; tests shorten it. */
   stepDelayMs?: number;
 }
@@ -72,6 +75,7 @@ export function createApp(options: AppOptions) {
     recipients,
     guard,
     voice: options.voice,
+    neutralWriter: options.neutralWriter ?? fixedTextWriter,
     engine: new RunEngine({
       db: options.db,
       events,
