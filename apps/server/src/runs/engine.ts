@@ -112,8 +112,8 @@ export class RunEngine {
   /** The mode the rung's unlock and the real adapters allow, before the send guard's checks. */
   unlockedMode(sessionId: string, action: RealCapableAction): ModeChoice {
     const { rung } = getAction(action.id as ActionId);
-    const unlockMode = getUnlocks(this.#db, sessionId).get(rung.id);
-    return chooseMode(action, unlockMode, {}, this.#realAdapters);
+    const unlocks = getUnlocks(this.#db, sessionId);
+    return chooseMode(action, rung.id, unlocks, {}, this.#realAdapters);
   }
 
   start(
@@ -147,7 +147,8 @@ export class RunEngine {
 
     let choice = chooseMode(
       action,
-      unlocked.get(rung.id),
+      rung.id,
+      unlocked,
       request,
       this.#realAdapters,
     );

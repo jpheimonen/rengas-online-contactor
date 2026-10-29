@@ -6,6 +6,7 @@ import type { Recipients } from "./recipients/recipients.ts";
 import type { RunEngine } from "./runs/engine.ts";
 import type { NeutralWriter } from "./sends/neutral-writer.ts";
 import type { SendGuard } from "./sends/guard.ts";
+import type { VoiceCalls } from "./voice/calls.ts";
 
 /** What the routes work with; `createApp` builds one set per app. */
 export interface Services {
@@ -16,5 +17,7 @@ export interface Services {
   finder: Finder;
   recipients: Recipients;
   guard: SendGuard;
+  /** Set when real calls are configured. */
+  voice: VoiceCalls | undefined;
   neutralWriter: NeutralWriter;
 }

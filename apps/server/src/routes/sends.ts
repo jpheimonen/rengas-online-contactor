@@ -16,7 +16,13 @@ import { readBody } from "../validate.ts";
  * decision send-guard). It shows exactly what will go to which verified
  * recipient and returns the single-use token that `POST /api/runs` needs.
  */
-export function sendRoutes({ db, engine, guard, neutralWriter }: Services) {
+export function sendRoutes({
+  db,
+  engine,
+  guard,
+  voice,
+  neutralWriter,
+}: Services) {
   return new Hono<SessionEnv>().post("/sends/preview", async (c) => {
     const sessionId = c.get("sessionId");
     const request = await readBody(c, sendPreviewRequestSchema);
@@ -41,6 +47,10 @@ export function sendRoutes({ db, engine, guard, neutralWriter }: Services) {
       action,
       getTicket(db, sessionId),
     );
+    // A real call needs the voice adapter, so `voice` is set here.
+    if (content.channel === "voice") {
+      content.trialNotice = await voice!.isTrial(sessionId);
+    }
     return c.json(
       guard.preview(sessionId, action, request.recipientId, content, aiWritten),
     );

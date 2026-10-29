@@ -1,5 +1,7 @@
 import {
+  RUNGS,
   fillTemplate,
+  type Provider,
   type RealCapableAction,
   type RealChannel,
   type SimulateReason,
@@ -25,6 +27,7 @@ export type StepBody = DistributiveOmit<
 export type RunnableAction = RealCapableAction | SimulationOnlyAction;
 
 export interface RunContext {
+  /** The operator's session, whose keys a real adapter uses. */
   sessionId: string;
   action: RunnableAction;
   /** Ticket, option name and SMS text for the action's placeholders. */
@@ -64,24 +67,51 @@ export type ModeChoice =
   | { mode: "real"; adapter: ChannelAdapter }
   | { mode: "simulated"; adapter: ChannelAdapter; reason?: SimulateReason };
 
+/** The rung whose real key holds each provider: Resend at 2, Twilio at 4, OpenAI at 5. */
+const PROVIDER_RUNGS = new Map<Provider, string>(
+  RUNGS.flatMap((rung) =>
+    rung.keys.flatMap((key) =>
+      key.kind === "real" ? [[key.provider, rung.id] as const] : [],
+    ),
+  ),
+);
+
+/** Why a run simulates when another rung's provider is missing. No action needs Resend from another rung. */
+const NEEDS = {
+  resend: "pretend-key",
+  twilio: "needs-twilio",
+  openai: "needs-openai",
+} as const satisfies Record<Provider, SimulateReason>;
+
 /**
  * Picks the adapter for a run. Simulation-only actions always simulate. A
- * real-capable action goes real only when its rung was unlocked with a real or
- * configured key and its channel has a real adapter. The run engine then asks
- * the send guard for a verified recipient, the confirmation token and the
- * limits before anything is sent.
+ * real-capable action goes real only when its rung, and the rung holding each
+ * other provider it requires, were unlocked with a real or configured key, and
+ * its channel has a real adapter. The live call needs Twilio from level 4 as
+ * well as its own OpenAI key. The run engine then asks the send guard for a
+ * verified recipient, the confirmation token and the limits before anything
+ * is sent.
  */
 export function chooseMode(
   action: RunnableAction,
-  unlockMode: UnlockMode | undefined,
+  rungId: string,
+  unlocks: ReadonlyMap<string, UnlockMode>,
   options: { simulate?: boolean | undefined },
   realAdapters: RealAdapters,
 ): ModeChoice {
   if (action.mode === "simulation-only") return simulated();
   if (options.simulate) return simulated("chose-simulate");
+  const unlockMode = unlocks.get(rungId);
   if (unlockMode === "pretend") return simulated("pretend-key");
   const adapter = realAdapters[action.channel];
   if (unlockMode === undefined || !adapter) return simulated();
+  for (const provider of action.requires) {
+    const providerRung = PROVIDER_RUNGS.get(provider)!;
+    const mode = unlocks.get(providerRung);
+    if (providerRung !== rungId && (mode === undefined || mode === "pretend")) {
+      return simulated(NEEDS[provider]);
+    }
+  }
   return { mode: "real", adapter };
 }
 

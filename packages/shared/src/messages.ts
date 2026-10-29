@@ -56,6 +56,25 @@ export const CALL = {
     "Sisu will call {recipient} and talk for up to 90 seconds. Answer like you work there: 'Rengas Online customer service, how can I help?'",
   trialNote:
     "You'll hear a short Twilio trial notice first. Press any key to connect Sisu.",
+  /** Sent to Sisu shortly before the cap, so it can say the closing line. */
+  timeNearlyUp:
+    "Time is nearly up. Say your closing line now, exactly as written in your instructions.",
+  /** One log line for each status Twilio reports for the call. */
+  statuses: {
+    queued: "📞 Twilio: call queued",
+    initiated: "📞 Twilio: dialling",
+    ringing: "📞 Twilio: ringing",
+    "in-progress": "📞 Twilio: answered",
+    completed: "📞 Twilio: call completed",
+    busy: "📞 Twilio: the line was busy",
+    "no-answer": "📞 Twilio: no answer",
+    canceled: "📞 Twilio: call cancelled",
+    failed: "📞 Twilio: the call failed",
+  },
+  /** Log lines from the server's side of the call. */
+  capReached: "⏱ 90 seconds are up. Sisu hangs up.",
+  sisuHangsUp: "📞 Sisu ends the call, as asked.",
+  voiceLost: "✖ OpenAI dropped Sisu's voice. Hanging up.",
 } as const;
 
 /** The gpt-realtime instructions, with `{ticket}` and `{complaint}` to fill. */
