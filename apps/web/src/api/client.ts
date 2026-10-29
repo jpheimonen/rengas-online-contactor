@@ -1,11 +1,13 @@
 import {
   apiErrorSchema,
+  finderResponseSchema,
   recipientSchema,
   sendPreviewSchema,
   startRunResponseSchema,
   stateSchema,
   type ApiError,
   type AppState,
+  type FinderKind,
   type CreateRecipientRequest,
   type RungId,
   type SendPreviewRequest,
@@ -73,6 +75,14 @@ export const api = {
   reset: () => request("/reset", stateSchema, { method: "POST" }),
   startRun: (body: StartRunRequest) =>
     request("/runs", startRunResponseSchema, { method: "POST", body }),
+  /** Ends a live call. */
+  hangUp: (runId: string) =>
+    request(`/runs/${runId}/hang-up`, noContent, { method: "POST" }),
+  finder: (kind: FinderKind) =>
+    request("/finder", finderResponseSchema, {
+      method: "POST",
+      body: { kind },
+    }),
   addRecipient: (body: CreateRecipientRequest) =>
     request("/recipients", recipientSchema, { method: "POST", body }),
   verifyRecipient: (id: string, code: string) =>

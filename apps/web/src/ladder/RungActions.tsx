@@ -11,6 +11,7 @@ import {
 } from "@rengas/shared";
 import { useStartRun } from "../api/queries.ts";
 import { useActivity } from "../activity/ActivityProvider.tsx";
+import { FinderPanel } from "../finder/FinderPanel.tsx";
 import { format } from "../format.ts";
 import { Mark } from "../Mark.tsx";
 import { useSends, type RealActionId } from "../sends/SendsProvider.tsx";
@@ -24,7 +25,11 @@ export function RungActions({ rung, state }: { rung: Rung; state: AppState }) {
       <ul className="actions">
         {rung.actions.map((action) => (
           <li key={action.id} className="action" data-action={action.id}>
-            <ActionControl action={action} state={state} />
+            {action.mode === "finder" ? (
+              <FinderPanel action={action} state={state} />
+            ) : (
+              <ActionControl action={action} state={state} />
+            )}
           </li>
         ))}
       </ul>
@@ -64,7 +69,13 @@ function KeyStatus({ rung, state }: { rung: Rung; state: AppState }) {
   );
 }
 
-function ActionControl({ action, state }: { action: Action; state: AppState }) {
+function ActionControl({
+  action,
+  state,
+}: {
+  action: Exclude<Action, { mode: "finder" }>;
+  state: AppState;
+}) {
   const start = useStartRun();
   const { openPreview, openStandIns } = useSends();
   const { addLocalLine } = useActivity();
@@ -89,9 +100,6 @@ function ActionControl({ action, state }: { action: Action; state: AppState }) {
       if (used) note += ` ${used}`;
     }
   }
-  // The finder search is built by a later part of the app.
-  if (action.mode === "finder") note = "The finder search isn't connected yet.";
-  const runnable = action.mode !== "finder";
   const setup =
     choice?.reason === "no-verified-inbox"
       ? STAND_IN_COPY.setupInbox
@@ -108,7 +116,7 @@ function ActionControl({ action, state }: { action: Action; state: AppState }) {
           className={
             real ? "button primary action-button" : "button action-button"
           }
-          disabled={running || !runnable}
+          disabled={running}
           aria-describedby={note || real ? `${markId} ${noteId}` : markId}
           onClick={() =>
             real
@@ -118,12 +126,7 @@ function ActionControl({ action, state }: { action: Action; state: AppState }) {
         >
           {running ? SYSTEM_LINES.running : action.label}
         </button>
-        {action.mode === "finder" ? (
-          <Mark
-            id={markId}
-            kind={state.finderMode === "web-search" ? "webSearch" : "example"}
-          />
-        ) : real ? (
+        {real ? (
           <Mark id={markId} kind="real" detail={choice.recipient} />
         ) : (
           <Mark id={markId} kind="simulated" />

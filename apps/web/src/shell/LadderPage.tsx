@@ -1,8 +1,17 @@
-import { useState, type ReactNode } from "react";
+import { useCallback, useMemo, useState, type ReactNode } from "react";
+import type { AppState } from "@rengas/shared";
 import { useActivity } from "../activity/ActivityProvider.tsx";
 import { ActivityPanel } from "../activity/ActivityPanel.tsx";
-import { useAppState } from "../api/queries.ts";
+import { useAppState, useHangUp } from "../api/queries.ts";
+import { isLive, latestCall, type LiveCall } from "../call/call.ts";
+import {
+  LiveCallStrip,
+  LiveCallView,
+  type HangUpControl,
+} from "../call/LiveCallView.tsx";
 import { Ladder } from "../ladder/Ladder.tsx";
+import { CaseClosed } from "../report/CaseClosed.tsx";
+import { summarize } from "../report/summary.ts";
 import { Stage } from "../stage/Stage.tsx";
 import { useDesktop } from "../useMediaQuery.ts";
 
@@ -24,9 +33,66 @@ export function LadderPage() {
     );
   }
   if (!state) return <p className="page-message">Loading the ladder…</p>;
+  return <Page state={state} desktop={desktop} />;
+}
+
+function Page({ state, desktop }: { state: AppState; desktop: boolean }) {
+  const { items } = useActivity();
+  const call = useMemo(() => latestCall(items), [items]);
+  const control = useHangUpControl(call);
+  // A new live call opens its view; closing the view leaves the call running.
+  const [viewing, setViewing] = useState<string | null>(null);
+  const [opened, setOpened] = useState<string | null>(null);
+  if (call && isLive(call) && call.runId !== opened) {
+    setOpened(call.runId);
+    setViewing(call.runId);
+  }
+
+  // The report opens when Sisu's job run finishes now, not for one in replayed history.
+  const [loadedAt] = useState(state.lastEventId);
+  const [reported, setReported] = useState(loadedAt);
+  const [reportOpen, setReportOpen] = useState(false);
+  const closeReport = useCallback(() => setReportOpen(false), []);
+  const tookTheJob = items.find(
+    (item) => item.type === "done" && item.actionId === "take-the-job",
+  );
+  if (typeof tookTheJob?.id === "number" && tookTheJob.id > reported) {
+    setReported(tookTheJob.id);
+    setReportOpen(true);
+  }
+  const report = reportOpen && (
+    <CaseClosed
+      ticket={state.ticket.number}
+      summary={summarize(items)}
+      onClose={closeReport}
+    />
+  );
+
+  if (call && viewing === call.runId) {
+    return (
+      <LiveCallView
+        call={call}
+        control={control}
+        onBack={() => {
+          setViewing(null);
+          requestAnimationFrame(() =>
+            document.getElementById("stage-title")?.focus(),
+          );
+        }}
+      />
+    );
+  }
 
   return (
     <>
+      {report}
+      {call && isLive(call) && (
+        <LiveCallStrip
+          call={call}
+          control={control}
+          onView={() => setViewing(call.runId)}
+        />
+      )}
       <Stage state={state} />
       {desktop ? (
         <div className="columns">
@@ -38,6 +104,18 @@ export function LadderPage() {
       )}
     </>
   );
+}
+
+function useHangUpControl(call: LiveCall | null): HangUpControl {
+  const hangUp = useHangUp();
+  const mine = call !== null && hangUp.variables === call.runId;
+  return {
+    ending: mine && isLive(call) && (hangUp.isPending || hangUp.isSuccess),
+    error: mine && hangUp.error ? hangUp.error.message : null,
+    hangUp: () => {
+      if (call) hangUp.mutate(call.runId);
+    },
+  };
 }
 
 function MobileTabs({ ladder }: { ladder: ReactNode }) {

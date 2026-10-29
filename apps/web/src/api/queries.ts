@@ -84,3 +84,8 @@ export function setRunning(
     };
   });
 }
+
+/** Results are not stored on the server, so they live in the mutation's data. */
+export const useFinder = () => useMutation({ mutationFn: api.finder });
+
+export const useHangUp = () => useMutation({ mutationFn: api.hangUp });
