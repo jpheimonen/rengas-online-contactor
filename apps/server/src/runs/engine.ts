@@ -87,8 +87,8 @@ export class RunEngine {
 
   /** How the action would run now, for `GET /api/state`. */
   modeFor(sessionId: string, action: RunnableAction): ModeChoice {
-    const rungId = getAction(action.id as ActionId).rung.id;
-    const unlockMode = getUnlocks(this.#db, sessionId).get(rungId as never);
+    const { rung } = getAction(action.id as ActionId);
+    const unlockMode = getUnlocks(this.#db, sessionId).get(rung.id);
     return chooseMode(action, unlockMode, {}, this.#realAdapters);
   }
 
@@ -123,7 +123,7 @@ export class RunEngine {
 
     const choice = chooseMode(
       action,
-      unlocked.get(rung.id as never),
+      unlocked.get(rung.id),
       request,
       this.#realAdapters,
     );

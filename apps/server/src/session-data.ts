@@ -28,13 +28,13 @@ export function setTicket(db: Db, sessionId: string, ticket: Ticket): void {
 }
 
 /** The session's unlocked rungs and how each was unlocked. */
-export function getUnlocks(db: Db, sessionId: string): Map<RungId, UnlockMode> {
+export function getUnlocks(db: Db, sessionId: string): Map<string, UnlockMode> {
   const rows = db
     .select()
     .from(unlocks)
     .where(eq(unlocks.sessionId, sessionId))
     .all();
-  return new Map(rows.map((row) => [row.rungId as RungId, row.mode]));
+  return new Map(rows.map((row) => [row.rungId, row.mode]));
 }
 
 export function addUnlock(

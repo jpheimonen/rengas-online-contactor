@@ -3,6 +3,7 @@ import {
   currentLevel,
   type AppState,
   type RealCapableAction,
+  type RungId,
 } from "@rengas/shared";
 import type { Services } from "./services.ts";
 import { getTicket, getUnlocks } from "./session-data.ts";
@@ -19,7 +20,10 @@ export function buildState(services: Services, sessionId: string): AppState {
   const unlocks = getUnlocks(db, sessionId);
   return {
     ticket: getTicket(db, sessionId),
-    unlocks: [...unlocks].map(([rungId, mode]) => ({ rungId, mode })),
+    unlocks: [...unlocks].map(([rungId, mode]) => ({
+      rungId: rungId as RungId,
+      mode,
+    })),
     currentLevel: currentLevel(new Set(unlocks.keys())),
     keys: keyVault.list(sessionId),
     // Recipients and send limits arrive with the send guard.
