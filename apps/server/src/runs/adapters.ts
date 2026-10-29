@@ -25,6 +25,7 @@ export type StepBody = DistributiveOmit<
 export type RunnableAction = RealCapableAction | SimulationOnlyAction;
 
 export interface RunContext {
+  sessionId: string;
   action: RunnableAction;
   /** Ticket, option name and SMS text for the action's placeholders. */
   values: TemplateValues;

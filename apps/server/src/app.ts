@@ -18,6 +18,7 @@ import { sendRoutes } from "./routes/sends.ts";
 import { stateRoutes } from "./routes/state.ts";
 import type { RealAdapters } from "./runs/adapters.ts";
 import { RunEngine } from "./runs/engine.ts";
+import { fixedTextWriter, type NeutralWriter } from "./sends/neutral-writer.ts";
 import type { Writer } from "./runs/writer.ts";
 import {
   DEFAULT_SEND_LIMITS,
@@ -38,6 +39,8 @@ export interface AppOptions {
   finder?: Finder;
   realAdapters?: RealAdapters;
   writer?: Writer;
+  /** Writes the neutral text shown in a preview; the default is the fixed text. */
+  neutralWriter?: NeutralWriter;
   /** Pause between scripted lines; tests shorten it. */
   stepDelayMs?: number;
 }
@@ -63,6 +66,7 @@ export function createApp(options: AppOptions) {
     finder: options.finder ?? noFinder,
     recipients,
     guard,
+    neutralWriter: options.neutralWriter ?? fixedTextWriter,
     engine: new RunEngine({
       db: options.db,
       events,

@@ -122,6 +122,7 @@ export class SendGuard {
     action: RealCapableAction,
     recipientId: string,
     content: SendContent,
+    aiWritten = false,
   ): SendPreview {
     const recipient = this.#recipients.get(sessionId, recipientId);
     if (!recipient) throw problem(404, "not-found", "No such recipient.");
@@ -157,7 +158,7 @@ export class SendGuard {
       expiresAt,
       actionId: action.id as SendPreview["actionId"],
       recipient: maskAddress(recipient),
-      aiWritten: false,
+      aiWritten,
       remaining: {
         hour: {
           left: hour - this.#used(sessionId, HOUR_MS, action.channel),

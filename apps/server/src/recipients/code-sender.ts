@@ -40,11 +40,33 @@ export const providerRefused = (provider: Provider, reason: string) =>
       .replace("{reason}", reason),
   );
 
-const RESEND_EMAILS = "https://api.resend.com/emails";
+export const RESEND_EMAILS = "https://api.resend.com/emails";
 const VERIFY = "https://verify.twilio.com/v2";
 
 /** Twilio's error code for a trial account sending to a number it hasn't verified. */
 const TWILIO_TRIAL_UNVERIFIED = 21608;
+
+/** Twilio's refusal as an API problem; the trial-account error gets its own wording. */
+export const twilioRefused = (body: Record<string, unknown>) =>
+  providerRefused(
+    "twilio",
+    body.code === TWILIO_TRIAL_UNVERIFIED
+      ? SYSTEM_LINES.twilioTrialUnverified
+      : `${String(body.message ?? "unknown error")}.`,
+  );
+
+/** Resend's refusal of a send; 403 means the sandbox sender can't reach this address. */
+export async function resendRefused(response: Response) {
+  const body = (await response.json().catch(() => ({}))) as {
+    message?: string;
+  };
+  return providerRefused(
+    "resend",
+    response.status === 403
+      ? SYSTEM_LINES.resendNoDomain
+      : `${body.message ?? response.statusText}.`,
+  );
+}
 
 /** The real code sender. `from` is the Resend sender address. */
 export function createCodeSender(from: string): CodeSender {
@@ -66,14 +88,6 @@ export function createCodeSender(from: string): CodeSender {
     const body = (await response.json()) as Record<string, unknown>;
     return { status: response.status, body };
   };
-
-  const twilioRefused = (body: Record<string, unknown>) =>
-    providerRefused(
-      "twilio",
-      body.code === TWILIO_TRIAL_UNVERIFIED
-        ? SYSTEM_LINES.twilioTrialUnverified
-        : `${String(body.message ?? "unknown error")}.`,
-    );
 
   const verifyService = (credentials: Credentials["twilio"]) => {
     let sid = services.get(credentials.accountSid);
@@ -113,16 +127,7 @@ export function createCodeSender(from: string): CodeSender {
           text: VERIFICATION_EMAIL.body.replace("{code}", code),
         }),
       });
-      if (response.ok) return;
-      const body = (await response.json().catch(() => ({}))) as {
-        message?: string;
-      };
-      throw providerRefused(
-        "resend",
-        response.status === 403
-          ? SYSTEM_LINES.resendNoDomain
-          : `${body.message ?? response.statusText}.`,
-      );
+      if (!response.ok) throw await resendRefused(response);
     },
 
     async startPhoneCode(credentials, to) {

@@ -6,7 +6,6 @@ import {
   type RealCapableAction,
 } from "@rengas/shared";
 import { problem } from "../errors.ts";
-import { fallbackContent } from "../sends/content.ts";
 import type { Services } from "../services.ts";
 import type { SessionEnv } from "../session.ts";
 import { getTicket } from "../session-data.ts";
@@ -17,7 +16,7 @@ import { readBody } from "../validate.ts";
  * decision send-guard). It shows exactly what will go to which verified
  * recipient and returns the single-use token that `POST /api/runs` needs.
  */
-export function sendRoutes({ db, engine, guard }: Services) {
+export function sendRoutes({ db, engine, guard, neutralWriter }: Services) {
   return new Hono<SessionEnv>().post("/sends/preview", async (c) => {
     const sessionId = c.get("sessionId");
     const request = await readBody(c, sendPreviewRequestSchema);
@@ -37,9 +36,13 @@ export function sendRoutes({ db, engine, guard }: Services) {
     }
 
     // The guard refuses an unverified recipient or a used-up limit.
-    const content = fallbackContent(action, getTicket(db, sessionId));
+    const { content, aiWritten } = await neutralWriter.write(
+      sessionId,
+      action,
+      getTicket(db, sessionId),
+    );
     return c.json(
-      guard.preview(sessionId, action, request.recipientId, content),
+      guard.preview(sessionId, action, request.recipientId, content, aiWritten),
     );
   });
 }
