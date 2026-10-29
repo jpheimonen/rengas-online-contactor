@@ -77,7 +77,7 @@ function SourceLink({ url }: { url: string }) {
       href={url}
       target="_blank"
       rel="noopener noreferrer"
-      aria-label={`View source on ${domain} (opens in a new tab)`}
+      aria-label={`View source ${domain} (opens in a new tab)`}
     >
       <span>
         View source <span aria-hidden="true">↗</span>

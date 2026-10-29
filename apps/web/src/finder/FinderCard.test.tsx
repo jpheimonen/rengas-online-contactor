@@ -30,7 +30,7 @@ describe("FinderCard", () => {
   it("shows a web result with its source domain, opening in a new tab", () => {
     renderCard();
     const link = screen.getByRole("link", {
-      name: "View source on www.example-airships.test (opens in a new tab)",
+      name: "View source www.example-airships.test (opens in a new tab)",
     });
     expect(link).toHaveAttribute("href", webOption.sourceUrl);
     expect(link).toHaveAttribute("target", "_blank");

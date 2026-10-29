@@ -10,7 +10,7 @@ import {
   type StartRunRequest,
   type UnlockRequest,
 } from "@rengas/shared";
-import type { z } from "zod";
+import { z } from "zod";
 
 /** A refused request, with the server's `{error, message, fieldErrors}` body. */
 export class ApiProblem extends Error {
@@ -69,6 +69,9 @@ export const api = {
   reset: () => request("/reset", stateSchema, { method: "POST" }),
   startRun: (body: StartRunRequest) =>
     request("/runs", startRunResponseSchema, { method: "POST", body }),
+  /** Ends a live call; the server answers 204 with no body. */
+  hangUp: (runId: string) =>
+    request(`/runs/${runId}/hang-up`, z.unknown(), { method: "POST" }),
   finder: (kind: FinderKind) =>
     request("/finder", finderResponseSchema, {
       method: "POST",

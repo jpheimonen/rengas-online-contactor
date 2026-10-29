@@ -292,6 +292,35 @@ describe("a real AI call", () => {
     expect(events.some((e) => e.type === "transcript")).toBe(false);
   });
 
+  it("hangs up one call when the operator presses Hang up", async () => {
+    const s = await setup();
+    await unlockCall(s.client);
+    const { runId, token } = await startCall(s);
+    const { openai } = connectMedia(s, token);
+
+    const other = new TestClient(s.app);
+    expect(
+      (await other.post(`/api/runs/${runId}/hang-up`)).status,
+      "another session can't hang up this call",
+    ).toBe(404);
+    expect(s.twilio.hungUp).toEqual([]);
+
+    expect((await s.client.post(`/api/runs/${runId}/hang-up`)).status).toBe(
+      204,
+    );
+    expect(s.twilio.hungUp).toEqual(["CA1"]);
+    expect(openai.wire.closed).toBe(true);
+    const events = eventsOf(await s.client.log(), runId);
+    expect(events.at(-1)).toMatchObject({
+      type: "cancelled",
+      text: CALL.youHungUp,
+    });
+    expect((await s.client.state()).runningActionIds).toEqual([]);
+    expect((await s.client.post(`/api/runs/${runId}/hang-up`)).status).toBe(
+      404,
+    );
+  });
+
   it("fails the run and hangs up when OpenAI drops the voice", async () => {
     const s = await setup();
     vi.spyOn(console, "error").mockImplementation(() => {});

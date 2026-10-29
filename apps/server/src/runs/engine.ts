@@ -2,6 +2,7 @@ import { randomUUID } from "node:crypto";
 import { setTimeout as sleep } from "node:timers/promises";
 import { eq } from "drizzle-orm";
 import {
+  CALL,
   RUNGS,
   SMS,
   SYSTEM_LINES,
@@ -220,17 +221,37 @@ export class RunEngine {
   /** De-escalate: stops every run of the session and logs each as cancelled. */
   cancelAll(sessionId: string): void {
     for (const run of this.#active.values()) {
-      if (run.sessionId !== sessionId) continue;
-      run.controller.abort();
-      this.#events.append(sessionId, {
-        type: "cancelled",
-        runId: run.id,
-        actionId: run.actionId,
-        mode: run.mode,
-        text: SYSTEM_LINES.cancelled,
-      });
-      this.#finish(run, "cancelled");
+      if (run.sessionId === sessionId)
+        this.#cancel(run, SYSTEM_LINES.cancelled);
     }
+  }
+
+  /**
+   * Hang up: ends one live call of the session. Aborting the run hangs up
+   * the call, as De-escalate does. Returns false when there is no such call.
+   */
+  hangUp(sessionId: string, runId: string): boolean {
+    const run = this.#active.get(runId);
+    if (
+      run?.sessionId !== sessionId ||
+      run.actionId !== "ai-call" ||
+      run.mode !== "real"
+    )
+      return false;
+    this.#cancel(run, CALL.youHungUp);
+    return true;
+  }
+
+  #cancel(run: ActiveRun, text: string): void {
+    run.controller.abort();
+    this.#events.append(run.sessionId, {
+      type: "cancelled",
+      runId: run.id,
+      actionId: run.actionId,
+      mode: run.mode,
+      text,
+    });
+    this.#finish(run, "cancelled");
   }
 
   async #execute(

@@ -75,6 +75,7 @@ export const CALL = {
   capReached: "⏱ 90 seconds are up. Sisu hangs up.",
   sisuHangsUp: "📞 Sisu ends the call, as asked.",
   voiceLost: "✖ OpenAI dropped Sisu's voice. Hanging up.",
+  youHungUp: "📞 You hung up.",
 } as const;
 
 /** The gpt-realtime instructions, with `{ticket}` and `{complaint}` to fill. */
