@@ -1,6 +1,7 @@
 // Records what the old app does, so the new app can be checked against it.
 // Run from the old app's code (commit f5b9e78) with: node tests/parity/export-fixtures.ts
 // It writes ladder.json and rules.json next to this file. It does not change src/.
+// Then run `pnpm format` so the JSON matches the repo style.
 
 import { writeFileSync, mkdirSync } from "node:fs";
 import { dirname, join } from "node:path";
