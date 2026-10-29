@@ -5,9 +5,20 @@ import { serveStatic } from "@hono/node-server/serve-static";
 import { createApp } from "./app.ts";
 import { loadConfig } from "./config.ts";
 import { openDatabase } from "./db/client.ts";
+import { createCodeSender } from "./recipients/code-sender.ts";
 
 const config = loadConfig();
-const app = createApp({ db: openDatabase(config.DATABASE_PATH) });
+const app = createApp({
+  db: openDatabase(config.DATABASE_PATH),
+  appSecret: config.APP_SECRET,
+  codeSender: createCodeSender(config.RESEND_FROM),
+  sendLimits: {
+    email: config.SEND_LIMIT_EMAIL_PER_HOUR,
+    sms: config.SEND_LIMIT_SMS_PER_HOUR,
+    voice: config.SEND_LIMIT_CALLS_PER_HOUR,
+    day: config.SEND_LIMIT_PER_DAY,
+  },
+});
 
 // After `pnpm build` the same process also serves the web app, with index.html as the SPA fallback.
 const webDist = fileURLToPath(new URL("../../web/dist", import.meta.url));

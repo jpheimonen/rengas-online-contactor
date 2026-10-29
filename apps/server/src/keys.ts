@@ -7,6 +7,13 @@ export interface AcceptedKey {
   hint: string;
 }
 
+/** A provider's decrypted key, for server-side calls only. Never sent to the browser. */
+export interface Credentials {
+  resend: { apiKey: string };
+  twilio: { accountSid: string; authToken: string; fromNumber?: string };
+  openai: { apiKey: string };
+}
+
 /**
  * Where real provider keys are checked and kept (register decisions
  * provider-keys and unlock-modes). The unlock and reset endpoints call it; the
@@ -24,6 +31,15 @@ export interface KeyVault {
   /** De-escalate: deletes the keys entered in the UI. Configured keys stay ready. */
   forget(sessionId: string): void;
   list(sessionId: string): AppState["keys"];
+  /**
+   * The provider's key for server-side calls: the one entered in this session,
+   * else the one configured in .env, else null (register decision
+   * vault-credentials-for-send-guard).
+   */
+  credentials<P extends Provider>(
+    sessionId: string,
+    provider: P,
+  ): Credentials[P] | null;
 }
 
 /** Until the key vault exists, real keys are refused and nothing is configured. */
@@ -38,4 +54,5 @@ export const noKeyVault: KeyVault = {
   configured: () => null,
   forget: () => {},
   list: () => [],
+  credentials: () => null,
 };

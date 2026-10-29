@@ -4,7 +4,9 @@ import {
   primaryKey,
   sqliteTable,
   text,
+  uniqueIndex,
 } from "drizzle-orm/sqlite-core";
+import type { SendContent } from "@rengas/shared";
 import type { RunEventBody } from "../events.ts";
 
 /**
@@ -68,4 +70,74 @@ export const runEvents = sqliteTable(
     createdAt: text().notNull(),
   },
   (t) => [index("run_events_session_idx").on(t.sessionId, t.id)],
+);
+
+// Recipient verification and the send guard (register decision send-guard).
+
+/** The operator's own inbox and phone. Real sends go only to verified ones. */
+export const recipients = sqliteTable(
+  "recipients",
+  {
+    id: text().primaryKey(),
+    sessionId: sessionId(),
+    channel: text({ enum: ["email", "phone"] }).notNull(),
+    address: text().notNull(),
+    createdAt: text().notNull(),
+    verifiedAt: text(),
+  },
+  (t) => [uniqueIndex("recipients_address_idx").on(t.sessionId, t.address)],
+);
+
+/**
+ * A code sent and not yet entered. Email codes are kept only as an HMAC;
+ * Twilio Verify keeps phone codes, so their `codeHash` is null. The row exists
+ * so De-escalate can cancel the code. `sentAt` stays after verification for
+ * the hourly cap on code sends.
+ */
+export const verificationCodes = sqliteTable(
+  "verification_codes",
+  {
+    id: integer().primaryKey({ autoIncrement: true }),
+    sessionId: sessionId(),
+    recipientId: text()
+      .notNull()
+      .references(() => recipients.id, { onDelete: "cascade" }),
+    codeHash: text(),
+    expiresAt: text().notNull(),
+    attempts: integer().notNull().default(0),
+    sentAt: text().notNull(),
+    closedAt: text(),
+  },
+  (t) => [index("verification_codes_session_idx").on(t.sessionId)],
+);
+
+/** A send preview waiting for "Send for real". Only the token's hash is stored. */
+export const sendConfirmations = sqliteTable("send_confirmations", {
+  tokenHash: text().primaryKey(),
+  sessionId: sessionId(),
+  actionId: text().notNull(),
+  recipientId: text()
+    .notNull()
+    .references(() => recipients.id, { onDelete: "cascade" }),
+  content: text({ mode: "json" }).$type<SendContent>().notNull(),
+  expiresAt: text().notNull(),
+  usedAt: text(),
+});
+
+/** Every real send, for the rate limits and the record. */
+export const sends = sqliteTable(
+  "sends",
+  {
+    id: integer().primaryKey({ autoIncrement: true }),
+    sessionId: sessionId(),
+    runId: text()
+      .notNull()
+      .references(() => runs.id, { onDelete: "cascade" }),
+    channel: text({ enum: ["email", "sms", "voice"] }).notNull(),
+    recipientAddress: text().notNull(),
+    status: text({ enum: ["pending", "sent", "failed"] }).notNull(),
+    providerMessageId: text(),
+    createdAt: text().notNull(),
+  },
+  (t) => [index("sends_session_idx").on(t.sessionId, t.createdAt)],
 );

@@ -10,10 +10,16 @@ import {
   startRunResponseSchema,
   type ActionId,
 } from "@rengas/shared";
-import type { KeyVault } from "./keys.ts";
 import type { ChannelAdapter } from "./runs/adapters.ts";
 import type { Writer } from "./runs/writer.ts";
-import { TestClient, eventsOf, runEnded, testApp } from "./test-client.ts";
+import {
+  TestClient,
+  eventsOf,
+  fakeCodeSender,
+  fakeKeyVault,
+  runEnded,
+  testApp,
+} from "./test-client.ts";
 
 async function start(client: TestClient, body: Record<string, unknown>) {
   const response = await client.post("/api/runs", body);
@@ -204,13 +210,6 @@ describe("the writer seam", () => {
 });
 
 describe("the real adapter seam", () => {
-  const fakeVault: KeyVault = {
-    checkAndStore: async () => ({ provider: "resend", hint: "re_…5678" }),
-    configured: () => null,
-    forget: () => {},
-    list: () => [],
-  };
-
   it("runs a real-capable action through its channel's real adapter, only with a confirm token", async () => {
     const run = vi.fn<ChannelAdapter["run"]>(async ({ emit }) => {
       emit({
@@ -220,25 +219,33 @@ describe("the real adapter seam", () => {
         text: "Sent.",
       });
     });
+    const codes = fakeCodeSender();
     const client = new TestClient(
-      testApp({ keyVault: fakeVault, realAdapters: { email: { run } } }),
+      testApp({
+        keyVault: fakeKeyVault,
+        codeSender: codes,
+        realAdapters: { email: { run } },
+      }),
     );
     const unlocked = await client.post("/api/rungs/email/unlock", {
       mode: "real",
       keys: { resend: "re_12345678" },
     });
     expect(unlocked.status).toBe(200);
+    const inbox = await client.verifyRecipient(codes, "jp@example.com");
     expect((await client.state()).actionModes).toContainEqual({
       actionId: "firm-email",
       mode: "real",
+      recipient: "j•••@example.com",
     });
 
     const noToken = await client.post("/api/runs", { actionId: "firm-email" });
     expect(noToken.status).toBe(400);
 
+    const { confirmToken } = await client.preview("firm-email", inbox.id);
     const { runId, mode } = await start(client, {
       actionId: "firm-email",
-      confirmToken: "checked-by-the-send-guard",
+      confirmToken,
     });
     expect(mode).toBe("real");
     const events = eventsOf(await client.events(runEnded(runId)), runId);
@@ -253,7 +260,7 @@ describe("the real adapter seam", () => {
     const run = vi.fn<ChannelAdapter["run"]>();
     const client = new TestClient(
       testApp({
-        keyVault: fakeVault,
+        keyVault: fakeKeyVault,
         realAdapters: { email: { run }, sms: { run } },
       }),
     );
