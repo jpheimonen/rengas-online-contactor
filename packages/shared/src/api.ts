@@ -43,6 +43,7 @@ export const apiErrorSchema = z.object({
     "code-expired",
     "token-invalid",
     "rate-limited",
+    "provider-refused",
   ]),
   message: z.string(),
   fieldErrors: z.record(z.string(), z.string()).optional(),
@@ -182,6 +183,8 @@ export const sendPreviewSchema = z.object({
   ]),
 });
 export type SendPreview = z.infer<typeof sendPreviewSchema>;
+/** Exactly what a confirmed real send delivers. */
+export type SendContent = SendPreview["content"];
 
 // Runs: POST /api/runs
 
