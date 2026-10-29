@@ -69,3 +69,20 @@ export const runEvents = sqliteTable(
   },
   (t) => [index("run_events_session_idx").on(t.sessionId, t.id)],
 );
+
+/**
+ * Real provider keys entered in the UI (register decision provider-keys). The
+ * secret is AES-256-GCM ciphertext (`key-cipher.ts`); only the masked hint
+ * ever leaves the server. Twilio's SID and token are one secret.
+ */
+export const providerKeys = sqliteTable(
+  "provider_keys",
+  {
+    sessionId: sessionId(),
+    provider: text({ enum: ["resend", "twilio", "openai"] }).notNull(),
+    ciphertext: text().notNull(),
+    hint: text().notNull(),
+    validatedAt: text().notNull(),
+  },
+  (t) => [primaryKey({ columns: [t.sessionId, t.provider] })],
+);

@@ -209,6 +209,7 @@ describe("the real adapter seam", () => {
     configured: () => null,
     forget: () => {},
     list: () => [],
+    credentials: () => null,
   };
 
   it("runs a real-capable action through its channel's real adapter, only with a confirm token", async () => {
