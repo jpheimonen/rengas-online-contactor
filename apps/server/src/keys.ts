@@ -232,9 +232,23 @@ export function createKeyVault({
         .get();
       if (!row)
         return (preset[provider] ?? null) as ProviderCredentials[P] | null;
-      return JSON.parse(
-        cipher.decrypt(row.ciphertext, cipherContext(sessionId, provider)),
-      ) as ProviderCredentials[P];
+      try {
+        return JSON.parse(
+          cipher.decrypt(row.ciphertext, cipherContext(sessionId, provider)),
+        ) as ProviderCredentials[P];
+      } catch {
+        // Saved under another APP_SECRET: forget it and fall back, so the
+        // session simulates until the key is entered again.
+        db.delete(providerKeys)
+          .where(
+            and(
+              eq(providerKeys.sessionId, sessionId),
+              eq(providerKeys.provider, provider),
+            ),
+          )
+          .run();
+        return (preset[provider] ?? null) as ProviderCredentials[P] | null;
+      }
     },
   };
 }

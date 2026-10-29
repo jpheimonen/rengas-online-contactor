@@ -6,7 +6,10 @@ const optionalSecret = z
   .transform((value) => (value === "" ? undefined : value));
 
 const limit = (fallback: number) =>
-  z.coerce.number().int().min(0).default(fallback);
+  z.preprocess(
+    (value) => (value === "" ? undefined : value),
+    z.coerce.number().int().min(0).default(fallback),
+  );
 
 const configSchema = z.object({
   HOST: z.string().default("127.0.0.1"),

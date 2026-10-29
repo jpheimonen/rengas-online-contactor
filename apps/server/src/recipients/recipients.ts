@@ -4,7 +4,7 @@ import {
   randomUUID,
   timingSafeEqual,
 } from "node:crypto";
-import { and, count, desc, eq, gt, isNotNull, isNull } from "drizzle-orm";
+import { and, desc, eq, isNotNull, isNull } from "drizzle-orm";
 import type { CreateRecipientRequest, Recipient } from "@rengas/shared";
 import type { Db } from "../db/client.ts";
 import { recipients, verificationCodes } from "../db/schema.ts";
@@ -17,6 +17,9 @@ export const CODE_TTL_MS = 10 * 60_000;
 export const MAX_CODE_ATTEMPTS = 5;
 /** Codes go to addresses nobody has verified yet, so a session may send only a few. */
 export const MAX_CODES_PER_HOUR = 5;
+/** Codes per hour across all sessions, since a new session costs only a cookie. */
+export const MAX_CODES_PER_HOUR_TOTAL = 30;
+const HOUR_MS = 60 * 60_000;
 
 export type RecipientRow = typeof recipients.$inferSelect;
 export type RecipientChannel = RecipientRow["channel"];
@@ -53,6 +56,12 @@ const NO_KEY = {
  */
 export class Recipients {
   readonly #db: Db;
+  /**
+   * Code send times per session, kept apart from the code rows so deleting a
+   * recipient can't reset the limit. Reserved before the awaited send, so
+   * parallel adds can't all slip under it.
+   */
+  readonly #codeSends = new Map<string, number[]>();
   readonly #keyVault: KeyVault;
   readonly #codeSender: CodeSender;
   readonly #secret: string;
@@ -125,24 +134,7 @@ export class Recipients {
     if (existing?.verifiedAt) return toRecipient(existing);
 
     const now = new Date();
-    const hourAgo = new Date(now.getTime() - 60 * 60_000).toISOString();
-    const [sent] = this.#db
-      .select({ n: count() })
-      .from(verificationCodes)
-      .where(
-        and(
-          eq(verificationCodes.sessionId, sessionId),
-          gt(verificationCodes.sentAt, hourAgo),
-        ),
-      )
-      .all();
-    if (sent!.n >= MAX_CODES_PER_HOUR) {
-      throw problem(
-        429,
-        "rate-limited",
-        `That's ${MAX_CODES_PER_HOUR} codes this hour. Try again later.`,
-      );
-    }
+    this.#reserveCodeSend(sessionId, now.getTime());
 
     let codeHash: string | null = null;
     if (request.channel === "email") {
@@ -320,6 +312,28 @@ export class Recipients {
         ),
       )
       .run();
+  }
+
+  #reserveCodeSend(sessionId: string, now: number): void {
+    let total = 0;
+    for (const [id, times] of this.#codeSends) {
+      const recent = times.filter((at) => at > now - HOUR_MS);
+      if (recent.length === 0) this.#codeSends.delete(id);
+      else this.#codeSends.set(id, recent);
+      total += recent.length;
+    }
+    const mine = this.#codeSends.get(sessionId) ?? [];
+    if (
+      mine.length >= MAX_CODES_PER_HOUR ||
+      total >= MAX_CODES_PER_HOUR_TOTAL
+    ) {
+      throw problem(
+        429,
+        "rate-limited",
+        `That's ${MAX_CODES_PER_HOUR} codes this hour. Try again later.`,
+      );
+    }
+    this.#codeSends.set(sessionId, [...mine, now]);
   }
 
   #credentials(sessionId: string, channel: "email"): Credentials["resend"];

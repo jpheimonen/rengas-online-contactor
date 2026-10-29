@@ -202,6 +202,20 @@ describe("sending codes", () => {
     await add(client, "someone@example.com");
   });
 
+  it("keeps counting codes after the recipient is removed", async () => {
+    const { codes, client } = setup();
+    for (let i = 0; i < MAX_CODES_PER_HOUR; i++) {
+      const added = await add(client, "jp@example.com");
+      await client.request("DELETE", `/api/recipients/${added.id}`);
+    }
+    const over = await client.post("/api/recipients", {
+      channel: "email",
+      address: "jp@example.com",
+    });
+    expect(over.status).toBe(429);
+    expect(codes.sendEmailCode).toHaveBeenCalledTimes(MAX_CODES_PER_HOUR);
+  });
+
   it("keeps one recipient when the same address is added twice at once", async () => {
     const { codes, client } = setup();
     await client.state(); // one session for both requests

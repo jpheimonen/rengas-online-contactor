@@ -104,7 +104,8 @@ export function Ladder({ state }: { state: AppState }) {
               aria-controls="higher-rungs"
               onClick={() => setShowHigher(!showHigher)}
             >
-              {grouped.length} higher rungs · {showHigher ? "Hide" : "Show"}
+              {grouped.length} higher {grouped.length === 1 ? "rung" : "rungs"}{" "}
+              · {showHigher ? "Hide" : "Show"}
             </button>
             {showHigher && (
               <ol className="rungs" id="higher-rungs">

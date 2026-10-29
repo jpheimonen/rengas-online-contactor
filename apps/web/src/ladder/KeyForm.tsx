@@ -30,7 +30,7 @@ export function KeyForm({ rung, state }: { rung: Rung; state: AppState }) {
       )
     : undefined;
   const busy = unlock.isPending;
-  const checkingReal = busy && unlock.variables.body.mode !== "pretend";
+  const checkingReal = busy && unlock.variables.body.mode === "real";
 
   // Focus the first invalid field once the form is enabled again.
   useEffect(() => {

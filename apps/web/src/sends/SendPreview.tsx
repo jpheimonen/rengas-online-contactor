@@ -111,7 +111,9 @@ function PreviewFlow({
       const known = start.error instanceof ApiProblem;
       body = (
         <>
-          {heading("REAL · FAILED", SEND_COPY.failed)}
+          {known
+            ? heading("REAL · FAILED", SEND_COPY.failed)
+            : heading("REAL · UNKNOWN", SEND_COPY.unconfirmed)}
           <p className="form-error" role="alert">
             {known ? start.error.message : SEND_COPY.unknown}
           </p>

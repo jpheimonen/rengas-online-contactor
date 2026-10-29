@@ -66,7 +66,12 @@ export class EventLog {
     this.#listeners.set(sessionId, listeners);
     return () => {
       listeners.delete(listener);
-      if (listeners.size === 0) this.#listeners.delete(sessionId);
+      if (
+        listeners.size === 0 &&
+        this.#listeners.get(sessionId) === listeners
+      ) {
+        this.#listeners.delete(sessionId);
+      }
     };
   }
 }

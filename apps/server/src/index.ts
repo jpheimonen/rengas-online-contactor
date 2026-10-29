@@ -1,4 +1,5 @@
 import { existsSync } from "node:fs";
+import { relative } from "node:path";
 import { fileURLToPath } from "node:url";
 import { serve } from "@hono/node-server";
 import { serveStatic } from "@hono/node-server/serve-static";
@@ -70,8 +71,14 @@ const app = createApp({
 // After `pnpm build` the same process also serves the web app, with index.html as the SPA fallback.
 const webDist = fileURLToPath(new URL("../../web/dist", import.meta.url));
 if (existsSync(webDist)) {
-  const root = "../web/dist";
+  // serveStatic resolves root from the working directory.
+  const root = relative(process.cwd(), webDist);
   app.use("*", serveStatic({ root }));
+  // Unknown API and webhook paths get a 404, not the page.
+  app.all("/api/*", (c) =>
+    c.json({ error: "not-found", message: "No such endpoint." }, 404),
+  );
+  app.all("/twilio/*", (c) => c.text("Not found", 404));
   app.get("*", serveStatic({ root, path: "index.html" }));
 }
 

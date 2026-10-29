@@ -36,7 +36,7 @@ pnpm dev                 # web on http://127.0.0.1:5173, API on 127.0.0.1:8787
 
 For one process, run `pnpm build && pnpm start` and open http://127.0.0.1:8787.
 
-`APP_SECRET` is required and must be at least 32 characters (generate one with `openssl rand -hex 32`).
+`APP_SECRET` is required and must be at least 32 characters (generate one with `openssl rand -hex 32`). Keys saved in the UI are encrypted with it, so changing `APP_SECRET` makes them unreadable: clear them with De-escalate and enter them again.
 Every provider key is optional. A channel without its key simulates. You can also paste keys into the
 rung's key form in the UI instead of using `.env`.
 
@@ -59,6 +59,8 @@ pnpm build && pnpm start          # server on 127.0.0.1:8787
 ngrok http 8787                   # or: cloudflared tunnel --url http://127.0.0.1:8787
 ```
 
+**Warning:** the tunnel publishes the whole app, not only the Twilio webhooks. Anyone with the tunnel URL can use the keys in `.env`, so keep the URL private and stop the tunnel when you are done.
+
 Put the tunnel's https address in `.env` as `PUBLIC_BASE_URL=https://example.ngrok.app` and restart. The server uses:
 
 - `POST {PUBLIC_BASE_URL}/twilio/status/:token`, with Twilio signature check
@@ -76,15 +78,15 @@ At most 5 codes per hour per session.
 
 ## Commands and checks
 
-| Command                     | What it does                                                 |
-| --------------------------- | ------------------------------------------------------------ |
-| `pnpm dev`                  | Server and web app with reload                               |
-| `pnpm build` / `pnpm start` | Build everything / run the server (serves the built web app) |
-| `pnpm typecheck`            | TypeScript in every package                                  |
-| `pnpm lint`                 | ESLint                                                       |
-| `pnpm format:check`         | Prettier (`pnpm format` fixes)                               |
-| `pnpm test`                 | Unit and API tests (providers are faked; no real sends)      |
-| `pnpm e2e`                  | Playwright browser tests                                     |
+| Command                     | What it does                                                                 |
+| --------------------------- | ---------------------------------------------------------------------------- |
+| `pnpm dev`                  | Server and web app with reload                                               |
+| `pnpm build` / `pnpm start` | Build everything / run the server (serves the built web app)                 |
+| `pnpm typecheck`            | TypeScript in every package                                                  |
+| `pnpm lint`                 | ESLint                                                                       |
+| `pnpm format:check`         | Prettier (`pnpm format` fixes)                                               |
+| `pnpm test`                 | Unit and API tests (providers are faked; no real sends)                      |
+| `pnpm e2e`                  | Playwright browser tests (first run `pnpm exec playwright install chromium`) |
 
 ## Layout
 

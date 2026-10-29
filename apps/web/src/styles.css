@@ -238,7 +238,9 @@ main {
 .button:hover:not(:disabled) {
   background: #f1f3ea;
 }
-.button:disabled {
+.button:disabled,
+.button.outline:disabled,
+.button.hang-up:disabled {
   cursor: not-allowed;
   color: var(--ink-2);
   background: #ecebe3;

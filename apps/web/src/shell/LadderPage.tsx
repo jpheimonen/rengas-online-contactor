@@ -22,7 +22,8 @@ export function LadderPage() {
   const { data: state, error, refetch } = useAppState();
   const desktop = useDesktop();
 
-  if (error) {
+  // A failed background refetch keeps the cached page; only a first load fails here.
+  if (!state && error) {
     return (
       <div className="page-message" role="alert">
         <p>Couldn’t reach the server: {error.message}</p>

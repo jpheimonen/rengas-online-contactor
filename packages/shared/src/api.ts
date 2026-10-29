@@ -117,7 +117,7 @@ export type AppState = z.infer<typeof stateSchema>;
 
 // Unlock: POST /api/rungs/:id/unlock (register decision unlock-modes)
 
-const keyValuesSchema = z.record(z.string(), z.string());
+const keyValuesSchema = z.record(z.string(), z.string().trim());
 
 export const unlockRequestSchema = z.discriminatedUnion("mode", [
   z.object({ mode: z.literal("real"), keys: keyValuesSchema }),

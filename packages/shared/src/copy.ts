@@ -230,6 +230,7 @@ export const SEND_COPY = {
   recipientGone:
     "This recipient isn't verified any more, so this preview can't be sent. Close it and verify again.",
   failed: "Not sent.",
+  unconfirmed: "Not confirmed.",
   unknown:
     "We couldn't confirm what happened. Check Activity before trying again.",
 } as const;
