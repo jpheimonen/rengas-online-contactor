@@ -91,4 +91,4 @@ At most 5 codes per hour per session.
 - `apps/web`: React app
 - `apps/server`: Hono API, SQLite (drizzle), Twilio voice bridge
 - `packages/shared`: ladder, rules and API types shared by both
-- `src/`: the first, fully simulated version. It still runs through `pnpm legacy:dev` and the other `legacy:*` scripts.
+- `tests/parity`: fixtures recorded from the first, fully simulated version (commit `f5b9e78`, the old app's reference commit). `pnpm exec node tests/parity/export-fixtures.ts` rebuilds them from that commit.
