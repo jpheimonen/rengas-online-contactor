@@ -5,17 +5,22 @@
   "type": "module",
   "description": "Satirical, fully simulated 'customer outreach escalation' app. Nothing is ever sent. Do not use for real.",
   "scripts": {
-    "dev": "vite",
-    "build": "tsc --noEmit && vite build",
-    "preview": "vite preview",
-    "typecheck": "tsc --noEmit",
+    "dev": "pnpm --parallel --filter @rengas/server --filter @rengas/web run dev",
+    "build": "pnpm -r --filter './apps/*' --filter './packages/*' run build && pnpm run legacy:build",
+    "start": "pnpm --filter @rengas/server run start",
+    "typecheck": "pnpm -r --filter './apps/*' --filter './packages/*' run typecheck && pnpm run legacy:typecheck",
     "lint": "eslint .",
     "format": "prettier --write .",
     "format:check": "prettier --check .",
-    "test": "vitest run"
+    "test": "pnpm -r --filter './apps/*' --filter './packages/*' run test && pnpm run legacy:test",
+    "e2e": "playwright test",
+    "legacy:dev": "vite",
+    "legacy:build": "tsc --noEmit && vite build",
+    "legacy:typecheck": "tsc --noEmit",
+    "legacy:test": "vitest run"
   },
   "engines": {
-    "node": ">=22.12"
+    "node": ">=24"
   },
   "devDependencies": {
     "@eslint/js": "^10.0.1",
@@ -25,6 +30,9 @@
     "typescript": "~6.0.3",
     "typescript-eslint": "^8.72.1",
     "vite": "^8.3.5",
-    "vitest": "^5.0.5"
+    "vitest": "^5.0.5",
+    "@playwright/test": "^1.64.1",
+    "eslint-plugin-react-hooks": "^7.1.1",
+    "eslint-plugin-jsx-a11y": "^6.10.2"
   }
 }
