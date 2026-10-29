@@ -1,0 +1,38 @@
+[
+  {
+    "check": "docs",
+    "run": false,
+    "reason": "The README was written in this change and already covers how to run the app and the disclaimers.",
+    "command": ""
+  },
+  {
+    "check": "build",
+    "run": false,
+    "reason": "The production build already passed on the final checkout during the fast checks.",
+    "command": ""
+  },
+  {
+    "check": "smoke",
+    "run": false,
+    "reason": "The evaluator checked the final CSS in the browser after its fix, and earlier passes covered every level at desktop width with no console errors.",
+    "command": ""
+  },
+  {
+    "check": "full_tests",
+    "run": false,
+    "reason": "The fast checks already ran the whole test suite, which is only 9 tests.",
+    "command": ""
+  },
+  {
+    "check": "security",
+    "run": true,
+    "reason": "The change adds new dependencies and a form that takes key input, so the changed files and lockfile should be scanned.",
+    "command": ""
+  },
+  {
+    "check": "design_system",
+    "run": false,
+    "reason": "The task folder has no design-system.json.",
+    "command": ""
+  }
+]
