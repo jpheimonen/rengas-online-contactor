@@ -17,6 +17,8 @@ import { openDatabase } from "./db/client.ts";
 import type { ProviderCredentials as Credentials } from "./key-checks.ts";
 import type { KeyVault } from "./keys.ts";
 import type { CodeSender, PhoneCheck } from "./recipients/code-sender.ts";
+import type { ConnectRealtime, Wire, WireHandlers } from "./voice/realtime.ts";
+import type { PlaceCall, TwilioCalls } from "./voice/twilio.ts";
 
 /** `app.request` resolves paths against this origin. */
 export const ORIGIN = "http://localhost";
@@ -224,3 +226,51 @@ export const eventsOf = (events: RunEvent[], runId: string) =>
   events.filter(
     (e): e is RunScopedEvent => e.type !== "system" && e.runId === runId,
   );
+
+/** A socket that keeps every frame sent to it, parsed. */
+export function fakeWire() {
+  const sent: Record<string, unknown>[] = [];
+  const wire = {
+    sent,
+    closed: false,
+    send: (text: string) => void sent.push(JSON.parse(text)),
+    close: () => {
+      wire.closed = true;
+    },
+  } satisfies Wire & Record<string, unknown>;
+  return wire;
+}
+
+/** Twilio's call API, recording the calls placed and hung up. */
+export function fakeTwilioCalls(options: { trial?: boolean } = {}) {
+  const placed: PlaceCall[] = [];
+  const hungUp: string[] = [];
+  const calls = {
+    placed,
+    hungUp,
+    place: vi.fn(async (_credentials, call: PlaceCall) => {
+      placed.push(call);
+      return `CA${placed.length}`;
+    }),
+    hangUp: vi.fn(async (_credentials, callSid: string) => {
+      hungUp.push(callSid);
+    }),
+    isTrial: vi.fn(async () => options.trial ?? false),
+  } satisfies TwilioCalls & Record<string, unknown>;
+  return calls;
+}
+
+/** OpenAI Realtime connections: each one's socket and the handlers to drive it. */
+export function fakeRealtime() {
+  const connections: {
+    apiKey: string;
+    wire: ReturnType<typeof fakeWire>;
+    handlers: WireHandlers;
+  }[] = [];
+  const connect: ConnectRealtime = (apiKey, handlers) => {
+    const wire = fakeWire();
+    connections.push({ apiKey, wire, handlers });
+    return wire;
+  };
+  return { connections, connect };
+}

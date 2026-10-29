@@ -16,6 +16,7 @@ import { rungRoutes } from "./routes/rungs.ts";
 import { runRoutes } from "./routes/runs.ts";
 import { sendRoutes } from "./routes/sends.ts";
 import { stateRoutes } from "./routes/state.ts";
+import { twilioRoutes } from "./routes/twilio.ts";
 import type { RealAdapters } from "./runs/adapters.ts";
 import { RunEngine } from "./runs/engine.ts";
 import type { Writer } from "./runs/writer.ts";
@@ -26,6 +27,7 @@ import {
 } from "./sends/guard.ts";
 import type { Services } from "./services.ts";
 import { sameOrigin, sessionMiddleware, type SessionEnv } from "./session.ts";
+import type { VoiceCalls } from "./voice/calls.ts";
 
 export interface AppOptions {
   db: Db;
@@ -37,6 +39,8 @@ export interface AppOptions {
   keyVault?: KeyVault;
   finder?: Finder;
   realAdapters?: RealAdapters;
+  /** The real AI call; without it the call always simulates. */
+  voice?: VoiceCalls;
   writer?: Writer;
   /** Pause between scripted lines; tests shorten it. */
   stepDelayMs?: number;
@@ -56,6 +60,10 @@ export function createApp(options: AppOptions) {
     recipients,
     limits: options.sendLimits ?? DEFAULT_SEND_LIMITS,
   });
+  const realAdapters: RealAdapters = {
+    ...options.realAdapters,
+    ...(options.voice && { voice: options.voice }),
+  };
   const services: Services = {
     db: options.db,
     events,
@@ -63,12 +71,13 @@ export function createApp(options: AppOptions) {
     finder: options.finder ?? noFinder,
     recipients,
     guard,
+    voice: options.voice,
     engine: new RunEngine({
       db: options.db,
       events,
       guard,
       writer: options.writer,
-      ...(options.realAdapters && { realAdapters: options.realAdapters }),
+      realAdapters,
       ...(options.stepDelayMs !== undefined && {
         stepDelayMs: options.stepDelayMs,
       }),
@@ -100,5 +109,6 @@ export function createApp(options: AppOptions) {
   ]) {
     app.route("/api", routes(services));
   }
+  if (options.voice) app.route("/twilio", twilioRoutes(options.voice));
   return app;
 }
